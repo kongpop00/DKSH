@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Checkbox } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from '../../components/LanguageSwitcher';
+import BgPattern from '../../components/BgPattern';
 
 const Policies: React.FC = () => {
   const navigate = useNavigate();
@@ -29,13 +29,9 @@ const Policies: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-4 sm:p-6 md:p-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Language Switcher */}
-        <div className="flex justify-end mb-4">
-          <LanguageSwitcher />
-        </div>
-        
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-4 sm:p-6 md:p-8 relative">
+      <BgPattern />
+      <div className="max-w-4xl mx-auto relative z-10"> 
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4">
@@ -46,53 +42,9 @@ const Policies: React.FC = () => {
         {/* Content Container */}
         <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 mb-6">
           <div className="prose prose-sm sm:prose-base max-w-none text-gray-700 leading-relaxed text-justify">
-            <p className="mb-4">
-              {t('policies.content.paragraph1')}
-            </p>
-
-            <p className="mb-4">
-              {t('policies.content.paragraph2')}
-            </p>
-
-            <p className="mb-4">
-              {t('policies.content.paragraph3')}
-            </p>
-
-            <p className="mb-4">
-              {t('policies.content.paragraph4')}
-            </p>
-
-            <p className="mb-4">
-              {t('policies.content.paragraph5')}
-            </p>
-
-            <p className="mb-4">
-              {t('policies.content.paragraph6')}
-            </p>
-
-            <p className="mb-4">
-              {t('policies.content.paragraph7')}
-            </p>
-
-            <p className="mb-4">
-              {t('policies.content.paragraph8')}
-            </p>
-
-            <p className="mb-4">
-              {t('policies.content.paragraph9')}
-            </p>
-
-            <p className="mb-4">
-              {t('policies.content.paragraph10')}
-            </p>
-
-            <p className="mb-4">
-              {t('policies.content.paragraph11')}
-            </p>
-
-            <p className="mb-6">
-              {t('policies.content.paragraph12')}
-            </p>
+            <div
+              dangerouslySetInnerHTML={{ __html: t('policies.content.html', { returnObjects: false }) }}
+            />
           </div>
 
           {/* Checkboxes */}
@@ -107,7 +59,6 @@ const Policies: React.FC = () => {
                 {t('policies.checkboxes.terms')}
               </span>
             </div>
-            
             <div className="flex items-start gap-3">
               <Checkbox 
                 checked={checkedItems.privacy}
@@ -118,7 +69,6 @@ const Policies: React.FC = () => {
                 {t('policies.checkboxes.privacy')}
               </span>
             </div>
-            
             <div className="flex items-start gap-3">
               <Checkbox 
                 checked={checkedItems.cookies}
