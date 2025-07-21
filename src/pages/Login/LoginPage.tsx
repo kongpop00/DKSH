@@ -11,7 +11,7 @@ const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showFailModal, setShowFailModal] = useState(false);
-  const [,setFailCount] = useState(0);
+  const [, setFailCount] = useState(0);
   const [form] = Form.useForm();
 
   const handleLogin = async (values: { email: string; password: string }) => {
@@ -33,6 +33,9 @@ const LoginPage: React.FC = () => {
           setFailCount(prev => {
             const next = prev + 1;
             if (next === 2) setShowFailModal(true);
+            if (next === 3) {
+              navigate('/locker');
+            }
             return next;
           });
           form.setFields([
@@ -63,8 +66,8 @@ const LoginPage: React.FC = () => {
         bodyStyle={{ borderRadius: 20, padding: 24, textAlign: 'center' }}
       >
         <h2 className="text-2xl font-bold mb-2">{t('auth.failModalTitle')}</h2>
-        <div className="text-gray-500 mb-1 text-[17px]">{t('auth.failModalDesc1')}</div>
-        <div className="text-gray-400 mb-6 text-[16px]">{t('auth.failModalDesc2')}</div>
+        <div className="text-gray-500 mb-1 text-[14px]">{t('auth.failModalDesc1')}</div>
+        <div className="text-gray-400 mb-6 text-[13px]">{t('auth.failModalDesc2')}</div>
        
         <Button
           type="primary"

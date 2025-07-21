@@ -11,6 +11,18 @@ import ButtonExamples from './components/btn/ButtonExamples';
 import './i18n';
 import './index.css';
 import CheckCodePage from './pages/Login/CheckCode';
+import Locker from './pages/Login/Locker';
+import Navbar from './components/Navbar';
+
+// Layout wrapper for pages that need Navbar
+function WithNavbar({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <Navbar/>
+      <div>{children}</div>
+    </>
+  );
+}
 
 const theme = {
   token: {
@@ -128,18 +140,26 @@ function App() {
   }, []);
 
   return (
-    <ConfigProvider theme={theme}>
+    <ConfigProvider theme={theme} >
       <div dir={i18n.language === 'th' ? 'ltr' : 'ltr'}>
         <Router>
-          <div className="min-h-screen bg-gray-50">
+          <div className="min-h-screen bg-gray-50 ">
             <Routes>
+              {/* Routes without Navbar */}
               <Route path="/" element={<LoginPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/check-code" element={<CheckCodePage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/style-example" element={<StyleExamplePage />} />
-              <Route path="/button-examples" element={<ButtonExamples />} />
+
+              {/* Routes with Navbar */}
+              {[
+                { path: '/locker', element: <Locker /> },
+                { path: '/register', element: <RegisterPage /> },
+                { path: '/dashboard', element: <DashboardPage /> },
+                { path: '/style-example', element: <StyleExamplePage /> },
+                { path: '/button-examples', element: <ButtonExamples /> },
+              ].map(({ path, element }) => (
+                <Route key={path} path={path} element={<WithNavbar>{element}</WithNavbar>} />
+              ))} 
             </Routes>
             {/* Development Navigation Helper */}
             <DevNavigation />

@@ -14,6 +14,7 @@ const CheckCodePage: React.FC = () => {
   const [otpValue, setOtpValue] = useState('');
   const [countdown, setCountdown] = useState(180); // 180 วินาที
   const [canResend, setCanResend] = useState(false);
+  const [otpError, setOtpError] = useState<string | null>(null);
 
   // useEffect สำหรับนับถอยหลัง
   useEffect(() => {
@@ -40,20 +41,23 @@ const CheckCodePage: React.FC = () => {
   };
 
   const handleVerifyCode = async () => {
+    setOtpError(null);
     if (otpValue.length !== 6) {
-      message.error(t('auth.otpRequired'));
+      setOtpError(t('auth.otpRequired'));
       return;
     }
-    
     setLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      message.success(t('auth.verifySuccess'));
-      navigate('/dashboard');
+      // Mockup: only accept 123456
+      await new Promise(resolve => setTimeout(resolve, 500));
+      if (otpValue === '123456') {
+        message.success(t('auth.verifySuccess'));
+        navigate('/dashboard');
+      } else {
+        setOtpError(t('auth.otpWrong'));
+      }
     } catch {
-      message.error(t('auth.verifyError'));
+      setOtpError(t('auth.verifyError'));
     } finally {
       setLoading(false);
     }
@@ -69,6 +73,7 @@ const CheckCodePage: React.FC = () => {
 
   const onChange: OTPProps['onChange'] = (text) => {
     setOtpValue(text);
+    setOtpError(null);
   };
 
   return (
@@ -87,13 +92,16 @@ const CheckCodePage: React.FC = () => {
               length={6}
               value={otpValue}
               onChange={onChange}
-              className="justify-center"
+              className={`justify-center ${otpError ? 'border border-red-500' : ''}`}
               style={{
                 display: 'flex',
                 justifyContent: 'center',
                 gap: '12px'
               }}
             />
+            {otpError && (
+              <div className="text-red-500 text-sm mt-2">{otpError}</div>
+            )}
           </div>
 
           <Button

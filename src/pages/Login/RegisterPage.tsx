@@ -3,7 +3,6 @@ import { Button, Input, Form, message, Checkbox } from 'antd';
 import { Eye, EyeOff, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import AuthLayout from '../../components/AuthLayout';
 import TermsModal from '../../components/TermsModal';
 
 const RegisterPage: React.FC = () => {
@@ -33,7 +32,7 @@ const RegisterPage: React.FC = () => {
     });
   };
 
-  const handleRegister = async (values: any) => {
+  const handleRegister = async () => {
     if (!acceptedTerms) {
       message.error(t('terms.acceptTermsError'));
       return;
@@ -46,7 +45,7 @@ const RegisterPage: React.FC = () => {
       
       message.success(t('auth.registerSuccess'));
       navigate('/login');
-    } catch (error) {
+    } catch {
       message.error(t('auth.registerError'));
     } finally {
       setLoading(false);
@@ -67,8 +66,8 @@ const RegisterPage: React.FC = () => {
   );
 
   return (
-    <AuthLayout>
-      <div className="space-y-6">
+    <div className=" w-full flex items-center justify-center  bg-red-500 pt-0">
+      <div className="space-y-6 w-full max-w-lg px-4 py-12 bg-white/80 rounded-2xl shadow-lg bg-red-500">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">{t('auth.registerTitle')}</h1>
           <p className="text-gray-600">{t('auth.registerSubtitle')}</p>
@@ -214,7 +213,7 @@ const RegisterPage: React.FC = () => {
           onAccept={handleTermsAccept}
         />
       </div>
-    </AuthLayout>
+    </div>
   );
 };
 

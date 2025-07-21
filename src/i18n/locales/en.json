@@ -17,6 +17,11 @@
     "logout": "Logout"
   },
   "auth": {
+  "locker": {
+    "title": "Password entered incorrectly 3 times",
+    "desc1": "You have entered the wrong password 3 times. The system will temporarily suspend your account.",
+    "desc2": "You can regain access by resetting your password via the link sent to your email."
+  },
     "loginTitle": "Sign In",
     "loginSubtitle": "Please sign in to continue",
     "registerTitle": "Create Account",
@@ -37,6 +42,7 @@
     "otpRequired": "Please enter 6-digit verification code",
     "verifySuccess": "Verification successful",
     "verifyError": "Invalid verification code",
+    "otpWrong": "The verification code is incorrect. Please try again.",
     "resendSuccess": "New verification code sent",
     "failModalTitle": "Password entered incorrectly 2 times",
     "failModalDesc1": "You have entered the wrong password 2 times.",
