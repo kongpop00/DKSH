@@ -13,6 +13,7 @@ import './index.css';
 import CheckCodePage from './pages/Login/CheckCode';
 import Locker from './pages/Login/Locker';
 import Navbar from './components/Navbar';
+import LockerPincode from './pages/Login/LockerPincode';
 
 // Layout wrapper for pages that need Navbar
 function WithNavbar({ children }: { children: React.ReactNode }) {
@@ -157,6 +158,7 @@ function App() {
                 { path: '/dashboard', element: <DashboardPage /> },
                 { path: '/style-example', element: <StyleExamplePage /> },
                 { path: '/button-examples', element: <ButtonExamples /> },
+                { path: '/lockerPincode', element: <LockerPincode /> },
               ].map(({ path, element }) => (
                 <Route key={path} path={path} element={<WithNavbar>{element}</WithNavbar>} />
               ))} 

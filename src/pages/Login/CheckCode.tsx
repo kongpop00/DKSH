@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Input, message, Button, GetProps } from 'antd';
+import { message, Button } from 'antd';
+import { Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { RotateCcw } from 'lucide-react';
 import AuthLayout from '../../components/AuthLayout';
 
-type OTPProps = GetProps<typeof Input.OTP>;
+
 
 const CheckCodePage: React.FC = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const CheckCodePage: React.FC = () => {
   const [otpValue, setOtpValue] = useState('');
   const [countdown, setCountdown] = useState(180); // 180 วินาที
   const [canResend, setCanResend] = useState(false);
+  const [otpError, setOtpError] = useState(false);
 
   // useEffect สำหรับนับถอยหลัง
   useEffect(() => {
@@ -39,21 +41,35 @@ const CheckCodePage: React.FC = () => {
     return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
+  const [, setFailCount] = useState(0);
+
   const handleVerifyCode = async () => {
+    console.log('OTP Value:', otpValue);
     if (otpValue.length !== 6) {
       message.error(t('auth.otpRequired'));
+      setOtpError(true);
       return;
     }
-    
     setLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      message.success(t('auth.verifySuccess'));
-      navigate('/dashboard');
-    } catch {
-      message.error(t('auth.verifyError'));
+      // Mockup: only accept 123456
+      await new Promise(resolve => setTimeout(resolve, 500));
+      if (otpValue === '123456') {
+        message.success(t('auth.verifySuccess'));
+        setOtpError(false);
+        setFailCount(0);
+        navigate('/dashboard');
+      } else {
+        message.error(t('auth.verifyError'));
+        setOtpError(true);
+        setFailCount(prev => {
+          const next = prev + 1;
+          if (next >= 5) {
+            navigate('/lockerPincode');
+          }
+          return next;
+        });
+      }
     } finally {
       setLoading(false);
     }
@@ -67,8 +83,11 @@ const CheckCodePage: React.FC = () => {
     }
   };
 
-  const onChange: OTPProps['onChange'] = (text) => {
-    setOtpValue(text);
+  const onChange = (text: string) => {
+    // กรองให้เหลือแต่ตัวเลขเท่านั้น
+    const onlyDigits = text.replace(/\D/g, '');
+    setOtpValue(onlyDigits);
+    setOtpError(false);
   };
 
   return (
@@ -86,7 +105,9 @@ const CheckCodePage: React.FC = () => {
               size="large"
               length={6}
               value={otpValue}
+              status={otpError ? 'error' : ''}
               onChange={onChange}
+              inputMode="numeric"
               className="justify-center"
               style={{
                 display: 'flex',
@@ -94,6 +115,9 @@ const CheckCodePage: React.FC = () => {
                 gap: '12px'
               }}
             />
+            {otpError && (
+              <div className="text-red-500 text-sm mt-2">{t('auth.verifyError')}</div>
+            )}
           </div>
 
           <Button
