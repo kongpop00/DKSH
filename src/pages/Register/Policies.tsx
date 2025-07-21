@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Checkbox } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import BgPattern from '../../components/BgPattern';
-// import MessagePage from '../MessagePage';
 
 const Policies: React.FC = () => {
   const { t } = useTranslation();
-//   const [showSuccess, setShowSuccess] = useState(false);
+  const navigate = useNavigate();
   const [checkedItems, setCheckedItems] = useState({
     terms: false,
     privacy: false,
@@ -24,23 +24,9 @@ const Policies: React.FC = () => {
 
   const handleAccept = () => {
     if (allChecked) {
-    //   setShowSuccess(true);
+      navigate('/organization-information');
     }
   };
-
-  // Show success message after accepting policies
-//   if (showSuccess) {
-//     return (
-//       <MessagePage 
-//         status="success"
-//         titleKey="message.success.title"
-//         description1Key="message.success.description1"
-//         buttonTextKey="message.success.button"
-//         navigateTo="/dashboard"
-//         buttonColor="blue"
-//       />
-//     );
-//   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-4 sm:p-6 md:p-8 relative">

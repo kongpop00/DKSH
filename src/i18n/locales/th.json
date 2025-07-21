@@ -116,5 +116,82 @@
       "description1": "บัญชีของคุณได้ถูกสร้างเรียบร้อยแล้ว และได้ยอมรับข้อกำหนดทั้งหมดแล้ว",
       "button": "เข้าสู่ระบบ"
     }
+  },
+  "organization": {
+    "type": {
+      "title": "รูปแบบขององค์กร",
+      "required": "กรุณาเลือกรูปแบบองค์กร",
+      "international": "International",
+      "domesticPublic": "Domestic Public",
+      "domesticPrivate": "Domestic Private",
+      "internal": "Internal"
+    },
+    "services": {
+      "title": "รูปแบบบริการ",
+      "subtitle": "ความต้องการใช้บริการ (เลือก 1 รายการ)",
+      "required": "กรุณาเลือกบริการ",
+      "qualityTesting": "คุณภาพองค์กร",
+      "cultureSupply": "งานบริการจัดจำหน่าย (Culture Supply Services)",
+      "publicDeposit": "งานฝากเพื่อสาธารณะ (Public Deposit)",
+      "conditionalDeposit": "งานฝากเพื่อสาธารณะแบบมีเงื่อนไข (Conditional public deposit)",
+      "safeDeposit": "งานฝากเพื่อความปลอดภัย (Safe Deposit)",
+      "patentSearch": "งานสำหรับฝากสำหรับสิทธิบัตร/อนุสิทธิบัตร (Patent/Petty Patent deposit)",
+      "strainPreservation": "งานเก็บรักษาสายพันธุ์ (Preservation of Strain)",
+      "microorganismEnumeration": "งานนับจำนวนจุลินทรีย์ (Enumeration of Microorganisms)",
+      "microorganismIdentification": "งานชี้วัดจุลินทรีย์ (Identification of Microorganisms)",
+      "dataServices": "งานข้อมูลใต้ (Data services)"
+    },
+    "contact": {
+      "title": "ข้อมูลผู้ติดต่อ",
+      "required": "บุคลากรข้อมูล",
+      "optional": "ข้อมูลทั่วไป",
+      "namePrefix": "คำนำหน้า *",
+      "namePrefixRequired": "กรุณากรอกคำนำหน้า",
+      "namePrefixPlaceholder": "นาย/นาง/นางสาว",
+      "firstName": "ชื่อ (ภาษาไทย) *",
+      "firstNameRequired": "กรุณากรอกชื่อ",
+      "firstNamePlaceholder": "ชื่อ",
+      "lastName": "นามสกุล (ภาษาไทย) *",
+      "lastNamePlaceholder": "นามสกุล",
+      "email": "อีเมล *",
+      "emailRequired": "กรุณากรอกอีเมล",
+      "emailInvalid": "กรุณากรอกอีเมลให้ถูกต้อง",
+      "emailPlaceholder": "example@email.com",
+      "phone": "เบอร์โทร *",
+      "phoneRequired": "กรุณากรอกเบอร์โทร",
+      "phonePlaceholder": "เบอร์โทรศัพท์"
+    },
+    "details": {
+      "title": "ข้อมูลองค์กร",
+      "name": "ชื่อองค์กร *",
+      "nameRequired": "กรุณากรอกชื่อองค์กร",
+      "namePlaceholder": "ชื่อองค์กร",
+      "description": "คำอธิบาย (น้อมไว) *",
+      "descriptionPlaceholder": "รายละเอียดองค์กร",
+      "country": "ประเทศ *",
+      "countryRequired": "กรุณาเลือกประเทศ",
+      "countryPlaceholder": "เลือกประเทศ",
+      "thailand": "ประเทศไทย",
+      "usa": "สหรัฐอเมริกา",
+      "japan": "ญี่ปุ่น",
+      "singapore": "สิงคโปร์",
+      "province": "จังหวัด *",
+      "provinceRequired": "กรุณากรอกจังหวัด",
+      "provincePlaceholder": "จังหวัด",
+      "district": "อำเภอ/เขต *",
+      "districtPlaceholder": "อำเภอ/เขต",
+      "subdistrict": "ตำบล/แขวง *",
+      "subdistrictPlaceholder": "ตำบล/แขวง",
+      "postalCode": "รหัสไปรษณีย์ *",
+      "postalCodePlaceholder": "รหัสไปรษณีย์"
+    },
+    "upload": {
+      "title": "เอกสารที่เกี่ยวข้อง",
+      "dragText": "คลิกหรือลากไฟล์มาวางในพื้นที่นี้เพื่ออัพโหลด",
+      "hint": "สามารถอัพโหลดได้ทั้งไฟล์เดียวหรือหลายไฟล์ (Optional)"
+    },
+    "submit": "ยื่นใบ",
+    "submitSuccess": "ส่งข้อมูลองค์กรเรียบร้อยแล้ว",
+    "submitError": "ไม่สามารถส่งข้อมูลองค์กรได้"
   }
 }

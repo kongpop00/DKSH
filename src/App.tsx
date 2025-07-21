@@ -15,6 +15,7 @@ import Locker from './pages/Login/Locker';
 import Navbar from './components/Navbar';
 import LockerPincode from './pages/Login/LockerPincode';
 import Policies from './pages/Register/Policies';
+import OrganizationInformation from './pages/Register/OrganizationInformation';
 
 // Layout wrapper for pages that need Navbar
 function WithNavbar({ children }: { children: React.ReactNode }) {
@@ -161,6 +162,7 @@ function App() {
                 { path: '/style-example', element: <StyleExamplePage /> },
                 { path: '/button-examples', element: <ButtonExamples /> },
                 { path: '/lockerPincode', element: <LockerPincode /> },
+                { path: '/organization-information', element: <OrganizationInformation /> },
               ].map(({ path, element }) => (
                 <Route key={path} path={path} element={<WithNavbar>{element}</WithNavbar>} />
               ))} 

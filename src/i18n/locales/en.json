@@ -115,5 +115,82 @@
       "description1": "Your account has been successfully created and all policies have been accepted.",
       "button": "Continue"
     }
+  },
+  "organization": {
+    "type": {
+      "title": "Organization Type",
+      "required": "Please select organization type",
+      "international": "International",
+      "domesticPublic": "Domestic Public",
+      "domesticPrivate": "Domestic Private",
+      "internal": "Internal"
+    },
+    "services": {
+      "title": "Services",
+      "subtitle": "Services you are interested in (Select 1 option)",
+      "required": "Please select a service",
+      "qualityTesting": "Quality Testing",
+      "cultureSupply": "Culture Supply Services",
+      "publicDeposit": "Public Deposit",
+      "conditionalDeposit": "Conditional public deposit",
+      "safeDeposit": "Safe Deposit",
+      "patentSearch": "Patent/Petty Patent deposit",
+      "strainPreservation": "Preservation of Strain",
+      "microorganismEnumeration": "Enumeration of Microorganisms",
+      "microorganismIdentification": "Identification of Microorganisms",
+      "dataServices": "Data services"
+    },
+    "contact": {
+      "title": "Contact Information",
+      "required": "Required fields",
+      "optional": "Optional fields",
+      "namePrefix": "Title *",
+      "namePrefixRequired": "Please enter title",
+      "namePrefixPlaceholder": "Mr./Ms./Dr.",
+      "firstName": "First Name *",
+      "firstNameRequired": "Please enter first name",
+      "firstNamePlaceholder": "First Name",
+      "lastName": "Last Name (Optional) *",
+      "lastNamePlaceholder": "Last Name",
+      "email": "Email *",
+      "emailRequired": "Please enter email",
+      "emailInvalid": "Please enter valid email",
+      "emailPlaceholder": "example@email.com",
+      "phone": "Phone *",
+      "phoneRequired": "Please enter phone number",
+      "phonePlaceholder": "Phone number"
+    },
+    "details": {
+      "title": "Organization Details",
+      "name": "Organization Name *",
+      "nameRequired": "Please enter organization name",
+      "namePlaceholder": "Organization Name",
+      "description": "Description (Optional) *",
+      "descriptionPlaceholder": "Organization description",
+      "country": "Country *",
+      "countryRequired": "Please select country",
+      "countryPlaceholder": "Select country",
+      "thailand": "Thailand",
+      "usa": "United States",
+      "japan": "Japan",
+      "singapore": "Singapore",
+      "province": "Province *",
+      "provinceRequired": "Please enter province",
+      "provincePlaceholder": "Province",
+      "district": "District *",
+      "districtPlaceholder": "District",
+      "subdistrict": "Subdistrict *",
+      "subdistrictPlaceholder": "Subdistrict",
+      "postalCode": "Postal Code *",
+      "postalCodePlaceholder": "Postal Code"
+    },
+    "upload": {
+      "title": "Document Upload",
+      "dragText": "Click or drag file to this area to upload",
+      "hint": "Support for a single or bulk upload. Optional"
+    },
+    "submit": "Submit",
+    "submitSuccess": "Organization information submitted successfully",
+    "submitError": "Failed to submit organization information"
   }
 }
