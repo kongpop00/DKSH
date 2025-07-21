@@ -83,6 +83,8 @@ const LanguageSwitcher: React.FC = () => {
       menu={{ items: menuItems }}
       placement="bottomRight"
       trigger={['click']}
+      overlayClassName="language-switcher-dropdown"
+      overlayStyle={{ zIndex: 10000 }}
     >
       <Button
         type="text"

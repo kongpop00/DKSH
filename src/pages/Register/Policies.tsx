@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Checkbox } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import BgPattern from '../../components/BgPattern';
+// import MessagePage from '../MessagePage';
 
 const Policies: React.FC = () => {
-  const navigate = useNavigate();
   const { t } = useTranslation();
+//   const [showSuccess, setShowSuccess] = useState(false);
   const [checkedItems, setCheckedItems] = useState({
     terms: false,
     privacy: false,
-    cookies: false
+    cookies: false  
   });
 
   const handleCheckboxChange = (key: keyof typeof checkedItems, checked: boolean) => {
@@ -24,9 +24,23 @@ const Policies: React.FC = () => {
 
   const handleAccept = () => {
     if (allChecked) {
-      navigate(-1); // กลับไปหน้าก่อนหน้า
+    //   setShowSuccess(true);
     }
   };
+
+  // Show success message after accepting policies
+//   if (showSuccess) {
+//     return (
+//       <MessagePage 
+//         status="success"
+//         titleKey="message.success.title"
+//         description1Key="message.success.description1"
+//         buttonTextKey="message.success.button"
+//         navigateTo="/dashboard"
+//         buttonColor="blue"
+//       />
+//     );
+//   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-4 sm:p-6 md:p-8 relative">

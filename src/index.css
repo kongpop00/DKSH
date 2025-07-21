@@ -186,4 +186,13 @@
   .ant-layout-content {
     margin-left: 0 !important;
   }
+
+  /* Language Switcher Dropdown */
+  .language-switcher-dropdown {
+    z-index: 10000 !important;
+  }
+  
+  .language-switcher-dropdown .ant-dropdown {
+    z-index: 10000 !important;
+  }
 }

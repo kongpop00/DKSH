@@ -108,5 +108,12 @@
     "analytics": "Analytics",
     "settings": "Settings",
     "profile": "Profile"
+  },
+  "message": {
+    "success": {
+      "title": "Registration Successful!",
+      "description1": "Your account has been successfully created and all policies have been accepted.",
+      "button": "Continue"
+    }
   }
 }
