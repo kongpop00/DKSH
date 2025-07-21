@@ -13,7 +13,11 @@ const RegisterPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [termsModalVisible, setTermsModalVisible] = useState(false);
-  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [formFields, setFormFields] = useState({
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
   const [passwordValidation, setPasswordValidation] = useState({
     length: false,
     uppercase: false,
@@ -23,13 +27,22 @@ const RegisterPage: React.FC = () => {
   });
 
   const handlePasswordChange = (value: string) => {
+    setFormFields(prev => ({ ...prev, password: value }));
     setPasswordValidation({
       length: value.length >= 8,
-      uppercase: /[A-Z]/.test(value),
-      lowercase: /[a-z]/.test(value),
+      uppercase: /[A-Z]/.test(value), // เช็คแค่พิมพ์ใหญ่
+      lowercase: /[a-z]/.test(value), // เช็คแค่พิมพ์เล็ก
       number: /\d/.test(value),
       special: /[!@#$%^&*(),.?":{}|<>]/.test(value)
     });
+  };
+
+  const handleEmailChange = (value: string) => {
+    setFormFields(prev => ({ ...prev, email: value }));
+  };
+
+  const handleConfirmPasswordChange = (value: string) => {
+    setFormFields(prev => ({ ...prev, confirmPassword: value }));
   };
 
   useEffect(() => {
@@ -65,18 +78,13 @@ const RegisterPage: React.FC = () => {
   }, []);
 
   const handleRegister = async () => {
-    if (!acceptedTerms) {
-      message.error(t('terms.acceptTermsError'));
-      return;
-    }
-
     setLoading(true);
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       message.success(t('auth.registerSuccess'));
-      navigate('/login');
+      navigate('/register-policies');
     } catch {
       message.error(t('auth.registerError'));
     } finally {
@@ -84,8 +92,43 @@ const RegisterPage: React.FC = () => {
     }
   };
 
+  // เช็คว่าทุกเงื่อนไขครบถ้วนหรือไม่
+  const isFormValid = () => {
+    try {
+      const allPasswordValidationsPass = Object.values(passwordValidation).every(Boolean);
+      
+      // เช็คว่า email มีค่าและเป็น format ที่ถูกต้อง
+      const emailValid = formFields.email && 
+                        formFields.email.trim().length > 0 &&
+                        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formFields.email.trim());
+      
+      // เช็คว่า password มีค่าและผ่านเงื่อนไขทั้งหมด
+      const passwordValid = formFields.password && 
+                           formFields.password.length > 0 &&
+                           allPasswordValidationsPass;
+      
+      // เช็คว่า confirmPassword มีค่าและตรงกับ password
+      const confirmPasswordValid = formFields.confirmPassword && 
+                                  formFields.confirmPassword.length > 0 && 
+                                  formFields.password === formFields.confirmPassword;
+      
+      // Debug logging
+      console.log('Form validation state:', {
+        formFields,
+        passwordValidation,
+        emailValid,
+        passwordValid,
+        confirmPasswordValid,
+        allPasswordValidationsPass
+      });
+      
+      return emailValid && passwordValid && confirmPasswordValid;
+    } catch {
+      return false;
+    }
+  };
+
   const handleTermsAccept = () => {
-    setAcceptedTerms(true);
     setTermsModalVisible(false);
     message.success(t('terms.acceptTermsSuccess'));
   };
@@ -107,12 +150,12 @@ const RegisterPage: React.FC = () => {
         aria-hidden="true"
       />
       <div
-        className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6 md:p-8 rounded-[20px] shadow-lg bg-white z-10 relative mb-[100px] md:mb-[10px]"
+        className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6 md:p-8 rounded-[20px] shadow-lg bg-white z-10 relative mb-[100px] md:mb-[10px]  xl:mb-[20px] 2xl:mb-[200px] "
         style={{ minHeight: 0, width: '603px' }}
       >
         <div className="text-center">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">{t('auth.registerTitle')}</h1>
-          <p className="text-gray-600 text-sm sm:text-base md:text-lg">{t('auth.registerSubtitle')}</p>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-small text-gray-900 mb-1 sm:mb-2">{t('auth.registerTitle')}</h1>
+          {/* <p className="text-gray-600 text-sm sm:text-base md:text-lg">{t('auth.registerSubtitle')}</p> */}
         </div>
 
         <Form
@@ -133,6 +176,7 @@ const RegisterPage: React.FC = () => {
             <Input
               placeholder="example@example.com"
               className="h-10 sm:h-12 rounded-lg text-sm sm:text-base"
+              onChange={(e) => handleEmailChange(e.target.value)}
             />
           </Form.Item>
 
@@ -164,9 +208,10 @@ const RegisterPage: React.FC = () => {
           <div className="space-y-1 sm:space-y-2 p-2 sm:p-3 bg-gray-50 rounded-lg">
             <div className="text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t('validation.passwordRequirements')}</div>
             <ValidationItem valid={passwordValidation.length} text={t('validation.length8')} />
-            <ValidationItem valid={passwordValidation.uppercase} text={t('validation.upperLower')} />
-            <ValidationItem valid={passwordValidation.lowercase} text={t('validation.number')} />
-            <ValidationItem valid={passwordValidation.number} text={t('validation.special')} />
+            <ValidationItem valid={passwordValidation.uppercase} text="มีตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว" />
+            <ValidationItem valid={passwordValidation.lowercase} text="มีตัวพิมพ์เล็กอย่างน้อย 1 ตัว" />
+            <ValidationItem valid={passwordValidation.number} text={t('validation.number')} />
+            <ValidationItem valid={passwordValidation.special} text={t('validation.special')} />
           </div>
 
           <Form.Item
@@ -189,6 +234,7 @@ const RegisterPage: React.FC = () => {
               type={showConfirmPassword ? 'text' : 'password'}
               placeholder={t('common.confirmPassword')}
               className="h-10 sm:h-12 rounded-lg text-sm sm:text-base"
+              onChange={(e) => handleConfirmPasswordChange(e.target.value)}
               suffix={
                 <button
                   type="button"
@@ -200,8 +246,6 @@ const RegisterPage: React.FC = () => {
               }
             />
           </Form.Item>
-
-     
 
           <div className="flex gap-3 sm:gap-4">
             <Button
@@ -215,7 +259,12 @@ const RegisterPage: React.FC = () => {
               type="primary"
               htmlType="submit"
               loading={loading}
-              className="flex-1 h-10 sm:h-12 rounded-[50px] bg-primary hover:bg-blue-700 text-white font-medium text-sm sm:text-base"
+              disabled={!isFormValid()}
+              className={`flex-1 h-10 sm:h-12 rounded-[50px] font-medium text-sm sm:text-base ${
+                isFormValid() 
+                  ? 'bg-primary hover:bg-blue-700 text-white' 
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
             >
               {t('common.register')}
             </Button>

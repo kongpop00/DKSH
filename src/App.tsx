@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import { useTranslation } from 'react-i18next';
 import LoginPage from './pages/Login/LoginPage';
-import RegisterPage from './pages/Login/RegisterPage';
+import RegisterPage from './pages/Register/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import StyleExamplePage from './pages/StyleExamplePage';
 
@@ -14,6 +14,7 @@ import CheckCodePage from './pages/Login/CheckCode';
 import Locker from './pages/Login/Locker';
 import Navbar from './components/Navbar';
 import LockerPincode from './pages/Login/LockerPincode';
+import Policies from './pages/Register/Policies';
 
 // Layout wrapper for pages that need Navbar
 function WithNavbar({ children }: { children: React.ReactNode }) {
@@ -155,6 +156,7 @@ function App() {
               {[
                 { path: '/locker', element: <Locker /> },
                 { path: '/register', element: <RegisterPage /> },
+                { path: '/register-policies', element: <Policies /> },
                 { path: '/dashboard', element: <DashboardPage /> },
                 { path: '/style-example', element: <StyleExamplePage /> },
                 { path: '/button-examples', element: <ButtonExamples /> },

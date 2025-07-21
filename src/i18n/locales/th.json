@@ -60,9 +60,9 @@
     "confirmPasswordRequired": "กรุณายืนยันรหัสผ่าน",
     "passwordMismatch": "รหัสผ่านไม่ตรงกัน",
     "passwordRequirements": "รหัสผ่านของคุณต้องมี:",
-    "length8": "มีความยาว 8 ตัวอักษร",
-    "upperLower": "ตัวพิมพ์ใหญ่และตัวพิมพ์เล็ก",
-    "number": "ตัวอักษรตัวเลข 1 ตัว",
+    "length8": "อย่างน้อย 8 ตัวอักษร",
+    "upperLower": "อักษรพิมพ์ใหญ่และพิมพ์เล็ก",
+    "number": "ตัวเลข อย่างน้อย 1 ตัว",
     "special": "อักขระพิเศษอย่างน้อย 1 ตัว"
   },
   "terms": {
@@ -74,6 +74,29 @@
     "termsAndConditions": "ข้อกำหนดและเงื่อนไข",
     "privacyPolicy": "นโยบายความเป็นส่วนตัว",
     "and": "และ"
+  },
+  "policies": {
+    "title": "ข้อกำหนดและเงื่อนไข",
+    "acceptButton": "ยินดีตกลง",
+    "content": {
+      "paragraph1": "Lorem ipsum dolor sit amet, consectetur. Tincidunt nec nunc sed semper nunc eu purus velit quis. Turpis ut elementum faucibus tempor. Hac viverra velit eget malesuada semper vestibulum magna lectus. Porttitor lacinia dignissim. Quis rhoncus.",
+      "paragraph2": "Amet sed neque egestas.",
+      "paragraph3": "Est quam dolor sed faucibus nunc venenatis quisque augue risus. Quis ullamcorper sit tellus etiamassa in tellus blandit in quam cursus egestas. Massa adipiscing nunc ut nibh felis lectus vestibulum. Orci consequat quis non ut magna quis amet elit lorem ipsum. Mi aenean non nunc nulla fesce risus. Ut fauquet velit vitae et metus. Lorem faucibus facilisis cursus velit felis elementum tempor commodo. Vitae quis et turpis arcu fermentum.",
+      "paragraph4": "Sagittis interdum lacinia mauris vel vitae blandit leo orci et massa. Scelerisque odio lectus risus odis vitae nec. Sit ultrices faucibus hac egestas nisl. Lectus integer pretium mattis nec. Amet amet ultrices lacerat ultrices faucibus urna. Ultrices in diam eget imperdiet adipiscing vehicula orci elementum.",
+      "paragraph5": "Nibh ac sit habitant sed. Purus neque at feugiatt convallis massa. Vestibulum etiam libero gravida eu. Enim aliquet libero adipiscing suspendisse a nibh cursus. Arcu sed magna vehicula turpis neque lacinia nulla interdum. Placerat feugifas tristique in eu. Mauris dictum quis nunc turpis ac vulputate velit libero elit. Fames id gravida ut tempus proin pellentesque tellus etiam. Nunc augue tellus egestas lectus. Elit libero et sed ultricies mi tortor. Cras quisquid non eu dui a diam ut in. Nibh ut mattus aliquet quin erat dictum est amet elit.",
+      "paragraph6": "Nunc dictum tellus ante et donec. Aliquet vulputate congue mauris sagittis massa tincidunt eget. Dolor id sed tempor tortor. In vestibulum massa in rhoncus odio. Sociis diam mi eget in elit ut eget. Id arcu accumsan sollicitudin urna non duis tempor suscipit tincidunt. Magna venenatis ultrices consectetur id maecenas. Nibh at habitant quis amet magna tempus ante id. Neque morbi fermentum fusce augue faucibus quam vitae.",
+      "paragraph7": "Venenatis cras bibendum dolor tempor eu amet tincidunt in. Cursus a et morbi id urna sodales id integer. Ornare tortor vel urna at diam etiam scelerisque id. Urna mauris faucibus hac libero. Sem auctor porttitor elementum vulputate amet dignissim. Purus eu sed tellus fringilla posuere nulla placerat commodo. Placerat volutpat lorem porttitor egestas consectetur et volutpat nec. Amet porttitor porttitor nec magna vulputate scelerisque. Sit quis aliquet sagittis tortor sollicitudin ut dui sit diam id venenatis viverra scelerisque platea ac augue.",
+      "paragraph8": "Consectetur faucibus mauris a enim aliquet turpis. Bibendum integer semper auctor nunc vestibulum suspendisse id. Massa consequat ut orci mollis dis nunc rhoncular ut. Facilisis facilisis quam donec urna amet pulvinar etiam cursus ultrices. Turpis mauris ut mi dolor sed sodales lectus eu in. Nulla enim lectus a pretent in tortor. Risus ut lacinia sapien mauris ornare nibh arcu leo diam et massa tincidunt amet adipiscing nec adipiscing fermentum ut egestas. Mattis facilisis nunc donec mattis volutpat posuere suscipit bibendum.",
+      "paragraph9": "Elementum amet ante fringilla elementum vivamus rutrum eget. Quam bibendum nulla vitae. Placerat massa consequat leo lobortis morbi. Id eget imperdiet pellentesque nunc etat habitant. Vitae libero pellentesque quis mauris convallis luctus. Imperdiet mauris scelerisque ac amet integer enim. Placerat eleifend hendrerit facilisi a dignissim ultrices urna. Risus quis adipiscing suspendisse neque nec et lectus. Eleifend turpis eu diam mauris dignissim lacinia. Cum mauris turpis nunc malesuada varius duis a ornare. Posuere metus mollis nunc mi sit maecenas. Platea velit convallis hac vitae dignissim. Quis nisl pretium mattis sed.",
+      "paragraph10": "Tortor pharetra integer libero molestie dolor consequat ut. Turpis ultrices suspendisse egestas fames consectetur nunc proin ornare senectus. Risus libero etiam accumsan tristique diam ullamcorper. Ac ac in id dignissim pretium purus malesuada tristique nunc. Lacus ornare auctor mi posuibus feugiat. Gravida pulvinar nec aliquam et et ac urna. A accumsan tortor vitae eget rhoncus.",
+      "paragraph11": "Scelerisque scelerisque ullamcorper mollit non commodo consequat urna a nisi. In congue sed sem mollit adipiscing in. Bibendum gravida condimentum elementum euismod odio orci. Aliquam dignissim iaculis consequat quis non rhoncus adipiscing in euismod. Facilisis egestas praesent pellentesque ligula nisl. Pretium habiliasse elementum adipiscing magna vulputate sed mi at malesuada. Cras leo in imperdiet porta sed dignissim nibh venenatis. Quis etiam nulla sodales in purus quis mauris. Condimentum tincidunt nam sit aliquam scelerisque. Ultrices enim tempor vel neque sed pretium. Sit et velit orci mattis felis venenatis. Fermentum mauris sed sit ipsum nunc eget. Suspendisse ipsum cursus phasellus mi fermentum egestas.",
+      "paragraph12": "Sit laboris facilisis nunc imperdiet viverra. Pellentesque platea elit eu arcu. Faucibus mattis cursus molestie congue sit et et. Eu nunc elit felis morbiat pretium. Hac phasellus suspendisse commodo ipsum sapien in convallis a. Massa diam maecenas convallis suspendisse cursus sed diam consequat."
+    },
+    "checkboxes": {
+      "terms": "ฉันได้อ่านและเข้าใจ ข้อกำหนดและเงื่อนไข",
+      "privacy": "ฉันได้อ่านและเข้าใจ นโยบายความเป็นส่วนตัว",
+      "cookies": "ฉันได้อ่านและเข้าใจนโยบายคุกกี้"
+    }
   },
   "dashboard": {
     "title": "แดชบอร์ด",
