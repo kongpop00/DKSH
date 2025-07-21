@@ -1,29 +1,44 @@
 
-import React from 'react';
+
+import React, { useEffect } from 'react';
+import IconLocker from '../../assets/IconLocker.png';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
 
 const Locker: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('translation');
+
+  // ป้องกัน scroll หรือขยับของหน้า
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, []);
   return (
-    <div
-      className=" inset-0 w-screen h-screen flex items-center justify-center bg-gradient-to-br from-[#eaf6ff] via-[#f6fbff] to-[#d2eaff] overflow-hidden"
-      style={{ backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
-    >
-      <div className="flex flex-col items-center justify-center max-w-lg w-full px-4 py-12 bg-white/80 rounded-2xl shadow-lg">
+    <div className="w-screen h-screen flex items-center justify-center overflow-hidden relative">
+      {/* พื้นหลัง BG.png เต็มจอ */}
+      <div
+        className="absolute inset-0 w-full h-full bg-center bg-cover bg-no-repeat z-0"
+        style={{ backgroundImage: 'url(/src/assets/BG.png)' }}
+        aria-hidden="true"
+      />
+      <div className="flex flex-col items-center justify-center max-w-lg w-full relative mb-[80px]">
         <img
-          src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png"
+          src={IconLocker}
           alt="locked"
-          className="w-32 h-32 mb-6"
+          className="mb-6"
+          style={{ width: 240, height: 240 }}
         />
-        <h2 className="text-2xl font-bold mb-2 text-center">
-          {t('locker.title')}
+        <h2 className="text-2xl  mb-2 text-center">
+          {t('auth.locker.title')}
         </h2>
         <div className="text-gray-500 mb-1 text-[17px] text-center">
-          {t('locker.desc1')}
+          {t('auth.locker.desc1')}
         </div>
         <div className="text-gray-400 mb-6 text-[16px] text-center">
-          {t('locker.desc2')}
+          {t('auth.locker.desc2')}
         </div>
         <Button
           type="primary"
