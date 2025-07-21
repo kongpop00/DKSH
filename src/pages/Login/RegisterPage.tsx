@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Input, Form, message, Checkbox } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Input, Form, message } from 'antd';
 import { Eye, EyeOff, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -32,6 +32,38 @@ const RegisterPage: React.FC = () => {
     });
   };
 
+  useEffect(() => {
+    const handleOverflow = () => {
+      if (window.innerWidth > 1500) {
+        const original = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        return () => {
+          document.body.style.overflow = original;
+        };
+      }
+    };
+
+    const cleanup = handleOverflow();
+    
+    const handleResize = () => {
+      if (window.innerWidth <= 1500) {
+        document.body.style.overflow = '';
+      } else {
+        document.body.style.overflow = 'hidden';
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (cleanup) cleanup();
+      if (window.innerWidth > 1500) {
+        document.body.style.overflow = '';
+      }
+    };
+  }, []);
+
   const handleRegister = async () => {
     if (!acceptedTerms) {
       message.error(t('terms.acceptTermsError'));
@@ -59,30 +91,40 @@ const RegisterPage: React.FC = () => {
   };
 
   const ValidationItem = ({ valid, text }: { valid: boolean; text: string }) => (
-    <div className={`flex items-center gap-2 text-sm ${valid ? 'text-green-600' : 'text-gray-500'}`}>
-      <Check className={`w-4 h-4 ${valid ? 'text-green-600' : 'text-gray-300'}`} />
+    <div className={`flex items-center gap-1 sm:gap-2 text-xs sm:text-sm ${valid ? 'text-[#52C41A]' : 'text-gray-500'}`}>
+      <div className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 flex items-center justify-center ${valid ? 'border-[#52C41A] bg-[#52C41A]' : 'border-gray-300 bg-white'}`}>
+        {valid && <Check className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white" />}
+      </div>
       {text}
     </div>
   );
 
   return (
-    <div className=" w-full flex items-center justify-center  bg-red-500 pt-0">
-      <div className="space-y-6 w-full max-w-lg px-4 py-12 bg-white/80 rounded-2xl shadow-lg bg-red-500">
+ <div className="w-screen h-screen flex items-center justify-center overflow-hidden relative">
+       <div
+        className="absolute inset-0 w-full h-full bg-center bg-cover bg-no-repeat z-0"
+        style={{ backgroundImage: 'url(/src/assets/BG.png)' }}
+        aria-hidden="true"
+      />
+      <div
+        className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6 md:p-8 rounded-[20px] shadow-lg bg-white z-10 relative mb-[100px] md:mb-[10px]"
+        style={{ minHeight: 0, width: '603px' }}
+      >
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">{t('auth.registerTitle')}</h1>
-          <p className="text-gray-600">{t('auth.registerSubtitle')}</p>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">{t('auth.registerTitle')}</h1>
+          <p className="text-gray-600 text-sm sm:text-base md:text-lg">{t('auth.registerSubtitle')}</p>
         </div>
 
         <Form
           form={form}
           layout="vertical"
           onFinish={handleRegister}
-          className="space-y-4"
+          className="space-y-2 sm:space-y-3 md:space-y-4"
           size="large"
         >
           <Form.Item
             name="email"
-            label={t('common.email')}
+            label={<span className="text-sm sm:text-base md:text-lg">{t('common.email')}</span>}
             rules={[
               { required: true, message: t('validation.emailRequired') },
               { type: 'email', message: t('validation.emailInvalid') }
@@ -90,13 +132,13 @@ const RegisterPage: React.FC = () => {
           >
             <Input
               placeholder="example@example.com"
-              className="h-12 rounded-lg"
+              className="h-10 sm:h-12 rounded-lg text-sm sm:text-base"
             />
           </Form.Item>
 
           <Form.Item
             name="password"
-            label={t('common.password')}
+            label={<span className="text-sm sm:text-base md:text-lg">{t('common.password')}</span>}
             rules={[
               { required: true, message: t('validation.passwordRequired') },
               { min: 8, message: t('validation.passwordMinLength') }
@@ -105,22 +147,22 @@ const RegisterPage: React.FC = () => {
             <Input
               type={showPassword ? 'text' : 'password'}
               placeholder={t('common.password')}
-              className="h-12 rounded-lg"
+              className="h-10 sm:h-12 rounded-lg text-sm sm:text-base"
               onChange={(e) => handlePasswordChange(e.target.value)}
               suffix={
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="text-gray-500 hover:text-gray-700"
+                  className="text-gray-500 hover:text-gray-700 p-1"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showPassword ? <EyeOff className="w-3 h-3 sm:w-4 sm:h-4" /> : <Eye className="w-3 h-3 sm:w-4 sm:h-4" />}
                 </button>
               }
             />
           </Form.Item>
 
-          <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
-            <div className="text-sm font-medium text-gray-700 mb-2">{t('validation.passwordRequirements')}</div>
+          <div className="space-y-1 sm:space-y-2 p-2 sm:p-3 bg-gray-50 rounded-lg">
+            <div className="text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t('validation.passwordRequirements')}</div>
             <ValidationItem valid={passwordValidation.length} text={t('validation.length8')} />
             <ValidationItem valid={passwordValidation.uppercase} text={t('validation.upperLower')} />
             <ValidationItem valid={passwordValidation.lowercase} text={t('validation.number')} />
@@ -129,7 +171,7 @@ const RegisterPage: React.FC = () => {
 
           <Form.Item
             name="confirmPassword"
-            label={t('common.confirmPassword')}
+            label={<span className="text-sm sm:text-base md:text-lg">{t('common.confirmPassword')}</span>}
             dependencies={['password']}
             rules={[
               { required: true, message: t('validation.confirmPasswordRequired') },
@@ -146,52 +188,25 @@ const RegisterPage: React.FC = () => {
             <Input
               type={showConfirmPassword ? 'text' : 'password'}
               placeholder={t('common.confirmPassword')}
-              className="h-12 rounded-lg"
+              className="h-10 sm:h-12 rounded-lg text-sm sm:text-base"
               suffix={
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="text-gray-500 hover:text-gray-700"
+                  className="text-gray-500 hover:text-gray-700 p-1"
                 >
-                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showConfirmPassword ? <EyeOff className="w-3 h-3 sm:w-4 sm:h-4" /> : <Eye className="w-3 h-3 sm:w-4 sm:h-4" />}
                 </button>
               }
             />
           </Form.Item>
 
-          <div className="space-y-3">
-            <div className="text-sm text-gray-600">
-              {t('terms.readAndAccept')}{' '}
-              <button
-                type="button"
-                onClick={() => setTermsModalVisible(true)}
-                className="text-blue-600 hover:text-blue-800 underline"
-              >
-                {t('terms.termsAndConditions')}
-              </button>
-              {' '}{t('terms.and')}{' '}
-              <button
-                type="button"
-                onClick={() => setTermsModalVisible(true)}
-                className="text-blue-600 hover:text-blue-800 underline"
-              >
-                {t('terms.privacyPolicy')}
-              </button>
-            </div>
+     
 
-            <Checkbox
-              checked={acceptedTerms}
-              onChange={(e) => setAcceptedTerms(e.target.checked)}
-              className="text-sm"
-            >
-              {t('terms.acceptTerms')}
-            </Checkbox>
-          </div>
-
-          <div className="flex gap-4">
+          <div className="flex gap-3 sm:gap-4">
             <Button
               onClick={() => navigate('/login')}
-              className="flex-1 h-12 rounded-lg"
+              className="flex-1 h-10 sm:h-12 border-[1px] border-red-400 rounded-[50px] text-sm sm:text-base text-red-500"
               type="default"
             >
               {t('common.cancel')}
@@ -200,7 +215,7 @@ const RegisterPage: React.FC = () => {
               type="primary"
               htmlType="submit"
               loading={loading}
-              className="flex-1 h-12 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium"
+              className="flex-1 h-10 sm:h-12 rounded-[50px] bg-primary hover:bg-blue-700 text-white font-medium text-sm sm:text-base"
             >
               {t('common.register')}
             </Button>

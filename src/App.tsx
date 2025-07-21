@@ -6,7 +6,7 @@ import LoginPage from './pages/Login/LoginPage';
 import RegisterPage from './pages/Login/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import StyleExamplePage from './pages/StyleExamplePage';
-import DevNavigation from './components/DevNavigation';
+
 import ButtonExamples from './components/btn/ButtonExamples';
 import './i18n';
 import './index.css';
@@ -28,7 +28,7 @@ function WithNavbar({ children }: { children: React.ReactNode }) {
 const theme = {
   token: {
     colorPrimary: '#1B4DB1',
-    colorSuccess: '#52c41a',
+    colorSuccess: '#52C41A',
     colorWarning: '#faad14',
     colorError: '#ff4d4f',
     colorInfo: '#1890ff',
@@ -163,8 +163,8 @@ function App() {
                 <Route key={path} path={path} element={<WithNavbar>{element}</WithNavbar>} />
               ))} 
             </Routes>
-            {/* Development Navigation Helper */}
-            <DevNavigation />
+      
+        
           </div>
         </Router>
       </div>
