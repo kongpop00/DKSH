@@ -19,6 +19,11 @@
     "next": "Next",
     "confirmVerification": "Confirm Verification"
   },
+  "header": {
+    "home": "Home",
+    "government": "Government",
+    "cart": "Cart"
+  },
   "auth": {
   "locker": {
     "title": "Password entered incorrectly 3 times",

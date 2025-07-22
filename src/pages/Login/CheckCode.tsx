@@ -58,7 +58,7 @@ const CheckCodePage: React.FC = () => {
         message.success(t('auth.verifySuccess'));
         setOtpError(false);
         setFailCount(0);
-        navigate('/dashboard');
+        navigate('/users/Home');
       } else {
         message.error(t('auth.verifyError'));
         setOtpError(true);

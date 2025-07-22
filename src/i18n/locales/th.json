@@ -19,6 +19,11 @@
     "next": "ถัดไป",
     "confirmVerification": "ยืนยันการตรวจสอบ"
   },
+  "header": {
+    "home": "หน้าแรก",
+    "government": "ราชการส่วงลือ",
+    "cart": "รถเข็น"
+  },
   "auth": {
   "locker": {
     "title": "รหัสผ่านผิดครบ 3 ครั้ง",
