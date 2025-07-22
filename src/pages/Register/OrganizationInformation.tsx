@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Input, Radio, Select, Button, Upload, message } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Form, Input, Radio, Select, Button, Upload, message, Checkbox, Card } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import BgPattern from '../../components/BgPattern';
@@ -10,7 +10,7 @@ const { Option } = Select;
 
 interface OrganizationFormData {
   organizationType: string;
-  services: string;
+  services: string[];
   namePrefix: string;
   firstName: string;
   lastName?: string;
@@ -31,6 +31,30 @@ const OrganizationInformation: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [fileRows, setFileRows] = useState<Array<{id: number, file?: File, description: string}>>([]);
+  const [nextId, setNextId] = useState(1);
+
+  const addFileRow = () => {
+    setFileRows(prev => [...prev, { id: nextId, description: '' }]);
+    setNextId(prev => prev + 1);
+  };
+
+  const handleFileUpload = (file: File, rowId: number) => {
+    setFileRows(prev => 
+      prev.map(row => row.id === rowId ? { ...row, file } : row)
+    );
+    return false; // Prevent auto upload
+  };
+
+  const handleDescriptionChange = (rowId: number, description: string) => {
+    setFileRows(prev => 
+      prev.map(row => row.id === rowId ? { ...row, description } : row)
+    );
+  };
+
+  const handleFileRemove = (rowId: number) => {
+    setFileRows(prev => prev.filter(row => row.id !== rowId));
+  };
 
   const handleSubmit = async (values: OrganizationFormData) => {
     setLoading(true);
@@ -40,7 +64,7 @@ const OrganizationInformation: React.FC = () => {
       
       console.log('Organization Info:', values);
       message.success(t('organization.submitSuccess'));
-      navigate('/dashboard');
+      navigate('/organization-preview');
     } catch {
       message.error(t('organization.submitError'));
     } finally {
@@ -55,8 +79,8 @@ const OrganizationInformation: React.FC = () => {
   return (
     <div className="min-h-screen relative ">
       <BgPattern />
-      <div className="relative z-10 max-w-7xl mx-auto p-6 ">
-        <div className="bg-white rounded-lg shadow-lg p-8">
+      <div className="relative z-10 max-w-7xl mx-auto  bg-transparent p-6">
+        <div className="rounded-lg shadow-lg ">
           <Form
             form={form}
             layout="vertical"
@@ -64,32 +88,32 @@ const OrganizationInformation: React.FC = () => {
             className="space-y-6"
           >
             {/* Organization Type Section */}
-            <div className="mb-8">
+            <Card className="w-full mb-8">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">
                 {t('organization.type.title')}
               </h3>
               <Form.Item name="organizationType" rules={[{ required: true, message: t('organization.type.required') }]}>
-                <Radio.Group className="w-full">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <Radio value="international" className="text-sm">
-                      {t('organization.type.international')}
-                    </Radio>
-                    <Radio value="domestic-public" className="text-sm">
-                      {t('organization.type.domesticPublic')}
-                    </Radio>
-                    <Radio value="domestic-private" className="text-sm">
-                      {t('organization.type.domesticPrivate')}
-                    </Radio>
-                    <Radio value="internal" className="text-sm">
-                      {t('organization.type.internal')}
-                    </Radio>
-                  </div>
+                <Radio.Group className="w-full"> 
+                  <div className="flex flex-row gap-4"> 
+                    <Radio value="international" className="text-sm"> 
+                      {t('organization.type.international')} 
+                    </Radio> 
+                    <Radio value="domestic-public" className="text-sm"> 
+                      {t('organization.type.domesticPublic')} 
+                    </Radio> 
+                    <Radio value="domestic-private" className="text-sm"> 
+                      {t('organization.type.domesticPrivate')} 
+                    </Radio> 
+                    <Radio value="internal" className="text-sm"> 
+                      {t('organization.type.internal')} 
+                    </Radio> 
+                  </div> 
                 </Radio.Group>
               </Form.Item>
-            </div>
+            </Card>
 
             {/* Services Section */}
-            <div className="mb-8">
+            <Card className="mb-8">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">
                 {t('organization.services.title')}
               </h3>
@@ -97,129 +121,140 @@ const OrganizationInformation: React.FC = () => {
                 {t('organization.services.subtitle')}
               </div>
               
-              <Form.Item name="services" rules={[{ required: true, message: t('organization.services.required') }]}>
-                <Radio.Group className="w-full">
-                  <div className="space-y-3">
-                    <Radio value="quality-testing" className="text-sm block">
+              <Form.Item name="services" rules={[{ required: true, message: t('organization.services.required') }]}> 
+                <Checkbox.Group className="w-full"> 
+                  <div className="space-y-2">
+                    <div className="flex items-center text-sm">
+                      <Checkbox value="quality-testing" className="mr-2" />
                       {t('organization.services.qualityTesting')}
-                    </Radio>
-                    <div className="ml-6 space-y-2 text-sm">
-                      <div>• {t('organization.services.cultureSupply')}</div>
-                      <div>• {t('organization.services.publicDeposit')}</div>
-                      <div>• {t('organization.services.conditionalDeposit')}</div>
-                      <div>• {t('organization.services.safeDeposit')}</div>
                     </div>
-                    
-                    <Radio value="patent-search" className="text-sm block">
+                    <div className="flex items-center text-sm">
+                      <Checkbox value="culture-supply" className="mr-2" />
+                      {t('organization.services.cultureSupply')}
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <Checkbox value="public-deposit" className="mr-2" />
+                      {t('organization.services.publicDeposit')}
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <Checkbox value="conditional-deposit" className="mr-2" />
+                      {t('organization.services.conditionalDeposit')}
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <Checkbox value="safe-deposit" className="mr-2" />
+                      {t('organization.services.safeDeposit')}
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <Checkbox value="patent-search" className="mr-2" />
                       {t('organization.services.patentSearch')}
-                    </Radio>
-                    <div className="ml-6 space-y-2 text-sm">
-                      <div>• {t('organization.services.strainPreservation')}</div>
-                      <div>• {t('organization.services.microorganismEnumeration')}</div>
-                      <div>• {t('organization.services.microorganismIdentification')}</div>
-                      <div>• {t('organization.services.dataServices')}</div>
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <Checkbox value="strain-preservation" className="mr-2" />
+                      {t('organization.services.strainPreservation')}
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <Checkbox value="microorganism-enumeration" className="mr-2" />
+                      {t('organization.services.microorganismEnumeration')}
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <Checkbox value="microorganism-identification" className="mr-2" />
+                      {t('organization.services.microorganismIdentification')}
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <Checkbox value="data-services" className="mr-2" />
+                      {t('organization.services.dataServices')}
                     </div>
                   </div>
+                </Checkbox.Group> 
+              </Form.Item>
+            </Card>
+
+            {/* User Information Section */}
+            <Card className="mb-8 p-6">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                {t('userInfo.title')}
+              </h3>
+             
+
+              {/* ประเภทผู้ใช้งาน */}
+              <Form.Item name="userType" label={t('userInfo.type')} className="mb-4" rules={[{ required: true, message: t('userInfo.typeRequired') }]}>
+                <Radio.Group className="flex flex-row gap-6">
+                  <Radio value="individual">{t('userInfo.individual')}</Radio>
+                  <Radio value="corporate">{t('userInfo.corporate')}</Radio>
                 </Radio.Group>
               </Form.Item>
-            </div>
 
-            {/* Contact Information Section */}
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                {t('organization.contact.title')}
-              </h3>
-              <div className="text-sm text-gray-600 mb-4">
-                {t('organization.contact.required')} <span className="text-red-500">*</span> {t('organization.contact.optional')}
+              {/* ข้อมูลส่วนตัว */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <Form.Item name="citizenId" label={t('userInfo.citizenId')} rules={[{ required: true, message: t('userInfo.citizenIdRequired') }]}> 
+                  <Input size="large" placeholder={t('userInfo.placeholder')} />
+                </Form.Item>
+                <Form.Item name="fullName" label={t('userInfo.fullName')} rules={[{ required: true, message: t('userInfo.fullNameRequired') }]}> 
+                  <Input size='large' placeholder={t('userInfo.placeholder')} />
+                </Form.Item>
+                <Form.Item name="fullNameEng" label={t('userInfo.fullNameEng')} rules={[{ required: true, message: t('userInfo.fullNameEngRequired') }]}> 
+                  <Input size="large" placeholder={t('userInfo.placeholder')} />
+                </Form.Item>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <Form.Item 
-                  name="namePrefix" 
-                  label={t('organization.contact.namePrefix')}
-                  rules={[{ required: true, message: t('organization.contact.namePrefixRequired') }]}
-                >
-                  <Input placeholder={t('organization.contact.namePrefixPlaceholder')} />
+                <Form.Item name="gender" label={t('userInfo.gender')} rules={[{ required: true, message: t('userInfo.genderRequired') }]}> 
+                  <Select size='large' placeholder={t('userInfo.genderPlaceholder')}> 
+                    <Option value="male">{t('userInfo.male')}</Option>
+                    <Option value="female">{t('userInfo.female')}</Option>
+                    <Option value="other">{t('userInfo.other')}</Option>
+                  </Select>
                 </Form.Item>
-                
-                <Form.Item 
-                  name="firstName" 
-                  label={t('organization.contact.firstName')}
-                  rules={[{ required: true, message: t('organization.contact.firstNameRequired') }]}
-                >
-                  <Input placeholder={t('organization.contact.firstNamePlaceholder')} />
-                </Form.Item>
-                
-                <Form.Item 
-                  name="lastName" 
-                  label={t('organization.contact.lastName')}
-                >
-                  <Input placeholder={t('organization.contact.lastNamePlaceholder')} />
+                <Form.Item name="customerCode" label={t('userInfo.customerCode')} rules={[{ required: true, message: t('userInfo.customerCodeRequired') }]}> 
+                  <Input size='large' placeholder={t('userInfo.placeholder')} />
                 </Form.Item>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <Form.Item 
-                  name="email" 
-                  label={t('organization.contact.email')}
-                  rules={[
-                    { required: true, message: t('organization.contact.emailRequired') },
-                    { type: 'email', message: t('organization.contact.emailInvalid') }
-                  ]}
-                >
-                  <Input placeholder={t('organization.contact.emailPlaceholder')} />
-                </Form.Item>
-                
-                <Form.Item 
-                  name="phone" 
-                  label={t('organization.contact.phone')}
-                  rules={[{ required: true, message: t('organization.contact.phoneRequired') }]}
-                >
-                  <Input placeholder={t('organization.contact.phonePlaceholder')} />
-                </Form.Item>
-              </div>
-            </div>
-
-            {/* Organization Details Section */}
-            <div className="mb-8">
+               {/* Organization Details Section */}
+            <div className="mb-8 ">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">
                 {t('organization.details.title')}
               </h3>
-
-              <Form.Item 
-                name="organizationName" 
-                label={t('organization.details.name')}
-                rules={[{ required: true, message: t('organization.details.nameRequired') }]}
-                className="mb-4"
-              >
-                <Input placeholder={t('organization.details.namePlaceholder')} />
-              </Form.Item>
-
-              <Form.Item 
-                name="description" 
-                label={t('organization.details.description')}
-                className="mb-4"
-              >
-                <TextArea 
-                  rows={4} 
-                  placeholder={t('organization.details.descriptionPlaceholder')}
-                  showCount
-                  maxLength={500}
-                />
-              </Form.Item>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-4">
+                     <Form.Item 
+                  name="organizationPhone" 
+                  label={t('organization.details.phone')}
+                  rules={[{ required: true, message: t('organization.details.phoneRequired') }]}
+                >
+                  <Input 
+                    size="large"
+                    placeholder={t('organization.details.phonePlaceholder')}
+                  />
+                </Form.Item>
+                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <Form.Item 
+                  name="organizationName" 
+                  label={t('organization.details.name')}
+                  rules={[{ required: true, message: t('organization.details.nameRequired') }]}
+                >
+                  <TextArea 
+                    rows={4}
+                    placeholder={t('organization.details.namePlaceholder')}
+                    showCount
+                    maxLength={100}
+                  />
+                </Form.Item>
+                
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <Form.Item 
-                  name="country" 
-                  label={t('organization.details.country')}
-                  rules={[{ required: true, message: t('organization.details.countryRequired') }]}
+                  name="subdistrict" 
+                  label={t('organization.details.subdistrict')}
                 >
-                  <Select placeholder={t('organization.details.countryPlaceholder')}>
-                    <Option value="thailand">{t('organization.details.thailand')}</Option>
-                    <Option value="usa">{t('organization.details.usa')}</Option>
-                    <Option value="japan">{t('organization.details.japan')}</Option>
-                    <Option value="singapore">{t('organization.details.singapore')}</Option>
-                  </Select>
+                  <Input size='large' placeholder={t('organization.details.subdistrictPlaceholder')} />
+                </Form.Item>
+
+                <Form.Item 
+                  name="district" 
+                  label={t('organization.details.district')}
+                >
+                  <Input size='large' placeholder={t('organization.details.districtPlaceholder')} />
                 </Form.Item>
                 
                 <Form.Item 
@@ -227,79 +262,103 @@ const OrganizationInformation: React.FC = () => {
                   label={t('organization.details.province')}
                   rules={[{ required: true, message: t('organization.details.provinceRequired') }]}
                 >
-                  <Input placeholder={t('organization.details.provincePlaceholder')} />
+                  <Input size='large' placeholder={t('organization.details.provincePlaceholder')} />
                 </Form.Item>
-                
-                <Form.Item 
-                  name="district" 
-                  label={t('organization.details.district')}
-                >
-                  <Input placeholder={t('organization.details.districtPlaceholder')} />
-                </Form.Item>
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Form.Item 
-                  name="subdistrict" 
-                  label={t('organization.details.subdistrict')}
-                >
-                  <Input placeholder={t('organization.details.subdistrictPlaceholder')} />
-                </Form.Item>
-                
                 <Form.Item 
                   name="postalCode" 
                   label={t('organization.details.postalCode')}
                 >
-                  <Input placeholder={t('organization.details.postalCodePlaceholder')} />
+                  <Input size='large' placeholder={t('organization.details.postalCodePlaceholder')} />
                 </Form.Item>
-              </div>
+
+                <Form.Item 
+                  name="country" 
+                  label={t('organization.details.country')}
+                  rules={[{ required: true, message: t('organization.details.countryRequired') }]}
+                >
+                  <Input size='large' placeholder={t('organization.details.countryPlaceholder')} />
+                </Form.Item>
+              </div> 
             </div>
+            </Card>
+
+           
 
             {/* File Upload Section */}
-            <div className="mb-8 p-4 border-2 border-dashed border-blue-300 rounded-lg bg-blue-50">
+            <Card className="mb-8 p-6">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">
                 {t('organization.upload.title')}
               </h3>
               
-              <Form.Item name="documents">
-                <Upload.Dragger
-                  name="files"
-                  multiple
-                  beforeUpload={() => false}
-                  className="bg-white"
+              {/* Add File Button */}
+              <div className="mb-4">
+                <Button 
+                  type="primary" 
+                  onClick={addFileRow}
+                  className="bg-primary  border-blue-600 px-6 rounded-[16px]"
                 >
-                  <p className="ant-upload-drag-icon">
-                    <UploadOutlined className="text-2xl text-blue-500" />
-                  </p>
-                  <p className="ant-upload-text text-sm">
-                    {t('organization.upload.dragText')}
-                  </p>
-                  <p className="ant-upload-hint text-xs text-gray-500">
-                    {t('organization.upload.hint')}
-                  </p>
-                </Upload.Dragger>
-              </Form.Item>
-            </div>
+                  {t('organization.upload.addFile')}
+                </Button>
+              </div>
+
+              {/* File Rows */}
+              {fileRows.map((row) => (
+                <div key={row.id} className="flex items-center gap-2 p-2 bg-white   mb-2 ">
+                  <Upload
+                    name="files"
+                    beforeUpload={(file) => handleFileUpload(file as File, row.id)}
+                    showUploadList={false}
+                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+
+                  >
+                    <Button 
+                      type="default"
+                      className="min-w-auto text-left px-3 py-[18px] border-gray-300 bg-gray-50 rounded-md"
+                    >
+                      {row.file ? row.file.name : t('organization.upload.selectFile')}
+                    </Button>
+                  </Upload>
+                  <Input 
+                    value={row.description}
+                    onChange={(e) => handleDescriptionChange(row.id, e.target.value)}
+                    placeholder={t('organization.upload.descriptionPlaceholder')}
+                    size="small"
+                    className="ml-2 flex-1 px-3 py-2 border-gray-300 bg-gray-50 rounded-md"
+                  />
+                  <Button 
+                    type="primary"
+                    danger
+                    onClick={() => handleFileRemove(row.id)}
+                    size="small"
+                    className="ml-2 px-4 py-5 rounded-[30px] bg-red-500  "
+                    icon={<DeleteOutlined />}
+                  >
+                    {t('organization.upload.delete')}
+                  </Button>
+                </div>
+              ))}
+            </Card>
 
             {/* Action Buttons */}
-            <div className="flex justify-end gap-4 pt-6 border-t">
+            <Card className="flex justify-end pt-2 border-t p-3 ">
               <Button 
                 size="large"
                 onClick={handleCancel}
-                className="px-8"
+                className="px-7  hover:bg-gray-400 rounded-[26px] h-[40px]"
               >
-                {t('common.cancel')}
+                {t('common.back')}
               </Button>
               <Button 
                 type="primary" 
                 htmlType="submit"
                 size="large"
                 loading={loading}
-                className="px-8 bg-blue-600 hover:bg-blue-700"
+                className="px-8 bg-primary hover:bg-blue-700 rounded-[26px] ml-4 h-[40px]"
               >
-                {t('organization.submit')}
+                {t('common.next')}
               </Button>
-            </div>
+            </Card>
           </Form>
         </div>
       </div>

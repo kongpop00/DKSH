@@ -14,7 +14,9 @@
     "forgotPassword": "ลืมรหัสผ่าน",
     "loading": "กำลังโหลด...",
     "search": "ค้นหา...",
-    "logout": "ออกจากระบบ"
+    "logout": "ออกจากระบบ",
+    "back": "ย้อนกลับ",
+    "next": "ถัดไป"
   },
   "auth": {
   "locker": {
@@ -118,6 +120,12 @@
     }
   },
   "organization": {
+    "preview": {
+      "title": "ตรวจสอบข้อมูลองค์กร",
+      "edit": "แก้ไข",
+      "uploaded": "อัปโหลดแล้ว",
+      "noDocuments": "ไม่มีเอกสารแนบ"
+    },
     "type": {
       "title": "รูปแบบขององค์กร",
       "required": "กรุณาเลือกรูปแบบองค์กร",
@@ -163,35 +171,120 @@
     },
     "details": {
       "title": "ข้อมูลองค์กร",
-      "name": "ชื่อองค์กร *",
+      "name": "ชื่อองค์กร",
       "nameRequired": "กรุณากรอกชื่อองค์กร",
-      "namePlaceholder": "ชื่อองค์กร",
-      "description": "คำอธิบาย (น้อมไว) *",
+      "namePlaceholder": "กรอกชื่อองค์กร",
+      "phone": "เบอร์โทรศัพท์องค์กร",
+      "phoneRequired": "กรุณากรอกเบอร์โทรศัพท์องค์กร",
+      "phonePlaceholder": "กรอกเบอร์โทรศัพท์องค์กร",
+      "description": "คำอธิบาย (น้อมไว)",
       "descriptionPlaceholder": "รายละเอียดองค์กร",
-      "country": "ประเทศ *",
+      "country": "ประเทศ",
       "countryRequired": "กรุณาเลือกประเทศ",
       "countryPlaceholder": "เลือกประเทศ",
       "thailand": "ประเทศไทย",
       "usa": "สหรัฐอเมริกา",
       "japan": "ญี่ปุ่น",
       "singapore": "สิงคโปร์",
-      "province": "จังหวัด *",
+      "province": "จังหวัด",
       "provinceRequired": "กรุณากรอกจังหวัด",
       "provincePlaceholder": "จังหวัด",
-      "district": "อำเภอ/เขต *",
+      "district": "อำเภอ/เขต",
       "districtPlaceholder": "อำเภอ/เขต",
-      "subdistrict": "ตำบล/แขวง *",
+      "subdistrict": "ตำบล/แขวง",
       "subdistrictPlaceholder": "ตำบล/แขวง",
-      "postalCode": "รหัสไปรษณีย์ *",
+      "postalCode": "รหัสไปรษณีย์",
       "postalCodePlaceholder": "รหัสไปรษณีย์"
     },
     "upload": {
       "title": "เอกสารที่เกี่ยวข้อง",
+      "file": "ไฟล์",
+      "description": "คำอธิบาย",
+      "action": "การกระทำ",
+      "documents": "ค่าเอกสาร",
+      "addFile": "เพิ่มไฟล์",
+      "selectFile": "เลือกไฟล์",
+      "delete": "ลบ",
+      "descriptionPlaceholder": "ใส่คำอธิบายไฟล์...",
       "dragText": "คลิกหรือลากไฟล์มาวางในพื้นที่นี้เพื่ออัพโหลด",
       "hint": "สามารถอัพโหลดได้ทั้งไฟล์เดียวหรือหลายไฟล์ (Optional)"
     },
     "submit": "ยื่นใบ",
     "submitSuccess": "ส่งข้อมูลองค์กรเรียบร้อยแล้ว",
     "submitError": "ไม่สามารถส่งข้อมูลองค์กรได้"
+  },
+  "userInfo": {
+    "title": "ข้อมูลผู้ใช้งาน",
+    "required": "ข้อมูลที่จำเป็น",
+    "optional": "ข้อมูลเพิ่มเติม",
+    "type": "ประเภทผู้ใช้งาน",
+    "typeRequired": "กรุณาเลือกประเภทผู้ใช้งาน",
+    "individual": "บุคคลธรรมดา",
+    "corporate": "นิติบุคคล",
+    "citizenId": "เลขบัตรประชาชน/หนังสือเดินทาง",
+    "citizenIdRequired": "กรุณากรอกเลขบัตรประชาชน",
+    "fullName": "ชื่อ-นามสกุล *",
+    "fullNameRequired": "กรุณากรอกชื่อ-นามสกุล",
+    "fullNameEng": "ชื่อ-นามสกุล (ภาษาอังกฤษ)",
+    "fullNameEngRequired": "กรุณากรอกชื่อ-นามสกุลภาษาอังกฤษ",
+    "gender": "เพศ *",
+    "genderRequired": "กรุณาเลือกเพศ",
+    "genderPlaceholder": "เลือกเพศ",
+    "male": "ชาย",
+    "female": "หญิง",
+    "other": "อื่นๆ",
+    "customerCode": "รหัสลูกค้า",
+    "customerCodeRequired": "กรุณากรอกรหัสลูกค้า",
+    "placeholder": "ระบุข้อมูล"
+  },
+  "preview": {
+    "account": {
+      "title": "สร้างบัญชี",
+      "email": "Email",
+      "password": "Password"
+    },
+    "organization": {
+      "title": "รูปแบบขององค์กร",
+      "type": "รูปแบบการจัดตั้งองค์กร"
+    },
+    "services": {
+      "title": "รูปแบบบริการ",
+      "subtitle": "สามารถเลือกได้มากกว่า 1 รายการ",
+      "cultureSupply": "บริการจำหน่ายเชื้อจุลินทรีย์",
+      "publicDeposit": "การฝากสาธารณะ",
+      "conditionalDeposit": "การฝากแบบมีเงื่อนไข",
+      "safeDeposit": "การฝากปลอดภัย",
+      "patentPatternDeposit": "การฝากสิทธิบัตร/แบบผัง",
+      "strainPreservation": "การเก็บรักษาสายพันธุ์",
+      "microorganismEnumeration": "การนับจำนวนจุลินทรีย์",
+      "microorganismIdentification": "การชี้บ่งจุลินทรีย์",
+      "dataServices": "บริการข้อมูล"
+    },
+    "userInfo": {
+      "title": "ข้อมูลผู้ใช้งาน",
+      "type": "ประเภทผู้ใช้งาน",
+      "citizenId": "เลขบัตรประชาชน",
+      "fullName": "ชื่อ-นามสกุล",
+      "fullNameEng": "ชื่อ-นามสกุล (ภาษาอังกฤษ)",
+      "gender": "เพศ",
+      "customerCode": "รหัสลูกค้า",
+      "avatar": "รูปประจำตัว"
+    },
+    "contact": {
+      "title": "ข้อมูลติดต่อ",
+      "phone": "เบอร์โทรศัพท์",
+      "address": "ที่อยู่/สำนักงาน",
+      "subdistrict": "แขวง/ตำบล",
+      "district": "เขต/อำเภอ",
+      "province": "จังหวัด",
+      "country": "ประเทศ",
+      "postalCode": "รหัสไปรษณีย์"
+    },
+    "documents": {
+      "title": "เอกสารที่เกี่ยวข้อง",
+      "fileName": "ไฟล์ที่แนบ",
+      "description": "คำอธิบาย",
+      "type": "เอกสารรับรองตัวตน"
+    }
   }
 }

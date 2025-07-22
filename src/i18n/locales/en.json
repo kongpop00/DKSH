@@ -14,7 +14,9 @@
     "forgotPassword": "Forgot Password",
     "loading": "Loading...",
     "search": "Search...",
-    "logout": "Logout"
+    "logout": "Logout",
+    "back": "Back",
+    "next": "Next"
   },
   "auth": {
   "locker": {
@@ -117,6 +119,12 @@
     }
   },
   "organization": {
+    "preview": {
+      "title": "Review Organization Information",
+      "edit": "Edit", 
+      "uploaded": "Uploaded",
+      "noDocuments": "No documents attached"
+    },
     "type": {
       "title": "Organization Type",
       "required": "Please select organization type",
@@ -162,35 +170,120 @@
     },
     "details": {
       "title": "Organization Details",
-      "name": "Organization Name *",
+      "name": "Organization Name",
       "nameRequired": "Please enter organization name",
-      "namePlaceholder": "Organization Name",
-      "description": "Description (Optional) *",
+      "namePlaceholder": "Enter organization name",
+      "phone": "Organization Phone",
+      "phoneRequired": "Please enter organization phone number",
+      "phonePlaceholder": "Enter organization phone number",
+      "description": "Description (Optional)",
       "descriptionPlaceholder": "Organization description",
-      "country": "Country *",
+      "country": "Country",
       "countryRequired": "Please select country",
       "countryPlaceholder": "Select country",
       "thailand": "Thailand",
       "usa": "United States",
       "japan": "Japan",
       "singapore": "Singapore",
-      "province": "Province *",
+      "province": "Province",
       "provinceRequired": "Please enter province",
       "provincePlaceholder": "Province",
-      "district": "District *",
+      "district": "District ",
       "districtPlaceholder": "District",
-      "subdistrict": "Subdistrict *",
+      "subdistrict": "Subdistrict",
       "subdistrictPlaceholder": "Subdistrict",
-      "postalCode": "Postal Code *",
+      "postalCode": "Postal Code",
       "postalCodePlaceholder": "Postal Code"
     },
     "upload": {
       "title": "Document Upload",
+      "file": "File",
+      "description": "Description",
+      "action": "Action",
+      "documents": "Documents",
+      "addFile": "Add File",
+      "selectFile": "Select File",
+      "delete": "Delete",
+      "descriptionPlaceholder": "Enter file description...",
       "dragText": "Click or drag file to this area to upload",
       "hint": "Support for a single or bulk upload. Optional"
     },
     "submit": "Submit",
     "submitSuccess": "Organization information submitted successfully",
     "submitError": "Failed to submit organization information"
+  },
+  "userInfo": {
+    "title": "User Information",
+    "required": "Required",
+    "optional": "Optional",
+    "type": "User Type",
+    "typeRequired": "Please select user type",
+    "individual": "Individual",
+    "corporate": "Corporate",
+    "citizenId": "ID Card/Passport",
+    "citizenIdRequired": "Please enter ID Card/Passport",
+    "fullName": "Full Name *",
+    "fullNameRequired": "Please enter full name",
+    "fullNameEng": "Full Name (English)",
+    "fullNameEngRequired": "Please enter full name in English",
+    "gender": "Gender *",
+    "genderRequired": "Please select gender",
+    "genderPlaceholder": "Select gender",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "customerCode": "Customer Code",
+    "customerCodeRequired": "Please enter customer code",
+    "placeholder": "Enter data"
+  },
+  "preview": {
+    "account": {
+      "title": "Create Account",
+      "email": "Email",
+      "password": "Password"
+    },
+    "organization": {
+      "title": "Organization Type",
+      "type": "Organization Setup Type"
+    },
+    "services": {
+      "title": "Service Types",
+      "subtitle": "Multiple selections allowed",
+      "cultureSupply": "Culture Supply Services",
+      "publicDeposit": "Public Deposit",
+      "conditionalDeposit": "Conditional Public Deposit",
+      "safeDeposit": "Safe Deposit",
+      "patentPatternDeposit": "Patent/Patent Pattern Deposit",
+      "strainPreservation": "Preservation of Strain",
+      "microorganismEnumeration": "Enumeration of Microorganism",
+      "microorganismIdentification": "Identification of Microorganism",
+      "dataServices": "Data Services"
+    },
+    "userInfo": {
+      "title": "User Information",
+      "type": "User Type",
+      "citizenId": "ID Card Number",
+      "fullName": "Full Name",
+      "fullNameEng": "Full Name (English)",
+      "gender": "Gender",
+      "customerCode": "Customer Code",
+      "avatar": "Avatar"
+    },
+    "contact": {
+      "title": "Contact Information",
+      "phone": "Phone Number",
+      "address": "Address/Office",
+      "subdistrict": "Subdistrict",
+      "district": "District",
+      "province": "Province",
+      "country": "Country",
+      "postalCode": "Postal Code"
+    },
+    "documents": {
+      "title": "Related Documents",
+      "fileName": "Attached File",
+      "description": "Description",
+      "type": "Identity Verification Document"
+    }
   }
 }
