@@ -1,10 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Button, Checkbox } from 'antd';
 import { useTranslation } from 'react-i18next';
 import BgPattern from '../../components/BgPattern';
+import MessagePage from '../MessagePage';
 
 const Organizationpreview: React.FC = () => {
   const { t } = useTranslation();
+  const [showMessage, setShowMessage] = useState(false);
+
+  const handleConfirmVerification = () => {
+    setShowMessage(true);
+  };
+
+  const handleBack = () => {
+    // ย้อนกลับไปหน้าก่อนหน้า หรือสามารถใช้ window.history.back()
+    console.log('Back button clicked');
+  };
+
+  // แสดง MessagePage เมื่อ showMessage เป็น true
+  if (showMessage) {
+    return (
+      <MessagePage
+        status="success"
+        titleKey="message.success.title"
+        description1Key="message.success.description1"
+        buttonTextKey="message.success.button"
+        navigateTo="/dashboard"
+      />
+    );
+  }
 
   // Mock data for preview
   const data = {
@@ -182,10 +206,10 @@ const Organizationpreview: React.FC = () => {
 
           {/* Action Buttons */}
           <Card className="flex justify-end gap-4 mt-8 p-2">
-            <Button size="large" className="px-7 rounded-[26px] h-[40px mr-3">
+            <Button size="large" className="px-7 rounded-[26px] h-[40px] mr-3" onClick={handleBack}>
               {t('common.back')}
             </Button>
-            <Button type="primary" size="large" className="px-8 rounded-[26px] h-[40px]">
+            <Button type="primary" size="large" className="px-8 rounded-[26px] h-[40px]" onClick={handleConfirmVerification}>
               {t('common.confirmVerification')}
             </Button>
           </Card>

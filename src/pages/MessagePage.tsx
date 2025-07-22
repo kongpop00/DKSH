@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import BgPattern from '../components/BgPattern';
-import Navbar from '../components/Navbar';
+
 
 export type MessageStatus = 'success' | 'locked' | 'error';
 
@@ -64,8 +64,8 @@ const MessagePage: React.FC<MessagePageProps> = ({
   return (
     <div className="min-h-screen relative flex flex-col">
       <BgPattern />
-      {/* Navbar */}
-      <Navbar />
+      
+    
 
       {/* Main Content */}
       <div className="flex-1 flex items-center justify-center relative px-6">
