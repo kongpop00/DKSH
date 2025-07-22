@@ -16,7 +16,8 @@
     "search": "ค้นหา...",
     "logout": "ออกจากระบบ",
     "back": "ย้อนกลับ",
-    "next": "ถัดไป"
+    "next": "ถัดไป",
+    "confirmVerification": "ยืนยันการตรวจสอบ"
   },
   "auth": {
   "locker": {

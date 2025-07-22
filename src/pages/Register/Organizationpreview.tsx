@@ -181,14 +181,15 @@ const Organizationpreview: React.FC = () => {
           </Card>
 
           {/* Action Buttons */}
-          <div className="flex justify-end gap-4 mt-8">
-            <Button size="large" className="px-7 rounded-[26px] h-[40px]">
+          <Card className="flex justify-end gap-4 mt-8 p-2">
+            <Button size="large" className="px-7 rounded-[26px] h-[40px mr-3">
               {t('common.back')}
             </Button>
             <Button type="primary" size="large" className="px-8 rounded-[26px] h-[40px]">
-              {t('common.next')}
+              {t('common.confirmVerification')}
             </Button>
-          </div>
+          </Card>
+
         </div>
       </div>
     </div>

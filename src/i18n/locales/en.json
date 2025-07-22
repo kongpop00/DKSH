@@ -16,7 +16,8 @@
     "search": "Search...",
     "logout": "Logout",
     "back": "Back",
-    "next": "Next"
+    "next": "Next",
+    "confirmVerification": "Confirm Verification"
   },
   "auth": {
   "locker": {
