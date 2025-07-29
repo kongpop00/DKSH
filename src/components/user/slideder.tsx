@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { } from 'react';
 import { Carousel } from 'antd';
 
 interface SlideImage {
@@ -69,12 +69,26 @@ const titleStyle: React.CSSProperties = {
   maxWidth: '90%', // Prevent overflow on small screens
 };
 
+// Helper function to check if URL is YouTube
+const isYouTubeUrl = (url: string): boolean => {
+  return url.includes('youtube.com') || url.includes('youtu.be');
+};
+
+// Helper function to extract YouTube video ID
+const getYouTubeVideoId = (url: string): string => {
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/);
+  return match ? match[1] : '';
+};
+
 const SliderComponent: React.FC<SliderComponentProps> = ({ 
   images, 
-  autoplay = true, 
+  autoplay = false, // Changed default to false
   autoplaySpeed = 3000
 }) => {
   const [sliderHeight, setSliderHeight] = React.useState('500px');
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+  const carouselRef = React.useRef<React.ComponentRef<typeof Carousel> | null>(null);
+  const iframeRefs = React.useRef<{ [key: number]: HTMLIFrameElement | null }>({});
 
   React.useEffect(() => {
     const updateHeight = () => {
@@ -89,8 +103,37 @@ const SliderComponent: React.FC<SliderComponentProps> = ({
     };
   }, []);
 
-  const onChange = (currentSlide: number) => {
-    console.log(currentSlide);
+  const onChange = (currentSlideIndex: number) => {
+    console.log(currentSlideIndex);
+    
+    // Stop all YouTube videos by pausing them
+    Object.entries(iframeRefs.current).forEach(([slideId, iframe]) => {
+      // หา index ของ slideId ใน images
+      const idx = images.findIndex(img => img.id === Number(slideId));
+      if (iframe && isYouTubeUrl(images[idx]?.src || '')) {
+        // Send pause command to YouTube iframe
+        iframe.contentWindow?.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      }
+    });
+    // Start the current slide's video if it's YouTube
+    const currentImage = images[currentSlideIndex];
+    if (currentImage && isYouTubeUrl(currentImage.src)) {
+      const currentIframe = iframeRefs.current[currentImage.id];
+      if (currentIframe) {
+        // Reload iframe to restart video from beginning
+        const videoId = getYouTubeVideoId(currentImage.src);
+        currentIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&enablejsapi=1`;
+      }
+    }
+    setCurrentSlide(currentSlideIndex);
+  };
+
+  const goToPrev = () => {
+    carouselRef.current?.prev();
+  };
+
+  const goToNext = () => {
+    carouselRef.current?.next();
   };
 
   if (!images || images.length === 0) {
@@ -112,8 +155,28 @@ const SliderComponent: React.FC<SliderComponentProps> = ({
   };
 
   return (
-    <div className="w-full" style={{ height: sliderHeight }}>
+    <div className="w-full relative" style={{ height: sliderHeight }}>
+      {/* Navigation Buttons */}
+      <button 
+        onClick={goToPrev}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      
+      <button 
+        onClick={goToNext}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
       <Carousel 
+        ref={carouselRef}
         afterChange={onChange}
         autoplay={autoplay}
         autoplaySpeed={autoplaySpeed}
@@ -128,11 +191,31 @@ const SliderComponent: React.FC<SliderComponentProps> = ({
         {images.map((image) => (
           <div key={image.id} style={{ height: sliderHeight }}>
             <div style={dynamicContentStyle}>
-              <img 
-                src={image.src} 
-                alt={image.alt}
-                style={dynamicImageStyle}
-              />
+              {isYouTubeUrl(image.src) ? (
+                <iframe
+                  ref={(el) => {
+                    iframeRefs.current[image.id] = el;
+                  }}
+                  width="100%"
+                  height="100%"
+                  src={`https://www.youtube.com/embed/${getYouTubeVideoId(image.src)}?autoplay=${currentSlide === images.findIndex(img => img.id === image.id) ? 1 : 0}&mute=1&loop=1&playlist=${getYouTubeVideoId(image.src)}&enablejsapi=1`}
+                  title={image.alt}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              ) : (
+                <img 
+                  src={image.src} 
+                  alt={image.alt}
+                  style={dynamicImageStyle}
+                />
+              )}
               {image.title && (
                 <div style={titleStyle}>
                   {image.title}
