@@ -6,6 +6,7 @@ import LoginPage from './pages/Login/LoginPage';
 import RegisterPage from './pages/Register/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import StyleExamplePage from './pages/StyleExamplePage';
+import ArticleDetail from './pages/ArticleDetail';
 
 import ButtonExamples from './components/btn/ButtonExamples';
 import './i18n';
@@ -154,6 +155,7 @@ function App() {
               <Route path="/" element={<LoginPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/check-code" element={<CheckCodePage />} />
+              <Route path="/article/:id" element={<ArticleDetail />} />
 
               {/* Routes with Navbar */}
               {[

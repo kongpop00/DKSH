@@ -8,6 +8,134 @@
   }
 }
 
+/* Auto Slide Animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Prose Styling for Article Content */
+.prose {
+  color: #374151;
+  max-width: none;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  color: #111827;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose h1 { font-size: 2.25rem; line-height: 2.5rem; }
+.prose h2 { font-size: 1.875rem; line-height: 2.25rem; }
+.prose h3 { font-size: 1.5rem; line-height: 2rem; }
+.prose h4 { font-size: 1.25rem; line-height: 1.75rem; }
+.prose h5 { font-size: 1.125rem; line-height: 1.5rem; }
+
+.prose p {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.75;
+}
+
+.prose ul, .prose ol {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding-left: 1.625rem;
+}
+
+.prose li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose blockquote {
+  font-style: italic;
+  border-left: 4px solid #d1d5db;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: #6b7280;
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.prose table {
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-collapse: collapse;
+}
+
+.prose th, .prose td {
+  border: 1px solid #d1d5db;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.prose th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
+
+.prose strong {
+  font-weight: 600;
+  color: #111827;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose mark {
+  background-color: #fef3c7;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.prose .warning-box {
+  background-color: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1.5rem 0;
+}
+
+.prose .highlight-section {
+  background-color: #dbeafe;
+  border: 1px solid #3b82f6;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1.5rem 0;
+}
+
+.prose .conclusion {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.prose footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
 @layer components {
   .terms-modal .ant-modal-content {
     border-radius: 12px;
