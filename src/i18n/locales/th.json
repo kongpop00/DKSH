@@ -19,6 +19,13 @@
     "next": "ถัดไป",
     "confirmVerification": "ยืนยันการตรวจสอบ"
   },
+  "documents": {
+    "title": "เอกสาร",
+    "name": "ชื่อเอกสาร",
+    "update": "อัปเดต",
+    "download": "ดาวน์โหลด",
+    "viewAll": "ดูเอกสารทั้งหมด"
+  },
   "header": {
     "home": "หน้าแรก",
     "government": "ราชการส่วงลือ",

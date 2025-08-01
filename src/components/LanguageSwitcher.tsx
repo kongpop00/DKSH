@@ -88,7 +88,7 @@ const LanguageSwitcher: React.FC = () => {
     >
       <Button
         type="text"
-        className="flex items-center gap-2 h-10 px-3 hover:bg-gray-100 rounded-lg border border-gray-200 bg-white"
+        className="flex items-center gap-2 h-10 px-3 hover:bg-gray-100 rounded-[100px] border  bg-white"
       >
         {getCurrentFlag()}
         <span className="text-sm font-medium text-gray-700">{getCurrentLanguageCode()}</span>

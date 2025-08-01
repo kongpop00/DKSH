@@ -1,9 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Header from '../../components/user/header';
 import SliderComponent from '../../components/user/slideder';
 import { mockArticles } from '../../mock/Article';
 
 const HomePage: React.FC = () => {
+  const { t } = useTranslation();
+  
   // Mock data สำหรับ slider
   const sliderImages = [
     {
@@ -376,9 +379,62 @@ const HomePage: React.FC = () => {
           </div>
          </div>
         </div>
-        <div className="col-span-12 md:col-span-5 bg-white p-6 rounded-lg shadow-md bg-blue-500">
-          <h2 className="text-xl font-semibold mb-4">Section 2 (5/12)</h2>
-          <p>Content for section 2 - Takes 5 columns on desktop</p>
+        <div className="col-span-12 md:col-span-5 bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold mb-6 text-gray-800">{t('documents.title')}</h2>
+          
+          {/* Documents List */}
+          <div className="space-y-3">
+            {/* Header */}
+            <div className="grid grid-cols-3 gap-4 pb-3 border-b border-gray-200">
+              <span className="text-sm font-medium text-gray-600">{t('documents.name')}</span>
+              <span className="text-sm font-medium text-gray-600 text-center">{t('documents.update')}</span>
+              <span></span>
+            </div>
+
+            {/* Document Items */}
+            <div className="space-y-2">
+              {[
+                { name: "Document: Permission Req...", date: "1/07/2568" },
+                { name: "Document: Safety Data She...", date: "1/07/2568" },
+                { name: "Document: Maintenance Log", date: "5/09/2568" },
+                { name: "Document: Product Recom...", date: "3/05/2568" },
+                { name: "Document: Service Agreem...", date: "14/08/2568" },
+                { name: "Document: Invoice Template", date: "1/07/2568" },
+                { name: "Document: Compliance Che...", date: "14/08/2568" },
+                { name: "Document: Purchase Order...", date: "14/08/2568" },
+                { name: "Document: User Manual", date: "1/07/2568" },
+                { name: "Document: Project Proposal", date: "18/09/2568" },
+                { name: "Document: Terms and Cond...", date: "21/09/2568" },
+                { name: "Document: Marketing Strate...", date: "30/09/2568" },
+                { name: "Document: Budget Report", date: "2/10/2568" },
+                { name: "Document: Risk Assessment", date: "10/10/2568" },
+              ].map((doc, index) => (
+                <div 
+                  key={index}
+                  className="grid grid-cols-3 gap-4 py-2 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer group"
+                >
+                  <span className="text-sm text-gray-700 group-hover:text-blue-600 truncate">
+                    {doc.name}
+                  </span>
+                  <span className="text-sm text-gray-500 text-center">
+                    {doc.date}
+                  </span>
+                  <div className="flex justify-end">
+                    <button className="text-blue-600 hover:text-blue-800 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                      {t('documents.download')}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Show More Button */}
+            <div className="pt-4 border-t border-gray-100">
+              <button className="w-full text-blue-600 hover:text-blue-800 text-sm font-medium py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                {t('documents.viewAll')} →
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

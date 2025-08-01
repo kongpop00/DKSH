@@ -19,6 +19,13 @@
     "next": "Next",
     "confirmVerification": "Confirm Verification"
   },
+  "documents": {
+    "title": "Documents",
+    "name": "Name",
+    "update": "Update",
+    "download": "Download",
+    "viewAll": "View All Documents"
+  },
   "header": {
     "home": "Home",
     "government": "Government",
