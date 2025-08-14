@@ -4,6 +4,8 @@ import { Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import AuthLayout from '../../components/AuthLayout';
+import  bgright from'../../assets/BG2.svg'
+
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
