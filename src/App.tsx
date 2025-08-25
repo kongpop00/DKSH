@@ -75,7 +75,7 @@ const theme = {
     fontWeightBold: 600,
     
     // Background colors
-    colorBgPrimary: '#1B4DB1',
+    colorBgPrimary: '#0050B3',
     colorBgSubPrimary: '#3366CC',
     colorBgSuccess: '#52c41a',
     colorBgWarning: '#faad14',
@@ -83,7 +83,7 @@ const theme = {
     colorBgInfo: '#1890ff',
     
     // Text colors
-    colorTextPrimary: '#1B4DB1',
+    colorTextPrimary: '#0050B3',
     colorTextSubPrimary: '#3366CC',
     colorTextSuccess: '#52c41a',
     colorTextWarning: '#faad14',
