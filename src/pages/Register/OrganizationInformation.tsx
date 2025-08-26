@@ -89,22 +89,22 @@ const OrganizationInformation: React.FC = () => {
           >
             {/* Organization Type Section */}
             <Card className="w-full mb-8">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">
                 {t('organization.type.title')}
               </h3>
               <Form.Item name="organizationType" rules={[{ required: true, message: t('organization.type.required') }]}>
                 <Radio.Group className="w-full"> 
                   <div className="flex flex-row gap-4"> 
-                    <Radio value="international" className="text-sm"> 
+                    <Radio value="international" className="text-base"> 
                       {t('organization.type.international')} 
                     </Radio> 
-                    <Radio value="domestic-public" className="text-sm"> 
+                    <Radio value="domestic-public" className="text-base"> 
                       {t('organization.type.domesticPublic')} 
                     </Radio> 
-                    <Radio value="domestic-private" className="text-sm"> 
+                    <Radio value="domestic-private" className="text-base"> 
                       {t('organization.type.domesticPrivate')} 
                     </Radio> 
-                    <Radio value="internal" className="text-sm"> 
+                    <Radio value="internal" className="text-base"> 
                       {t('organization.type.internal')} 
                     </Radio> 
                   </div> 
@@ -114,10 +114,10 @@ const OrganizationInformation: React.FC = () => {
 
             {/* Services Section */}
             <Card className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">
                 {t('organization.services.title')}
               </h3>
-              <div className="text-sm text-gray-600 mb-4">
+              <div className="text-base text-gray-600 mb-4">
                 {t('organization.services.subtitle')}
               </div>
               
@@ -154,7 +154,7 @@ const OrganizationInformation: React.FC = () => {
                             setFieldsValue({ services: [] });
                           }
                         }}
-                        className="text-sm"
+                        className="text-base"
                       >
                         {t('organization.services.interestedAll')}
                       </Checkbox>
@@ -169,47 +169,47 @@ const OrganizationInformation: React.FC = () => {
               <Form.Item name="services" rules={[{ required: true, message: t('organization.services.required') }]}> 
                 <Checkbox.Group className="w-full"> 
                   <div className="space-y-2">
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-base">
                       <Checkbox value="quality-testing" className="mr-2" />
                       {t('organization.services.qualityTesting')}
                     </div>
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-base">
                       <Checkbox value="culture-supply" className="mr-2" />
                       {t('organization.services.cultureSupply')}
                     </div>
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-base">
                       <Checkbox value="public-deposit" className="mr-2" />
                       {t('organization.services.publicDeposit')}
                     </div>
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-base">
                       <Checkbox value="conditional-deposit" className="mr-2" />
                       {t('organization.services.conditionalDeposit')}
                     </div>
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-base">
                       <Checkbox value="safe-deposit" className="mr-2" />
                       {t('organization.services.safeDeposit')}
                     </div>
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-base">
                       <Checkbox value="patent-search" className="mr-2" />
                       {t('organization.services.patentSearch')}
                     </div>
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-base">
                       <Checkbox value="strain-preservation" className="mr-2" />
                       {t('organization.services.strainPreservation')}
                     </div>
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-base">
                       <Checkbox value="microorganism-enumeration" className="mr-2" />
                       {t('organization.services.microorganismEnumeration')}
                     </div>
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-base">
                       <Checkbox value="microorganism-identification" className="mr-2" />
                       {t('organization.services.microorganismIdentification')}
                     </div>
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-base">
                       <Checkbox value="data-services" className="mr-2" />
                       {t('organization.services.dataServices')}
                     </div>
-                    <div className="flex items-center text-sm">
+                    <div className="flex items-center text-base">
                       <Checkbox value="other-services" className="mr-2" />
                       งานบริการอื่นๆ (Other services)
                     </div>
@@ -245,83 +245,135 @@ const OrganizationInformation: React.FC = () => {
 
             {/* User Information Section */}
             <Card className="mb-8 p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">
                 {t('userInfo.title')}
               </h3>
 
               {/* ประเภทผู้ใช้งาน */}
-              <Form.Item name="userType" label={t('userInfo.type')} className="mb-4" rules={[{ required: true, message: t('userInfo.typeRequired') }]}>
+              <Form.Item name="userType" label={<span className="text-base">{t('userInfo.type')}</span>} className="mb-4" rules={[{ required: true, message: t('userInfo.typeRequired') }]}>
                 <Radio.Group className="flex flex-row gap-6">
-                  <Radio value="individual">{t('userInfo.individual')}</Radio>
-                  <Radio value="corporate">{t('userInfo.corporate')}</Radio>
+                  <Radio value="individual" className="text-base">{t('userInfo.individual')}</Radio>
+                  <Radio value="corporate" className="text-base">{t('userInfo.corporate')}</Radio>
                 </Radio.Group>
               </Form.Item>
 
               {/* ข้อมูลส่วนตัว */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <Form.Item name="citizenId" label={t('userInfo.citizenId')} rules={[{ required: true, message: t('userInfo.citizenIdRequired') }]}>
-                  <Input size="large" placeholder={t('userInfo.placeholder')} />
+                <Form.Item name="citizenId" label={<span className="text-base">{t('userInfo.citizenId')}</span>} rules={[{ required: true, message: t('userInfo.citizenIdRequired') }]}>
+                  <Input size="large" placeholder={t('userInfo.placeholder')} className="text-base" />
                 </Form.Item>
-                <Form.Item name="fullName" label={t('userInfo.fullName')} rules={[{ required: true, message: t('userInfo.fullNameRequired') }]}>
-                  <Input size='large' placeholder={t('userInfo.placeholder')} />
+                <Form.Item name="fullName" label={<span className="text-base">{t('userInfo.fullName')}</span>} rules={[{ required: true, message: t('userInfo.fullNameRequired') }]}>
+                  <Input size='large' placeholder={t('userInfo.placeholder')} className="text-base" />
                 </Form.Item>
-                <Form.Item name="fullNameEng" label={t('userInfo.fullNameEng')} rules={[{ required: true, message: t('userInfo.fullNameEngRequired') }]}>
-                  <Input size="large" placeholder={t('userInfo.placeholder')} />
+                <Form.Item name="fullNameEng" label={<span className="text-base">{t('userInfo.fullNameEng')}</span>} rules={[{ required: true, message: t('userInfo.fullNameEngRequired') }]}>
+                  <Input size="large" placeholder={t('userInfo.placeholder')} className="text-base" />
                 </Form.Item>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <Form.Item name="gender" label={t('userInfo.gender')} rules={[{ required: true, message: t('userInfo.genderRequired') }]}>
-                  <Select size='large' placeholder={t('userInfo.genderPlaceholder')}>
+                <Form.Item name="gender" label={<span className="text-base">{t('userInfo.gender')}</span>} rules={[{ required: true, message: t('userInfo.genderRequired') }]}>
+                  <Select size='large' placeholder={t('userInfo.genderPlaceholder')} className="text-base">
                     <Option value="male">{t('userInfo.male')}</Option>
                     <Option value="female">{t('userInfo.female')}</Option>
                     <Option value="other">{t('userInfo.other')}</Option>
                   </Select>
                 </Form.Item>
-                <Form.Item name="receiptName" label={t('userInfo.receiptName')}>
-                  <Input size='large' placeholder={t('userInfo.placeholder')} />
+                <Form.Item name="receiptName" label={<span className="text-base">{t('userInfo.receiptName')}</span>}>
+                  <Input size='large' placeholder={t('userInfo.placeholder')} className="text-base" />
                 </Form.Item>
               </div>
 
               {/* หมายเหตุ (optional) */}
               <div className="mb-8  sm:w-[90%]  md:w-[60%]">
-                <Form.Item name="note" label={t('userInfo.note')}>
+                <Form.Item name="note" label={<span className="text-base">{t('userInfo.note')}</span>}>
                   <TextArea 
                     rows={4}
                     placeholder={t('userInfo.notePlaceholder')}
                     showCount
                     maxLength={100}
+                    className="text-base"
                   />
                 </Form.Item>
               </div>
 
               {/* ข้อมูลติดต่อ Section */}
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">
                 {t('contactInfo.title')}
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <Form.Item 
                   name="organizationPhone" 
-                  label={t('contactInfo.phone')}
+                  label={<span className="text-base">{t('contactInfo.phone')}</span>}
                   rules={[{ required: true, message: t('contactInfo.phoneRequired') }]}
                 >
                   <Input 
                     size="large"
                     placeholder={t('contactInfo.placeholder')}
+                    className="text-base"
+                    maxLength={15}
+                    onKeyPress={(e) => {
+                      if (!/[0-9\-+() ]/.test(e.key)) {
+                        e.preventDefault();
+                      }
+                    }}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/[^0-9\-+() ]/g, '');
+                      if (value.length <= 10) {
+                        e.target.value = value;
+                      } else {
+                        e.target.value = value.substring(0, 10);
+                      }
+                    }}
                   />
                 </Form.Item>
                 <Form.Item 
                   name="organizationPhoneBackup" 
-                  label={t('contactInfo.phoneBackup')}
+                  label={<span className="text-base">{t('contactInfo.phoneBackup')}</span>}
                 >
-                  <Input size='large' placeholder={t('contactInfo.placeholder')} />
+                  <Input 
+                    size='large' 
+                    placeholder={t('contactInfo.placeholder')} 
+                    className="text-base"
+                    maxLength={15}
+                    onKeyPress={(e) => {
+                      if (!/[0-9\-+() ]/.test(e.key)) {
+                        e.preventDefault();
+                      }
+                    }}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/[^0-9\-+() ]/g, '');
+                      if (value.length <= 10) {
+                        e.target.value = value;
+                      } else {
+                        e.target.value = value.substring(0, 10);
+                      }
+                    }}
+                  />
                 </Form.Item>
                 <Form.Item 
                   name="organizationFax" 
-                  label={t('contactInfo.fax')}
+                  label={<span className="text-base">{t('contactInfo.fax')}</span>}
                 >
-                  <Input size='large' placeholder={t('contactInfo.placeholder')} />
+                  <Input 
+                    size='large' 
+                    placeholder={t('contactInfo.placeholder')} 
+                    className="text-base"
+                    maxLength={15}
+                    onKeyPress={(e) => {
+                      if (!/[0-9\-+() ]/.test(e.key)) {
+                        e.preventDefault();
+                      }
+                    }}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/[^0-9\-+() ]/g, '');
+                      if (value.length <= 15) {
+                        e.target.value = value;
+                      } else {
+                        e.target.value = value.substring(0, 15);
+                      }
+                    }}
+                  />
                 </Form.Item>
               </div>
 
@@ -329,7 +381,7 @@ const OrganizationInformation: React.FC = () => {
               <div className="mb-4 sm:w-[90%]  md:w-[60%]">
                 <Form.Item 
                   name="organizationAddress" 
-                  label={t('contactInfo.address')}
+                  label={<span className="text-base">{t('contactInfo.address')}</span>}
                   rules={[{ required: true, message: t('contactInfo.addressRequired') }]}
                 >
                   <TextArea 
@@ -337,6 +389,7 @@ const OrganizationInformation: React.FC = () => {
                     placeholder={t('contactInfo.addressPlaceholder')}
                     showCount
                     maxLength={100}
+                    className="text-base"
                   />
                 </Form.Item>
               </div>
@@ -344,41 +397,41 @@ const OrganizationInformation: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <Form.Item 
                   name="subdistrict" 
-                  label={t('contactInfo.subdistrict')}
+                  label={<span className="text-base">{t('contactInfo.subdistrict')}</span>}
                 >
-                  <Input size='large' placeholder={t('contactInfo.placeholder')} />
+                  <Input size='large' placeholder={t('contactInfo.placeholder')} className="text-base" />
                 </Form.Item>
 
                 <Form.Item 
                   name="district" 
-                  label={t('contactInfo.district')}
+                  label={<span className="text-base">{t('contactInfo.district')}</span>}
                 >
-                  <Input size='large' placeholder={t('contactInfo.placeholder')} />
+                  <Input size='large' placeholder={t('contactInfo.placeholder')} className="text-base" />
                 </Form.Item>
                 
                 <Form.Item 
                   name="province" 
-                  label={t('contactInfo.province')}
+                  label={<span className="text-base">{t('contactInfo.province')}</span>}
                   rules={[{ required: true, message: t('contactInfo.provinceRequired') }]}
                 >
-                  <Input size='large' placeholder={t('contactInfo.placeholder')} />
+                  <Input size='large' placeholder={t('contactInfo.placeholder')} className="text-base" />
                 </Form.Item>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <Form.Item 
                   name="country" 
-                  label={t('contactInfo.country')}
+                  label={<span className="text-base">{t('contactInfo.country')}</span>}
                   rules={[{ required: true, message: t('contactInfo.countryRequired') }]}
                 >
-                  <Input size='large' placeholder={t('contactInfo.placeholder')} />
+                  <Input size='large' placeholder={t('contactInfo.placeholder')} className="text-base" />
                 </Form.Item>
 
                 <Form.Item 
                   name="postalCode" 
-                  label={t('contactInfo.postalCode')}
+                  label={<span className="text-base">{t('contactInfo.postalCode')}</span>}
                 >
-                  <Input size='large' placeholder={t('contactInfo.postalCodePlaceholder')} />
+                  <Input size='large' placeholder={t('contactInfo.postalCodePlaceholder')} className="text-base" />
                 </Form.Item>
               </div>
             </Card>
@@ -387,7 +440,7 @@ const OrganizationInformation: React.FC = () => {
 
             {/* File Upload Section */}
             <Card className="mb-8 p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">
                 {t('organization.upload.title')}
               </h3>
               
@@ -396,7 +449,7 @@ const OrganizationInformation: React.FC = () => {
                 <Button 
                   type="primary" 
                   onClick={addFileRow}
-                  className="bg-primary  border-blue-600 px-6 rounded-[16px]"
+                  className="bg-primary border-blue-600 px-6 rounded-[16px] text-base"
                 >
                   {t('organization.upload.addFile')}
                 </Button>
@@ -414,7 +467,7 @@ const OrganizationInformation: React.FC = () => {
                   >
                     <Button 
                       type="default"
-                      className="min-w-auto text-left px-3 py-[18px] border-gray-300 bg-gray-50 rounded-md"
+                      className="min-w-auto text-left px-3 py-[18px] border-gray-300 bg-gray-50 rounded-md text-base"
                     >
                       {row.file ? row.file.name : t('organization.upload.selectFile')}
                     </Button>
@@ -424,14 +477,14 @@ const OrganizationInformation: React.FC = () => {
                     onChange={(e) => handleDescriptionChange(row.id, e.target.value)}
                     placeholder={t('organization.upload.descriptionPlaceholder')}
                     size="small"
-                    className="ml-2 flex-1 px-3 py-2 border-gray-300 bg-gray-50 rounded-md"
+                    className="ml-2 flex-1 px-3 py-2 border-gray-300 bg-gray-50 rounded-md text-base"
                   />
                   <Button 
                     type="primary"
                     danger
                     onClick={() => handleFileRemove(row.id)}
                     size="small"
-                    className="ml-2 px-4 py-5 rounded-[30px] bg-red-500  "
+                    className="ml-2 px-4 py-5 rounded-[30px] bg-red-500 text-base"
                     icon={<DeleteOutlined />}
                   >
                     {t('organization.upload.delete')}
@@ -445,7 +498,7 @@ const OrganizationInformation: React.FC = () => {
               <Button 
                 size="large"
                 onClick={handleCancel}
-                className="px-7  hover:bg-gray-400 rounded-[26px] h-[40px]"
+                className="px-7 hover:bg-gray-400 rounded-[26px] h-[40px] text-base"
               >
                 {t('common.back')}
               </Button>
@@ -454,7 +507,7 @@ const OrganizationInformation: React.FC = () => {
                 htmlType="submit"
                 size="large"
                 loading={loading}
-                className="px-8 bg-primary hover:bg-blue-700 rounded-[26px] ml-4 h-[40px]"
+                className="px-8 bg-primary hover:bg-blue-700 rounded-[26px] ml-4 h-[40px] text-base"
               >
                 {t('common.next')}
               </Button>

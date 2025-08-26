@@ -254,7 +254,7 @@
     "title": "Contact Information",
     "phone": "Phone Number",
     "phoneRequired": "Please enter phone number",
-    "phoneBackup": "Backup Phone",
+    "phoneBackup": "Phone",
     "fax": "Fax Number",
     "address": "Address (Home/Office)",
     "addressRequired": "Please enter address",
