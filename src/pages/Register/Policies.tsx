@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Checkbox } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import BgPattern from '../../components/BgPattern';
 import { privacyPolicyTH, privacyPolicyEN, microbialCenterPolicyTH, microbialCenterPolicyEN, serviceAgreementPolicyTH, serviceAgreementPolicyEN, PolicySection, PolicySubsection } from '../../mock/policy';
 
@@ -9,10 +10,24 @@ const Policies: React.FC = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [checkedItems, setCheckedItems] = useState({
-    terms: false,
-    privacy: false,
-    cookies: false  
+    allPolicies: false
   });
+  const [isAtBottom, setIsAtBottom] = useState(false);
+
+  // ตรวจสอบว่าผู้ใช้อยู่ที่ล่างสุดของหน้าหรือไม่
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // ถ้าเลื่อนมาถึงล่างสุด (ให้ tolerance 100px)
+      setIsAtBottom(scrollTop + windowHeight >= documentHeight - 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // สร้างรายการนโยบายทั้งหมด
   const getPolicyData = () => {
@@ -45,6 +60,17 @@ const Policies: React.FC = () => {
   const handleAccept = () => {
     if (allChecked) {
       navigate('/organization-information');
+    }
+  };
+
+  // ฟังก์ชันสำหรับเลื่อนหน้า
+  const handleScrollAction = () => {
+    if (isAtBottom) {
+      // เลื่อนไปบนสุด
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // เลื่อนไปล่างสุด
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
     }
   };
 
@@ -117,35 +143,16 @@ const Policies: React.FC = () => {
           </div>
 
           {/* Checkboxes */}
-          <div className="space-y-4 mt-8 border-t pt-6">
-            <div className="flex items-start gap-3">
+          <div className="space-y-4 mt-8 border-t pt-6  flex   items-end">
+            <div className="flex gap-3">
               <Checkbox 
-                checked={checkedItems.terms}
-                onChange={(e) => handleCheckboxChange('terms', e.target.checked)}
-                className="mt-1" 
+                checked={checkedItems.allPolicies}
+                onChange={(e) => handleCheckboxChange('allPolicies', e.target.checked)}
+                className='mb-3'
+               
               />
               <span className="text-sm text-gray-700 leading-relaxed">
-                {t('policies.checkboxes.terms')}
-              </span>
-            </div>
-            <div className="flex items-start gap-3">
-              <Checkbox 
-                checked={checkedItems.privacy}
-                onChange={(e) => handleCheckboxChange('privacy', e.target.checked)}
-                className="mt-1" 
-              />
-              <span className="text-sm text-gray-700 leading-relaxed">
-                {t('policies.checkboxes.privacy')}
-              </span>
-            </div>
-            <div className="flex items-start gap-3">
-              <Checkbox 
-                checked={checkedItems.cookies}
-                onChange={(e) => handleCheckboxChange('cookies', e.target.checked)}
-                className="mt-1" 
-              />
-              <span className="text-sm text-gray-700 leading-relaxed">
-                {t('policies.checkboxes.cookies')}
+                {t('policies.checkboxes.allPolicies')}
               </span>
             </div>
           </div>
@@ -166,6 +173,18 @@ const Policies: React.FC = () => {
           >
             {t('policies.acceptButton')}
           </Button>
+        </div>
+
+        {/* Floating Scroll Button */}
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 lg:bottom-6 lg:right-6 z-50">
+          <Button
+            type="primary"
+            shape="circle"
+            size="large"
+            icon={isAtBottom ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
+            className="w-20  sm:w-14  md:w-16  lg:w-14 lborder-none shadow-lg hover:shadow-xl transition-all bg-white text-black hover:text-blue-800 flex items-center justify-center"
+            onClick={handleScrollAction}
+          />
         </div>
       </div>
     </div>

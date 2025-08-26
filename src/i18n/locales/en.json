@@ -97,9 +97,7 @@
     "acceptButton": "Accept and Register",
    
     "checkboxes": {
-      "terms": "I have read and accept the Personal Data Protection Policy",
-      "privacy": "I have read and accept the Policies and Conditions for Microorganism Deposit Center Services",
-      "cookies": "I have read and accept the Service Agreement for Microbial Strain and/or Biomaterial Deposit Services"
+      "allPolicies": "I have read and accept the Personal Data Protection Policy, Service Policies and Conditions, and all Service Agreements"
     }
   },
   "dashboard": {
