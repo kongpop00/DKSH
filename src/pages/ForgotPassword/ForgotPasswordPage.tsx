@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import AuthLayout from '../../components/AuthLayout';
 import MessagePage from '../MessagePage';
+import Navbar from '../../components/Navbar';
 
 const ForgotPasswordPage: React.FC = () => {
   const [form] = Form.useForm();
@@ -35,13 +37,18 @@ const ForgotPasswordPage: React.FC = () => {
   // แสดง MessagePage เมื่อ showMessage เป็น true
   if (showMessage) {
     return (
-      <MessagePage
-        status="success"
-        titleKey="forgotPassword.success.title"
-        description1Key="forgotPassword.success.description"
-        buttonTextKey="common.next"
-        navigateTo="/forgot-password/reset"
-      />
+      <>
+        <Navbar  className='fixed top-0 left-0 right-0 z-10'/>
+        <div  className="mt-[-60px] ">
+          <MessagePage
+            status="success"
+            titleKey="forgotPassword.success.title"
+            description1Key="forgotPassword.success.description"
+            buttonTextKey="common.next"
+            navigateTo="/forgot-password/reset"
+          />
+        </div>
+      </>
     );
   }
 
@@ -76,26 +83,29 @@ const ForgotPasswordPage: React.FC = () => {
             />
           </Form.Item>
 
-          <div className="flex gap-4  mt-8">
-            <Button
-              size="large"
-              onClick={handleBack}
-              className="flex-1 text-base h-12  rounded-[80px]  hover:bg-blue-700    text-base 3xl:text-xl 4xl:text-xl"
-            >
-              {t('common.back')}
-            </Button>
+        
+        </Form>
+          <div className="flex flex-col gap-4 mt-10">
+         
             <Button
               type="primary"
               htmlType="submit"
               size="large"
               loading={loading}
-              className="flex-1 text-base h-12 rounded-[80px] bg-blue-600 hover:bg-blue-700 border-blue-600 text-white font-medium text-base 3xl:text-xl 4xl:text-xl"
+              className="w-full h-10 3xl:h-10 4xl:h-16 rounded-[80px] bg-blue-800 hover:bg-blue-700 border-blue-600 text-white font-medium text-base 3xl:text-xl 4xl:text-xl"
            
             >
               {t('forgotPassword.sendButton')}
             </Button>
+               <Button
+              size="large"
+              onClick={handleBack}
+              icon={<ChevronLeft className="w-5 h-5" />}
+              className="w-full h-10 3xl:h-10 4xl:h-16 rounded-[80px] text-blue-800 font-medium text-base 3xl:text-xl 4xl:text-xl"
+            >
+              {t('common.back')}
+            </Button>
           </div>
-        </Form>
       </div>
     </AuthLayout>
   );

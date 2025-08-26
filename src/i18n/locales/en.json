@@ -331,7 +331,7 @@
     "submitButton": "Send Reset Instructions",
     "success": {
       "title": "Check Your Email",
-      "description": "We've sent password reset instructions to your email address."
+      "description": "Please check your email for instructions to reset your password."
     },
     "reset": {
       "title": "Reset Password",

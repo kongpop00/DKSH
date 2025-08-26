@@ -8,7 +8,6 @@ import DashboardPage from './pages/DashboardPage';
 import StyleExamplePage from './pages/StyleExamplePage';
 import ArticleDetail from './pages/ArticleDetail';
 import ForgotPasswordPage from './pages/ForgotPassword/ForgotPasswordPage';
-import ForgotPasswordSuccess from './pages/ForgotPassword/ForgotPasswordSuccess';
 import ForgotPasswordReset from './pages/ForgotPassword/ForgotPasswordReset';
 import ForgotPasswordComplete from './pages/ForgotPassword/ForgotPasswordComplete';
 
@@ -161,7 +160,7 @@ function App() {
               <Route path="/check-code" element={<CheckCodePage />} />
               <Route path="/article/:id" element={<ArticleDetail />} />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-              <Route path="/forgot-password/success" element={<ForgotPasswordSuccess />} />
+
               <Route path="/forgot-password/reset" element={<ForgotPasswordReset />} />
               <Route path="/forgot-password/complete" element={<ForgotPasswordComplete />} />
 
