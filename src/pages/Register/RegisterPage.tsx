@@ -154,7 +154,7 @@ const RegisterPage: React.FC = () => {
         style={{ minHeight: 0, width: '603px' }}
       >
         <div className="text-center">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-small text-gray-900 mb-1 sm:mb-2">{t('auth.registerTitle')}</h1>
+          <h1 className="text-xl sm:text-2xl md:text-4xl font-[400] text-gray-900 mb-1 sm:mb-2">{t('auth.registerTitle')}</h1>
           {/* <p className="text-gray-600 text-sm sm:text-base md:text-lg">{t('auth.registerSubtitle')}</p> */}
         </div>
 
@@ -174,7 +174,7 @@ const RegisterPage: React.FC = () => {
             ]}
           >
             <Input
-              placeholder="example@example.com"
+              placeholder={t('common.email')}
               className="h-10 sm:h-12 rounded-lg text-sm sm:text-base"
               onChange={(e) => handleEmailChange(e.target.value)}
             />
@@ -208,8 +208,8 @@ const RegisterPage: React.FC = () => {
           <div className="space-y-1 sm:space-y-2 p-2 sm:p-3 bg-gray-50 rounded-lg">
             <div className="text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t('validation.passwordRequirements')}</div>
             <ValidationItem valid={passwordValidation.length} text={t('validation.length8')} />
-            <ValidationItem valid={passwordValidation.uppercase} text="มีตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว" />
-            <ValidationItem valid={passwordValidation.lowercase} text="มีตัวพิมพ์เล็กอย่างน้อย 1 ตัว" />
+            <ValidationItem valid={passwordValidation.uppercase} text={t('validation.uppercase')} />
+            <ValidationItem valid={passwordValidation.lowercase} text={t('validation.lowercase')} />
             <ValidationItem valid={passwordValidation.number} text={t('validation.number')} />
             <ValidationItem valid={passwordValidation.special} text={t('validation.special')} />
           </div>
@@ -218,6 +218,7 @@ const RegisterPage: React.FC = () => {
             name="confirmPassword"
             label={<span className="text-sm sm:text-base md:text-lg">{t('common.confirmPassword')}</span>}
             dependencies={['password']}
+            key={`confirmPassword-${t('validation.passwordMismatch')}`}
             rules={[
               { required: true, message: t('validation.confirmPasswordRequired') },
               ({ getFieldValue }) => ({
