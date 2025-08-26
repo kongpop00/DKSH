@@ -311,7 +311,7 @@ const OrganizationInformation: React.FC = () => {
                     size="large"
                     placeholder={t('contactInfo.placeholder')}
                     className="text-base"
-                    maxLength={15}
+                    maxLength={10}
                     onKeyPress={(e) => {
                       if (!/[0-9\-+() ]/.test(e.key)) {
                         e.preventDefault();
@@ -335,7 +335,7 @@ const OrganizationInformation: React.FC = () => {
                     size='large' 
                     placeholder={t('contactInfo.placeholder')} 
                     className="text-base"
-                    maxLength={15}
+                    maxLength={10}
                     onKeyPress={(e) => {
                       if (!/[0-9\-+() ]/.test(e.key)) {
                         e.preventDefault();
@@ -398,6 +398,7 @@ const OrganizationInformation: React.FC = () => {
                 <Form.Item 
                   name="subdistrict" 
                   label={<span className="text-base">{t('contactInfo.subdistrict')}</span>}
+                  rules={[{ required: true, message: t('contactInfo.subdistrictRequired') }]}
                 >
                   <Input size='large' placeholder={t('contactInfo.placeholder')} className="text-base" />
                 </Form.Item>
@@ -405,6 +406,7 @@ const OrganizationInformation: React.FC = () => {
                 <Form.Item 
                   name="district" 
                   label={<span className="text-base">{t('contactInfo.district')}</span>}
+                  rules={[{ required: true, message: t('contactInfo.districtRequired') }]}
                 >
                   <Input size='large' placeholder={t('contactInfo.placeholder')} className="text-base" />
                 </Form.Item>
@@ -430,6 +432,7 @@ const OrganizationInformation: React.FC = () => {
                 <Form.Item 
                   name="postalCode" 
                   label={<span className="text-base">{t('contactInfo.postalCode')}</span>}
+                  rules={[{ required: true, message: t('contactInfo.postalCodeRequired') }]}
                 >
                   <Input size='large' placeholder={t('contactInfo.postalCodePlaceholder')} className="text-base" />
                 </Form.Item>
