@@ -79,7 +79,7 @@ const Policies: React.FC = () => {
       <div className="  text-gray-800  mt-2">{section.title}</div>
       
       {section.content && (
-        <div className="text-gray-700 whitespace-pre-line  ">{section.content}</div>
+        <div className="text-gray-700  ">{section.content}</div>
       )}
       
       {section.subsections?.map((subsection: PolicySubsection) => (
