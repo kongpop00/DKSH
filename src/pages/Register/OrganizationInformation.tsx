@@ -121,6 +121,51 @@ const OrganizationInformation: React.FC = () => {
                 {t('organization.services.subtitle')}
               </div>
               
+              {/* ส่วน checkbox สนใจบริการ */}
+              <div className="mb-2">
+                <Form.Item 
+                  noStyle
+                  shouldUpdate={(prevValues, currentValues) => {
+                    const prev = prevValues as OrganizationFormData;
+                    const current = currentValues as OrganizationFormData;
+                    return JSON.stringify(prev?.services) !== JSON.stringify(current?.services);
+                  }}
+                >
+                  {({ getFieldValue, setFieldsValue }) => {
+                    const services = getFieldValue('services') || [];
+                    const allServiceValues = [
+                      'quality-testing', 'culture-supply', 'public-deposit', 
+                      'conditional-deposit', 'safe-deposit', 'patent-search',
+                      'strain-preservation', 'microorganism-enumeration', 
+                      'microorganism-identification', 'data-services', 'other-services'
+                    ];
+                    
+                    const isAllChecked = allServiceValues.every(value => services.includes(value));
+                    const isIndeterminate = allServiceValues.some(value => services.includes(value)) && !isAllChecked;
+                    
+                    return (
+                      <Checkbox
+                        indeterminate={isIndeterminate}
+                        checked={isAllChecked}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFieldsValue({ services: allServiceValues });
+                          } else {
+                            setFieldsValue({ services: [] });
+                          }
+                        }}
+                        className="text-sm"
+                      >
+                        {t('organization.services.interestedAll')}
+                      </Checkbox>
+                    );
+                  }}
+                </Form.Item>
+              </div>
+
+              {/* เส้นแบ่ง */}
+              <div className="border-t border-gray-700 mb-6"></div>
+              
               <Form.Item name="services" rules={[{ required: true, message: t('organization.services.required') }]}> 
                 <Checkbox.Group className="w-full"> 
                   <div className="space-y-2">
@@ -164,8 +209,37 @@ const OrganizationInformation: React.FC = () => {
                       <Checkbox value="data-services" className="mr-2" />
                       {t('organization.services.dataServices')}
                     </div>
+                    <div className="flex items-center text-sm">
+                      <Checkbox value="other-services" className="mr-2" />
+                      งานบริการอื่นๆ (Other services)
+                    </div>
                   </div>
                 </Checkbox.Group> 
+              </Form.Item>
+
+              {/* Other Services Text Input */}
+              <Form.Item 
+                noStyle
+                shouldUpdate={(prevValues, currentValues) => {
+                  const prev = prevValues as OrganizationFormData;
+                  const current = currentValues as OrganizationFormData;
+                  return JSON.stringify(prev?.services) !== JSON.stringify(current?.services);
+                }}
+              >
+                {({ getFieldValue }) => {
+                  const services = getFieldValue('services') || [];
+                  return services.includes('other-services') ? (
+                    <div className="mt-4">
+                      <Form.Item name="otherServicesDetail">
+                        <Input 
+                          placeholder="ระบุข้อมูล"
+                          size="large"
+                          className="w-64"
+                        />
+                      </Form.Item>
+                    </div>
+                  ) : null;
+                }}
               </Form.Item>
             </Card>
 
@@ -174,7 +248,6 @@ const OrganizationInformation: React.FC = () => {
               <h3 className="text-lg font-semibold text-gray-800 mb-4">
                 {t('userInfo.title')}
               </h3>
-             
 
               {/* ประเภทผู้ใช้งาน */}
               <Form.Item name="userType" label={t('userInfo.type')} className="mb-4" rules={[{ required: true, message: t('userInfo.typeRequired') }]}>
@@ -186,101 +259,128 @@ const OrganizationInformation: React.FC = () => {
 
               {/* ข้อมูลส่วนตัว */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <Form.Item name="citizenId" label={t('userInfo.citizenId')} rules={[{ required: true, message: t('userInfo.citizenIdRequired') }]}> 
+                <Form.Item name="citizenId" label={t('userInfo.citizenId')} rules={[{ required: true, message: t('userInfo.citizenIdRequired') }]}>
                   <Input size="large" placeholder={t('userInfo.placeholder')} />
                 </Form.Item>
-                <Form.Item name="fullName" label={t('userInfo.fullName')} rules={[{ required: true, message: t('userInfo.fullNameRequired') }]}> 
+                <Form.Item name="fullName" label={t('userInfo.fullName')} rules={[{ required: true, message: t('userInfo.fullNameRequired') }]}>
                   <Input size='large' placeholder={t('userInfo.placeholder')} />
                 </Form.Item>
-                <Form.Item name="fullNameEng" label={t('userInfo.fullNameEng')} rules={[{ required: true, message: t('userInfo.fullNameEngRequired') }]}> 
+                <Form.Item name="fullNameEng" label={t('userInfo.fullNameEng')} rules={[{ required: true, message: t('userInfo.fullNameEngRequired') }]}>
                   <Input size="large" placeholder={t('userInfo.placeholder')} />
                 </Form.Item>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <Form.Item name="gender" label={t('userInfo.gender')} rules={[{ required: true, message: t('userInfo.genderRequired') }]}> 
-                  <Select size='large' placeholder={t('userInfo.genderPlaceholder')}> 
+                <Form.Item name="gender" label={t('userInfo.gender')} rules={[{ required: true, message: t('userInfo.genderRequired') }]}>
+                  <Select size='large' placeholder={t('userInfo.genderPlaceholder')}>
                     <Option value="male">{t('userInfo.male')}</Option>
                     <Option value="female">{t('userInfo.female')}</Option>
                     <Option value="other">{t('userInfo.other')}</Option>
                   </Select>
                 </Form.Item>
-                <Form.Item name="customerCode" label={t('userInfo.customerCode')} rules={[{ required: true, message: t('userInfo.customerCodeRequired') }]}> 
+                <Form.Item name="receiptName" label={t('userInfo.receiptName')}>
                   <Input size='large' placeholder={t('userInfo.placeholder')} />
                 </Form.Item>
               </div>
-               {/* Organization Details Section */}
-            <div className="mb-8 ">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                {t('organization.details.title')}
-              </h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-4">
-                     <Form.Item 
-                  name="organizationPhone" 
-                  label={t('organization.details.phone')}
-                  rules={[{ required: true, message: t('organization.details.phoneRequired') }]}
-                >
-                  <Input 
-                    size="large"
-                    placeholder={t('organization.details.phonePlaceholder')}
-                  />
-                </Form.Item>
-                </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <Form.Item 
-                  name="organizationName" 
-                  label={t('organization.details.name')}
-                  rules={[{ required: true, message: t('organization.details.nameRequired') }]}
-                >
+
+              {/* หมายเหตุ (optional) */}
+              <div className="mb-8  sm:w-[90%]  md:w-[60%]">
+                <Form.Item name="note" label={t('userInfo.note')}>
                   <TextArea 
                     rows={4}
-                    placeholder={t('organization.details.namePlaceholder')}
+                    placeholder={t('userInfo.notePlaceholder')}
                     showCount
                     maxLength={100}
                   />
                 </Form.Item>
-                
+              </div>
+
+              {/* ข้อมูลติดต่อ Section */}
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                {t('contactInfo.title')}
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <Form.Item 
+                  name="organizationPhone" 
+                  label={t('contactInfo.phone')}
+                  rules={[{ required: true, message: t('contactInfo.phoneRequired') }]}
+                >
+                  <Input 
+                    size="large"
+                    placeholder={t('contactInfo.placeholder')}
+                  />
+                </Form.Item>
+                <Form.Item 
+                  name="organizationPhoneBackup" 
+                  label={t('contactInfo.phoneBackup')}
+                >
+                  <Input size='large' placeholder={t('contactInfo.placeholder')} />
+                </Form.Item>
+                <Form.Item 
+                  name="organizationFax" 
+                  label={t('contactInfo.fax')}
+                >
+                  <Input size='large' placeholder={t('contactInfo.placeholder')} />
+                </Form.Item>
+              </div>
+
+              {/* ที่อยู่ (บ้าน/สำนักงาน) */}
+              <div className="mb-4 sm:w-[90%]  md:w-[60%]">
+                <Form.Item 
+                  name="organizationAddress" 
+                  label={t('contactInfo.address')}
+                  rules={[{ required: true, message: t('contactInfo.addressRequired') }]}
+                >
+                  <TextArea 
+                    rows={4}
+                    placeholder={t('contactInfo.addressPlaceholder')}
+                    showCount
+                    maxLength={100}
+                  />
+                </Form.Item>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <Form.Item 
                   name="subdistrict" 
-                  label={t('organization.details.subdistrict')}
+                  label={t('contactInfo.subdistrict')}
                 >
-                  <Input size='large' placeholder={t('organization.details.subdistrictPlaceholder')} />
+                  <Input size='large' placeholder={t('contactInfo.placeholder')} />
                 </Form.Item>
 
                 <Form.Item 
                   name="district" 
-                  label={t('organization.details.district')}
+                  label={t('contactInfo.district')}
                 >
-                  <Input size='large' placeholder={t('organization.details.districtPlaceholder')} />
+                  <Input size='large' placeholder={t('contactInfo.placeholder')} />
                 </Form.Item>
                 
                 <Form.Item 
                   name="province" 
-                  label={t('organization.details.province')}
-                  rules={[{ required: true, message: t('organization.details.provinceRequired') }]}
+                  label={t('contactInfo.province')}
+                  rules={[{ required: true, message: t('contactInfo.provinceRequired') }]}
                 >
-                  <Input size='large' placeholder={t('organization.details.provincePlaceholder')} />
+                  <Input size='large' placeholder={t('contactInfo.placeholder')} />
+                </Form.Item>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <Form.Item 
+                  name="country" 
+                  label={t('contactInfo.country')}
+                  rules={[{ required: true, message: t('contactInfo.countryRequired') }]}
+                >
+                  <Input size='large' placeholder={t('contactInfo.placeholder')} />
                 </Form.Item>
 
                 <Form.Item 
                   name="postalCode" 
-                  label={t('organization.details.postalCode')}
+                  label={t('contactInfo.postalCode')}
                 >
-                  <Input size='large' placeholder={t('organization.details.postalCodePlaceholder')} />
+                  <Input size='large' placeholder={t('contactInfo.postalCodePlaceholder')} />
                 </Form.Item>
-
-                <Form.Item 
-                  name="country" 
-                  label={t('organization.details.country')}
-                  rules={[{ required: true, message: t('organization.details.countryRequired') }]}
-                >
-                  <Input size='large' placeholder={t('organization.details.countryPlaceholder')} />
-                </Form.Item>
-              </div> 
-            </div>
+              </div>
             </Card>
 
            
