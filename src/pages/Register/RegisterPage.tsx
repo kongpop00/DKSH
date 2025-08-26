@@ -205,13 +205,13 @@ const RegisterPage: React.FC = () => {
             />
           </Form.Item>
 
-          <div className="space-y-1 sm:space-y-2 p-2 sm:p-3 bg-gray-50 rounded-lg">
+          <div className="space-y-1 sm:space-y-2 p-2 sm:p-3 bg-gray-50 rounded-lg" key={t('validation.passwordRequirements')}>
             <div className="text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t('validation.passwordRequirements')}</div>
-            <ValidationItem valid={passwordValidation.length} text={t('validation.length8')} />
-            <ValidationItem valid={passwordValidation.uppercase} text={t('validation.uppercase')} />
-            <ValidationItem valid={passwordValidation.lowercase} text={t('validation.lowercase')} />
-            <ValidationItem valid={passwordValidation.number} text={t('validation.number')} />
-            <ValidationItem valid={passwordValidation.special} text={t('validation.special')} />
+            <ValidationItem key={`length-${t('validation.length8')}`} valid={passwordValidation.length} text={t('validation.length8')} />
+            <ValidationItem key={`uppercase-${t('validation.uppercase')}`} valid={passwordValidation.uppercase} text={t('validation.uppercase')} />
+            <ValidationItem key={`lowercase-${t('validation.lowercase')}`} valid={passwordValidation.lowercase} text={t('validation.lowercase')} />
+            <ValidationItem key={`number-${t('validation.number')}`} valid={passwordValidation.number} text={t('validation.number')} />
+            <ValidationItem key={`special-${t('validation.special')}`} valid={passwordValidation.special} text={t('validation.special')} />
           </div>
 
           <Form.Item
