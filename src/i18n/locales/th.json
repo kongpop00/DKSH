@@ -17,7 +17,7 @@
     "logout": "ออกจากระบบ",
     "back": "ย้อนกลับ",
     "next": "ถัดไป",
-    "confirmVerification": "ยืนยันการตรวจสอบ"
+    "confirmVerification": "สร้างบัญชี"
   },
   "documents": {
     "title": "เอกสาร",
@@ -275,8 +275,8 @@
   "preview": {
     "account": {
       "title": "สร้างบัญชี",
-      "email": "Email",
-      "password": "Password"
+      "email": "อีเมล",
+      "password": "รหัสผ่าน"
     },
     "organization": {
       "title": "รูปแบบขององค์กร",
