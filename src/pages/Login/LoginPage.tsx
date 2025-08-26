@@ -137,7 +137,7 @@ const LoginPage: React.FC = () => {
               <button
                 type="button"
                 className="text-sm 3xl:text-base 4xl:text-lg text-black-600 hover:text-blue-800"
-                onClick={() => message.info('ฟีเจอร์นี้จะพร้อมใช้งานเร็วๆ นี้')}
+                onClick={() => navigate('/forgot-password')}
               >
                 {t('common.forgotPassword')}
               </button>

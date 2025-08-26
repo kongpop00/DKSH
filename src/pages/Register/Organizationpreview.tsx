@@ -25,7 +25,8 @@ const Organizationpreview: React.FC = () => {
         titleKey="message.success.title"
         description1Key="message.success.description1"
         buttonTextKey="message.success.button"
-        navigateTo="/dashboard"
+        navigateTo="/"
+        
       />
     );
   }

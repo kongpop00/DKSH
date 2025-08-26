@@ -7,6 +7,10 @@ import RegisterPage from './pages/Register/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import StyleExamplePage from './pages/StyleExamplePage';
 import ArticleDetail from './pages/ArticleDetail';
+import ForgotPasswordPage from './pages/ForgotPassword/ForgotPasswordPage';
+import ForgotPasswordSuccess from './pages/ForgotPassword/ForgotPasswordSuccess';
+import ForgotPasswordReset from './pages/ForgotPassword/ForgotPasswordReset';
+import ForgotPasswordComplete from './pages/ForgotPassword/ForgotPasswordComplete';
 
 import ButtonExamples from './components/btn/ButtonExamples';
 import './i18n';
@@ -156,6 +160,10 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/check-code" element={<CheckCodePage />} />
               <Route path="/article/:id" element={<ArticleDetail />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/forgot-password/success" element={<ForgotPasswordSuccess />} />
+              <Route path="/forgot-password/reset" element={<ForgotPasswordReset />} />
+              <Route path="/forgot-password/complete" element={<ForgotPasswordComplete />} />
 
               {/* Routes with Navbar */}
               {[

@@ -17,6 +17,7 @@
     "logout": "Logout",
     "back": "Back",
     "next": "Next",
+    "backToLogin": "Back to Login",
     "confirmVerification": "Create Account"
   },
   "documents": {
@@ -320,6 +321,35 @@
       "fileName": "Attached File",
       "description": "Description",
       "type": "Identity Verification Document"
+    }
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "description": "Enter your email address and we'll send you instructions to reset your password.",
+    "emailPlaceholder": "Enter your email address",
+    "sendButton": "Confirm",
+    "submitButton": "Send Reset Instructions",
+    "success": {
+      "title": "Check Your Email",
+      "description": "We've sent password reset instructions to your email address."
+    },
+    "reset": {
+      "title": "Reset Password",
+      "description": "Enter your new password below.",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Enter new password",
+      "confirmPassword": "Confirm New Password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "passwordRequired": "Password is required",
+      "confirmPasswordRequired": "Please confirm your password",
+      "passwordMinLength": "Password must be at least 8 characters",
+      "passwordPattern": "Password must contain uppercase, lowercase and number",
+      "passwordMismatch": "Passwords do not match",
+      "submitButton": "Reset Password"
+    },
+    "complete": {
+      "title": "Password Reset Complete",
+      "description": "Your password has been successfully reset. You can now sign in with your new password."
     }
   }
 }
