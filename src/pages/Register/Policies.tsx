@@ -3,15 +3,19 @@ import { Button, Checkbox } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import BgPattern from '../../components/BgPattern';
+import { privacyPolicyTH, privacyPolicyEN, PolicySection, PolicySubsection } from '../../mock/policy';
 
 const Policies: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [checkedItems, setCheckedItems] = useState({
     terms: false,
     privacy: false,
     cookies: false  
   });
+
+  // ใช้ข้อมูลจาก mock policy.ts
+  const policyData = i18n.language === 'th' ? privacyPolicyTH : privacyPolicyEN;
 
   const handleCheckboxChange = (key: keyof typeof checkedItems, checked: boolean) => {
     setCheckedItems(prev => ({
@@ -28,23 +32,46 @@ const Policies: React.FC = () => {
     }
   };
 
+  const renderPolicySection = (section: PolicySection) => (
+    <div key={section.id} className="">
+      <div className="  text-gray-800  mt-4">{section.title}</div>
+      
+      {section.content && (
+        <div className="text-gray-700 whitespace-pre-line  ">{section.content}</div>
+      )}
+      
+      {section.subsections?.map((subsection: PolicySubsection) => (
+        <div key={subsection.id} className="ml-4 mt-4 ">
+          <div className="text-md  ">{subsection.title}</div>
+          {subsection.content && (
+            <div className="text-gray-700 whitespace-pre-line ">{subsection.content}</div>
+          )}
+          {subsection.items && (
+            <ul className="    pl-6 space-y-3">
+              {subsection.items.map((item: string, index: number) => (
+                <li key={index} className="text-gray-700 leading-relaxed">{item}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-4 sm:p-6 md:p-8 relative">
       <BgPattern />
-      <div className="max-w-4xl mx-auto relative z-10"> 
+      <div className="max-w-6xl mx-auto relative z-10"> 
         {/* Header */}
-        <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            {t('policies.title')}
-          </h1>
-        </div>
-
+       
         {/* Content Container */}
         <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 mb-6">
           <div className="prose prose-sm sm:prose-base max-w-none text-gray-700 leading-relaxed text-justify">
-            <div
-              dangerouslySetInnerHTML={{ __html: t('policies.content.html', { returnObjects: false }) }}
-            />
+            {/* แสดงชื่อ policy */}
+            <div className="text-[31px] font-[500] text-gray-800 mb-6 text-center">{policyData.title}</div>
+
+            {/* แสดงเนื้อหา policy แต่ละ section */}
+            {policyData.sections.map(renderPolicySection)}
           </div>
 
           {/* Checkboxes */}
