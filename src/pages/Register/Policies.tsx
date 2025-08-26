@@ -3,7 +3,7 @@ import { Button, Checkbox } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import BgPattern from '../../components/BgPattern';
-import { privacyPolicyTH, privacyPolicyEN, PolicySection, PolicySubsection } from '../../mock/policy';
+import { privacyPolicyTH, privacyPolicyEN, microbialCenterPolicyTH, microbialCenterPolicyEN, serviceAgreementPolicyTH, serviceAgreementPolicyEN, PolicySection, PolicySubsection } from '../../mock/policy';
 
 const Policies: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -14,8 +14,24 @@ const Policies: React.FC = () => {
     cookies: false  
   });
 
-  // ใช้ข้อมูลจาก mock policy.ts
-  const policyData = i18n.language === 'th' ? privacyPolicyTH : privacyPolicyEN;
+  // สร้างรายการนโยบายทั้งหมด
+  const getPolicyData = () => {
+    if (i18n.language === 'th') {
+      return {
+        privacy: privacyPolicyTH,
+        microbial: microbialCenterPolicyTH,
+        serviceAgreement: serviceAgreementPolicyTH
+      };
+    } else {
+      return {
+        privacy: privacyPolicyEN,
+        microbial: microbialCenterPolicyEN,
+        serviceAgreement: serviceAgreementPolicyEN
+      };
+    }
+  };
+
+  const policies = getPolicyData();
 
   const handleCheckboxChange = (key: keyof typeof checkedItems, checked: boolean) => {
     setCheckedItems(prev => ({
@@ -34,7 +50,7 @@ const Policies: React.FC = () => {
 
   const renderPolicySection = (section: PolicySection) => (
     <div key={section.id} className="">
-      <div className="  text-gray-800  mt-4">{section.title}</div>
+      <div className="  text-gray-800  mt-2">{section.title}</div>
       
       {section.content && (
         <div className="text-gray-700 whitespace-pre-line  ">{section.content}</div>
@@ -44,10 +60,10 @@ const Policies: React.FC = () => {
         <div key={subsection.id} className="ml-4 mt-4 ">
           <div className="text-md  ">{subsection.title}</div>
           {subsection.content && (
-            <div className="text-gray-700 whitespace-pre-line ">{subsection.content}</div>
+            <div className="text-gray-700  ">{subsection.content}</div>
           )}
           {subsection.items && (
-            <ul className="    pl-6 space-y-3">
+            <ul className=" pl-6 ">
               {subsection.items.map((item: string, index: number) => (
                 <li key={index} className="text-gray-700 leading-relaxed">{item}</li>
               ))}
@@ -67,11 +83,37 @@ const Policies: React.FC = () => {
         {/* Content Container */}
         <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 mb-6">
           <div className="prose prose-sm sm:prose-base max-w-none text-gray-700 leading-relaxed text-justify">
-            {/* แสดงชื่อ policy */}
-            <div className="text-[31px] font-[500] text-gray-800 mb-6 text-center">{policyData.title}</div>
+            
+            {/* นโยบายการคุ้มครองข้อมูลส่วนบุคคล */}
+            <div className="mb-12">
+              <div className="text-[31px] font-[500] text-gray-800 mb-6 text-center">
+                {policies.privacy.title}
+              </div>
+              {policies.privacy.sections.map(renderPolicySection)}
+            </div>
 
-            {/* แสดงเนื้อหา policy แต่ละ section */}
-            {policyData.sections.map(renderPolicySection)}
+            {/* เส้นแบ่ง */}
+            <div className="border-t-2 border-gray-200 my-8"></div>
+
+            {/* นโยบายศูนย์รับฝากจุลินทรีย์ */}
+            <div className="mb-12">
+              <div className="text-[31px] font-[500] text-gray-800 mb-6 text-center">
+                {policies.microbial.title}
+              </div>
+              {policies.microbial.sections.map(renderPolicySection)}
+            </div>
+
+            {/* เส้นแบ่ง */}
+            <div className="border-t-2 border-gray-200 my-8"></div>
+
+            {/* ข้อตกลงการให้บริการฝากเก็บสายพันธุ์จุลินทรีย์ */}
+            <div className="mb-12">
+              <div className="text-[31px] font-[500] text-gray-800 mb-6 text-center">
+                {policies.serviceAgreement.title}
+              </div>
+              {policies.serviceAgreement.sections.map(renderPolicySection)}
+            </div>
+
           </div>
 
           {/* Checkboxes */}
