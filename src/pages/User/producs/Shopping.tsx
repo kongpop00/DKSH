@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {  useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button, Typography, Card, Row, Col, Divider, Space, Tag } from 'antd';
+import { Button, Typography, Card, Row, Col, Divider, Space, Tag, Checkbox } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import Header from '../../../components/user/header';
 import QuantitySelector from '../../../components/user/QuantitySelector';
@@ -36,6 +36,7 @@ const Shopping: React.FC = () => {
   
   const [quantities, setQuantities] = useState<{[key: string]: number}>({});
   const [mainProductQuantity, setMainProductQuantity] = useState<number>(0);
+  const [selectedProducts, setSelectedProducts] = useState<{[key: string]: boolean}>({});
 
   // Mock product data - ในการใช้งานจริงจะดึงจาก API ตาม productId
   const productDetail: ProductDetail = {
@@ -65,6 +66,25 @@ const Shopping: React.FC = () => {
     setQuantities(prev => ({
       ...prev,
       [productName]: value
+    }));
+    
+    // ถ้าเลือกรายการมากกว่า 0 ให้ checkbox ติ๊ก, ถ้าเป็น 0 ให้ติ๊กออก
+    setSelectedProducts(prev => ({
+      ...prev,
+      [productName]: value > 0
+    }));
+  };
+
+  const handleProductSelect = (productName: string, checked: boolean) => {
+    setSelectedProducts(prev => ({
+      ...prev,
+      [productName]: checked
+    }));
+    
+    // เมื่อติ๊ก checkbox ให้ตั้งจำนวนเป็น 1, เมื่อติ๊กออกให้เคลียเป็น 0
+    setQuantities(prev => ({
+      ...prev,
+      [productName]: checked ? 1 : 0
     }));
   };
 
@@ -131,22 +151,22 @@ const Shopping: React.FC = () => {
               <div className="mb-4">
                 <Row justify="space-between" align="middle" className="mb-2">
                   <Col>
-                    <Title level={3} className="mb-0">
+                    <Title level={2} className="mb-0" style={{ fontSize: '28px' }}>
                       {productDetail.productName}
                     </Title>
                   </Col>
                   <Col>
-                    <Title level={4} className="mb-0" style={{ color: '#1e40af', margin: 0 }}>
+                    <Title level={3} className="mb-0" style={{ color: '#1e40af', margin: 0, fontSize: '24px' }}>
                       ฿ {productDetail.price.toLocaleString()}.00 {productDetail.unit}
                     </Title>
                   </Col>
                 </Row>
-                <Space className="mb-4">
-                  <Text strong>รหัสสินค้า:</Text>
-                  <Text>{productDetail.productCode}</Text>
-                  <Text strong>TISTR Number:</Text>
-                  <Text>{productDetail.tistrNumber}</Text>
-                  <Tag color="blue">{productDetail.grade}</Tag>
+                <Space className="mb-4" style={{ fontSize: '16px' }}>
+                  <Text strong style={{ fontSize: '16px' }}>รหัสสินค้า:</Text>
+                  <Text style={{ fontSize: '16px' }}>{productDetail.productCode}</Text>
+                  <Text strong style={{ fontSize: '16px' }}>TISTR Number:</Text>
+                  <Text style={{ fontSize: '16px' }}>{productDetail.tistrNumber}</Text>
+                  <Tag color="blue" style={{ fontSize: '14px', padding: '4px 8px' }}>{productDetail.grade}</Tag>
                 </Space>
               </div>
 
@@ -155,43 +175,46 @@ const Shopping: React.FC = () => {
               </div>
 
               <div className="">
-                <Title level={5} className="mb-2">{t('shopping.description')}</Title>
-                <Text>{productDetail.description}</Text>
+                <Title level={4} className="mb-2" style={{ fontSize: '20px' }}>{t('shopping.description')}</Title>
+                <Text style={{ fontSize: '16px', lineHeight: '1.6' }}>{productDetail.description}</Text>
               </div>
               
-              <div className="flex items-center gap-4 my-6 p-4 bg-gray-50 rounded-lg">
-                <Text strong style={{ fontSize: '16px' }}>จำนวน:</Text>
+              <div className="flex items-center gap-4 my-6 ">
+                {/* <Text strong style={{ fontSize: '18px' }}>จำนวน:</Text> */}
                 <QuantitySelector
                   value={mainProductQuantity}
                   onChange={setMainProductQuantity}
                   size="middle"
-                  min={0}
+                  min={1}
                   max={999}
                   width={140}
                 />
               </div>
               {/* Related Products */}
               <div>
-                <Title level={5} className="mb-4">{t('shopping.additionalItems')}</Title>
+                <Title level={4} className="mb-4" style={{ fontSize: '20px' }}>{t('shopping.additionalItems')}</Title>
                 
                 {/* หัวตาราง */}
                 <Row className="bg-gray-100 p-3 font-semibold border rounded-t-lg">
-                  <Col span={10}>
-                    <Text strong>รายการ</Text>
+                  <Col span={2} className="text-center">
+                    <Text strong style={{ fontSize: '16px' }}></Text>
+                  </Col>
+                  <Col span={8}>
+                    <Text strong style={{ fontSize: '16px' }}>รายการ</Text>
                   </Col>
                   <Col span={6} className="text-center">
-                    <Text strong>จำนวน</Text>
+                    <Text strong style={{ fontSize: '16px' }}>จำนวน</Text>
                   </Col>
                   <Col span={4} className="text-center">
-                    <Text strong>ราคาต่อหน่วย</Text>
+                    <Text strong style={{ fontSize: '16px' }}>ราคาต่อหน่วย</Text>
                   </Col>
                   <Col span={4} className="text-center">
-                    <Text strong>ราคารวม</Text>
+                    <Text strong style={{ fontSize: '16px' }}>ราคารวม</Text>
                   </Col>
                 </Row>
                 
                 {/* รายการสินค้า */}
-                <div className="border-x border-b rounded-b-lg">
+                <div className=" border-b rounded-b-lg py-3">
                   {relatedProducts.map((product, index) => {
                     const quantity = quantities[product.name] || 0;
                     const totalPrice = quantity * product.unitPrice;
@@ -201,8 +224,14 @@ const Shopping: React.FC = () => {
                         key={index} 
                         className={`items-center p-3 hover:bg-gray-50 ${index < relatedProducts.length - 1 ? 'border-b' : ''}`}
                       >
-                        <Col span={10}>
-                          <Text>{product.name}</Text>
+                        <Col span={2} className="text-center">
+                          <Checkbox 
+                            checked={selectedProducts[product.name] || false}
+                            onChange={(e) => handleProductSelect(product.name, e.target.checked)}
+                          />
+                        </Col>
+                        <Col span={8}>
+                          <Text style={{ fontSize: '16px' }}>{product.name}</Text>
                         </Col>
                         <Col span={6} className="flex justify-center">
                           <QuantitySelector
@@ -215,10 +244,10 @@ const Shopping: React.FC = () => {
                           />
                         </Col>
                         <Col span={4} className="text-center">
-                          <Text>฿ {product.unitPrice.toLocaleString()}.00</Text>
+                          <Text style={{ fontSize: '16px' }}>฿ {product.unitPrice.toLocaleString()}.00</Text>
                         </Col>
                         <Col span={4} className="text-center">
-                          <Text strong style={{ color: totalPrice > 0 ? '#1e40af' : 'inherit' }}>
+                          <Text strong style={{ color: totalPrice > 0 ? '#1e40af' : 'inherit', fontSize: '16px' }}>
                             ฿ {totalPrice.toLocaleString()}.00
                           </Text>
                         </Col>
@@ -232,18 +261,34 @@ const Shopping: React.FC = () => {
 
           {/* Order Summary */}
           <Col xs={24} lg={10}>
-            <Card title={t('shopping.orderSummary')} className="sticky top-6">
+            <Card title={t('shopping.orderSummary')} className="sticky top-6" headStyle={{ fontSize: '18px' }}>
               <div className="space-y-4">
+                {/* หัวตาราง Order Summary */}
+                {(mainProductQuantity > 0 || Object.keys(quantities).some(key => quantities[key] > 0)) && (
+                  <Row className="bg-gray-100 p-3 font-semibold border rounded-lg mb-4">
+                    <Col span={14}>
+                      <Text strong style={{ fontSize: '16px' }}>รายการ</Text>
+                    </Col>
+                    <Col span={5} className="text-center">
+                      <Text strong style={{ fontSize: '16px' }}>จำนวน</Text>
+                    </Col>
+                    <Col span={5} className="text-center">
+                      <Text strong style={{ fontSize: '16px' }}>ราคารวม</Text>
+                    </Col>
+                  </Row>
+                )}
+                
                 {/* แสดงสินค้าหลัก */}
                 {mainProductQuantity > 0 && (
-                  <Row justify="space-between">
-                    <Col>
-                      <Text strong>{productDetail.productName}</Text>
-                      <br />
-                      <Text type="secondary">x{mainProductQuantity}</Text>
+                  <Row justify="space-between" className="py-2">
+                    <Col span={14}>
+                      <Text strong style={{ fontSize: '16px' }}>{productDetail.productName}</Text>
                     </Col>
-                    <Col>
-                      <Text strong>฿ {(mainProductQuantity * productDetail.price).toLocaleString()}.00</Text>
+                    <Col span={5} className="text-center">
+                      <Text style={{ fontSize: '20px' }}>x{mainProductQuantity}</Text>
+                    </Col>
+                    <Col span={5} className="text-center">
+                      <Text strong style={{ fontSize: '16px' }}>฿ {(mainProductQuantity * productDetail.price).toLocaleString()}.00</Text>
                     </Col>
                   </Row>
                 )}
@@ -254,14 +299,15 @@ const Shopping: React.FC = () => {
                   if (quantity === 0) return null;
                   
                   return (
-                    <Row key={index} justify="space-between">
-                      <Col>
-                        <Text>{product.name}</Text>
-                        <br />
-                        <Text type="secondary">x{quantity}</Text>
+                    <Row key={index} justify="space-between" className="py-2">
+                      <Col span={14}>
+                        <Text style={{ fontSize: '16px' }}>{product.name}</Text>
                       </Col>
-                      <Col>
-                        <Text strong>฿ {(quantity * product.unitPrice).toLocaleString()}.00</Text>
+                      <Col span={5} className="text-center">
+                        <Text type="secondary" style={{ fontSize: '14px' }}>x{quantity}</Text>
+                      </Col>
+                      <Col span={5} className="text-center">
+                        <Text strong style={{ fontSize: '16px' }}>฿ {(quantity * product.unitPrice).toLocaleString()}.00</Text>
                       </Col>
                     </Row>
                   );
@@ -272,10 +318,10 @@ const Shopping: React.FC = () => {
                     <Divider />
                     <Row justify="space-between" className="text-lg">
                       <Col>
-                        <Text strong>{t('shopping.total')}</Text>
+                        <Text strong style={{ fontSize: '20px' }}>{t('shopping.total')}</Text>
                       </Col>
                       <Col>
-                        <Text strong className="text-blue-600">
+                        <Text strong className="text-blue-600" style={{ fontSize: '20px' }}>
                           ฿ {calculateTotal().toLocaleString()}.00
                         </Text>
                       </Col>
@@ -292,6 +338,7 @@ const Shopping: React.FC = () => {
                   icon={<ShoppingCartOutlined />}
                   onClick={handleAddToCart}
                   disabled={calculateTotal() === 0}
+                  style={{ fontSize: '16px', height: '48px' }}
                 >
                   {t('shopping.addToCart')}
                 </Button>
