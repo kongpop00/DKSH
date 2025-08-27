@@ -6,6 +6,7 @@ interface SlideImage {
   src: string;
   alt: string;
   title?: string;
+  time?: number; // เวลาในการแสดงสไลด์ (milliseconds)
 }
 
 interface SliderComponentProps {
@@ -82,13 +83,43 @@ const getYouTubeVideoId = (url: string): string => {
 
 const SliderComponent: React.FC<SliderComponentProps> = ({ 
   images, 
-  autoplay = false, // Changed default to false
+  autoplay = true, // Changed default to true
   autoplaySpeed = 3000
 }) => {
   const [sliderHeight, setSliderHeight] = React.useState('500px');
   const [currentSlide, setCurrentSlide] = React.useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = React.useState(autoplay);
   const carouselRef = React.useRef<React.ComponentRef<typeof Carousel> | null>(null);
   const iframeRefs = React.useRef<{ [key: number]: HTMLIFrameElement | null }>({});
+  const autoPlayTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Custom autoplay with individual slide timing
+  React.useEffect(() => {
+    if (!isAutoPlaying || !images.length) return;
+
+    const startAutoPlay = () => {
+      if (autoPlayTimerRef.current) {
+        clearTimeout(autoPlayTimerRef.current);
+      }
+
+      const currentImage = images[currentSlide];
+      const slideTime = currentImage?.time || autoplaySpeed;
+
+      autoPlayTimerRef.current = setTimeout(() => {
+        const nextSlide = (currentSlide + 1) % images.length;
+        setCurrentSlide(nextSlide);
+        carouselRef.current?.goTo(nextSlide);
+      }, slideTime);
+    };
+
+    startAutoPlay();
+
+    return () => {
+      if (autoPlayTimerRef.current) {
+        clearTimeout(autoPlayTimerRef.current);
+      }
+    };
+  }, [currentSlide, isAutoPlaying, images, autoplaySpeed]);
 
   React.useEffect(() => {
     const updateHeight = () => {
@@ -129,11 +160,17 @@ const SliderComponent: React.FC<SliderComponentProps> = ({
   };
 
   const goToPrev = () => {
+    setIsAutoPlaying(false); // หยุด autoplay เมื่อผู้ใช้คลิก
     carouselRef.current?.prev();
+    // เริ่ม autoplay ใหม่หลังจาก 3 วินาที
+    setTimeout(() => setIsAutoPlaying(true), 3000);
   };
 
   const goToNext = () => {
+    setIsAutoPlaying(false); // หยุด autoplay เมื่อผู้ใช้คลิก
     carouselRef.current?.next();
+    // เริ่ม autoplay ใหม่หลังจาก 3 วินาที
+    setTimeout(() => setIsAutoPlaying(true), 3000);
   };
 
   if (!images || images.length === 0) {
@@ -178,8 +215,7 @@ const SliderComponent: React.FC<SliderComponentProps> = ({
       <Carousel 
         ref={carouselRef}
         afterChange={onChange}
-        autoplay={autoplay}
-        autoplaySpeed={autoplaySpeed}
+        autoplay={false} // ปิด autoplay ของ Ant Design ใช้ custom autoplay แทน
         dots={true}
         infinite={true}
         speed={500}

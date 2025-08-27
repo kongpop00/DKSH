@@ -13,24 +13,25 @@ const HomePage: React.FC = () => {
       id: 1,
       src: '/src/assets/imgSliderTest/glo-A7406046-Edit-00293251-(2)-02710190_16-9.jpeg',
       alt: 'Slide 1',
-    
+      time: 10000, // 5 วินาที
     },
     {
       id: 2,
       src: '/src/assets/imgSliderTest/istockphoto-619199142-640x640.jpg',
-      alt: 'Slide 2', 
-
+      alt: 'Slide 2',
+      time: 10000, // 3 วินาที
     },
     {
       id: 3,
       src: '/src/assets/imgSliderTest/istockphoto-949946968-612x612.jpg',
       alt: 'Slide 3',
-  
+      time: 10000, // 4 วินาที
     },
     {
       id: 4,
-      src: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      src: 'https://www.youtube.com/watch?v=Ec5VpJtX-pk',
       alt: 'YouTube Video',
+      time: 10000, // 6 วินาที
     }
   ];
 
@@ -143,10 +144,10 @@ const HomePage: React.FC = () => {
       </div>
       <SliderComponent 
         images={sliderImages}
-        autoplay={false}
+        autoplay={true}
       />
       <div className="grid grid-cols-12 gap-4 p-4 h-[800px] bg-green-500">
-        <div className="col-span-12 md:col-span-7  pr-4 rounded-lg shadow-md bg-red-500 ">
+        <div className="col-span-12 md:col-span-9  pr-4 rounded-lg shadow-md bg-red-500 ">
          <div className='bg-yellow-400 h-[45%] '>
           {mainArticle && (
             <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full flex">
@@ -379,20 +380,20 @@ const HomePage: React.FC = () => {
           </div>
          </div>
         </div>
-        <div className="col-span-12 md:col-span-5 bg-white p-6 rounded-lg shadow-md">
+        <div className="col-span-12 md:col-span-3 bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-xl font-semibold mb-6 text-gray-800">{t('documents.title')}</h2>
           
           {/* Documents List */}
-          <div className="space-y-3">
+          <div className="space-y-3 h-full max-h-[700px] overflow-y-auto">
             {/* Header */}
-            <div className="grid grid-cols-3 gap-4 pb-3 border-b border-gray-200">
-              <span className="text-sm font-medium text-gray-600">{t('documents.name')}</span>
-              <span className="text-sm font-medium text-gray-600 text-center">{t('documents.update')}</span>
+            <div className="grid grid-cols-3 gap-4 pb-3 border-b border-gray-200 sticky top-0 bg-white z-10">
+              <span className="text-base font-medium text-gray-600">{t('documents.name')}</span>
+              <span className="text-base font-medium text-gray-600 text-center">{t('documents.update')}</span>
               <span></span>
             </div>
 
             {/* Document Items */}
-            <div className="space-y-2">
+            <div className="space-y-2 pb-4">
               {[
                 { name: "Document: Permission Req...", date: "1/07/2568" },
                 { name: "Document: Safety Data She...", date: "1/07/2568" },
@@ -408,32 +409,32 @@ const HomePage: React.FC = () => {
                 { name: "Document: Marketing Strate...", date: "30/09/2568" },
                 { name: "Document: Budget Report", date: "2/10/2568" },
                 { name: "Document: Risk Assessment", date: "10/10/2568" },
+                 { name: "Document: Purchase Order...", date: "14/08/2568" },
+                { name: "Document: User Manual", date: "1/07/2568" },
+                { name: "Document: Project Proposal", date: "18/09/2568" },
+                { name: "Document: Terms and Cond...", date: "21/09/2568" },
+                { name: "Document: Marketing Strate...", date: "30/09/2568" },
+                { name: "Document: Budget Report", date: "2/10/2568" },
+                { name: "Document: Risk Assessment", date: "10/10/2568" },
               ].map((doc, index) => (
                 <div 
                   key={index}
-                  className="grid grid-cols-3 gap-4 py-2 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer group"
+                  className="grid grid-cols-2  py-2 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer group"
                 >
-                  <span className="text-sm text-gray-700 group-hover:text-blue-600 truncate">
+                  <span className="text-base text-gray-700 group-hover:text-blue-600 truncate">
                     {doc.name}
                   </span>
-                  <span className="text-sm text-gray-500 text-center">
+                  <span className="text-base text-gray-500 text-center">
                     {doc.date}
                   </span>
                   <div className="flex justify-end">
-                    <button className="text-blue-600 hover:text-blue-800 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                      {t('documents.download')}
-                    </button>
+                  
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Show More Button */}
-            <div className="pt-4 border-t border-gray-100">
-              <button className="w-full text-blue-600 hover:text-blue-800 text-sm font-medium py-2 rounded-lg hover:bg-blue-50 transition-colors">
-                {t('documents.viewAll')} →
-              </button>
-            </div>
+          
           </div>
         </div>
       </div>

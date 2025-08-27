@@ -12,8 +12,8 @@ const CheckCodePage: React.FC = () => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [otpValue, setOtpValue] = useState('');
-  const [countdown, setCountdown] = useState(180); // 180 วินาที
-  const [canResend, setCanResend] = useState(false);
+  const [countdown, setCountdown] = useState(0); // เริ่มต้นที่ 0
+  const [canResend, setCanResend] = useState(true); // เริ่มต้นให้กดได้
   const [otpError, setOtpError] = useState(false);
 
   // useEffect สำหรับนับถอยหลัง
@@ -77,7 +77,7 @@ const CheckCodePage: React.FC = () => {
   const handleResendCode = () => {
     if (canResend) {
       message.success(t('auth.resendSuccess'));
-      setCountdown(180); // รีเซ็ตเวลา
+      setCountdown(180); // เริ่มนับเวลา 180 วินาที
       setCanResend(false); // ปิดการใช้งานปุ่ม
     }
   };
@@ -183,7 +183,7 @@ const CheckCodePage: React.FC = () => {
                   : 'cursor-not-allowed'
               }`}
               style={{ 
-                color: canResend ? '#1890FF' : '#9CA3AF' 
+                color: canResend ? '#1b4db1' : '#9CA3AF' 
               }}
               onClick={handleResendCode}
               disabled={!canResend}
