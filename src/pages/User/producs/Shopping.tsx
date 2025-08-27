@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import {  useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button, InputNumber, Typography, Card, Row, Col, Divider, Space, Tag } from 'antd';
+import { Button, Typography, Card, Row, Col, Divider, Space, Tag } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import Header from '../../../components/user/header';
+import QuantitySelector from '../../../components/user/QuantitySelector';
 
 const { Title, Text } = Typography;
 
@@ -59,11 +60,10 @@ const Shopping: React.FC = () => {
     { name: 'บริการข้อมูลผลิตภัณฑ์', quantity: 0, unitPrice: 200.00, totalPrice: 0 }
   ];
 
-  const handleQuantityChange = (productName: string, value: number | null) => {
-    const quantity = value || 0;
+  const handleQuantityChange = (productName: string, value: number) => {
     setQuantities(prev => ({
       ...prev,
-      [productName]: quantity
+      [productName]: value
     }));
   };
 
@@ -140,34 +140,17 @@ const Shopping: React.FC = () => {
                 <div className="space-y-3">
                   {relatedProducts.map((product, index) => (
                     <Row key={index} className="items-center p-3 border rounded-lg hover:bg-gray-50">
-                      <Col span={8}>
+                      <Col span={12}>
                         <Text>{product.name}</Text>
                       </Col>
-                      <Col span={4} className="text-center">
-                        <Button 
-                          size="small" 
-                          onClick={() => handleQuantityChange(product.name, (quantities[product.name] || 0) - 1)}
-                          disabled={(quantities[product.name] || 0) <= 0}
-                        >
-                          -
-                        </Button>
-                      </Col>
-                      <Col span={4} className="text-center">
-                        <InputNumber
-                          min={0}
+                      <Col span={8} className="flex justify-center">
+                        <QuantitySelector
                           value={quantities[product.name] || 0}
                           onChange={(value) => handleQuantityChange(product.name, value)}
-                          className="w-16 text-center"
-                          controls={false}
+                          size="small"
+                          min={0}
+                          max={999}
                         />
-                      </Col>
-                      <Col span={4} className="text-center">
-                        <Button 
-                          size="small" 
-                          onClick={() => handleQuantityChange(product.name, (quantities[product.name] || 0) + 1)}
-                        >
-                          +
-                        </Button>
                       </Col>
                       <Col span={4} className="text-right">
                         <Text strong>฿ {product.unitPrice.toLocaleString()}.00</Text>
