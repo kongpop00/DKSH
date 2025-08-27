@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Tabs, Select, Tag, Input, Pagination } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -30,6 +31,7 @@ interface Service {
 }
 
 const Products: React.FC = () => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('varieties');
   const [selectedVarieties, setSelectedVarieties] = useState<string[]>(['1', '2', '3', '4']); // Pre-select all varieties like in the image
   const [searchText, setSearchText] = useState('');
@@ -141,43 +143,43 @@ const Products: React.FC = () => {
   // Table columns for products
   const productColumns = [
     {
-      title: 'รหัสสินค้า',
+      title: t('products.columns.productCode'),
       dataIndex: 'productCode',
       key: 'productCode',
       width: 100,
     },
     {
-      title: 'ประเภทพันธุ์สินค้า',
+      title: t('products.columns.variety'),
       dataIndex: 'productName',
       key: 'productName',
       width: 120,
     },
     {
-      title: 'ชื่อสินค้า',
+      title: t('products.columns.productName'),
       dataIndex: 'description',
       key: 'description',
       width: 300,
     },
     {
-      title: 'TISTR Number',
+      title: t('products.columns.tistrNumber'),
       dataIndex: 'tistrNumber',
       key: 'tistrNumber',
       width: 120,
     },
     {
-      title: 'เกรดที่ขอสินค้า',
+      title: t('products.columns.microbialGroup'),
       dataIndex: 'grade',
       key: 'grade',
       width: 120,
     },
     {
-      title: 'ราคา',
+      title: t('products.columns.price'),
       dataIndex: 'price',
       key: 'price',
       width: 100,
       render: (price: string, record: Product) => (
         <span className={record.status === 'ติดต่อสำนักงาน' ? 'text-blue-600' : 'text-gray-900'}>
-          {record.status === 'ติดต่อสำนักงาน' ? 'ติดต่อสำนักงาน' : price}
+          {record.status === 'ติดต่อสำนักงาน' ? t('products.status.contactOffice') : price}
         </span>
       ),
     },
@@ -186,25 +188,25 @@ const Products: React.FC = () => {
   // Table columns for services
   const serviceColumns = [
     {
-      title: 'ชื่อบริการ',
+      title: t('products.columns.serviceCode'),
+      dataIndex: 'id',
+      key: 'id',
+      width: 150,
+    },
+    {
+      title: t('products.columns.serviceName'),
       dataIndex: 'name',
       key: 'name',
-      width: 200,
+      width: 300,
     },
     {
-      title: 'รายละเอียด',
-      dataIndex: 'description',
-      key: 'description',
-      width: 400,
-    },
-    {
-      title: 'ราคา',
+      title: t('products.columns.price'),
       dataIndex: 'price',
       key: 'price',
       width: 150,
       render: (price: string) => (
         <span className={price === 'ติดต่อสำนักงาน' ? 'text-blue-600' : 'text-gray-900'}>
-          {price}
+          {price === 'ติดต่อสำนักงาน' ? t('products.status.contactOffice') : price}
         </span>
       ),
     },
@@ -278,18 +280,18 @@ const Products: React.FC = () => {
           size="large" 
           className="custom-tabs"
         >
-          <TabPane tab="สายพันธุ์" key="varieties">
+          <TabPane tab={t('products.tabs.varieties')} key="varieties">
             <div className="space-y-4">
               {/* Variety Selection and Search Bar in one row */}
               <div className="flex justify-between items-end gap-4 mb-4">
                 {/* Variety Selection Dropdown */}
                 <div className="flex-1 max-w-sm">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    ประเภทสายพันธุ์
+                    {t('products.varieties.title')}
                   </label>
                   <Select
                     mode="multiple"
-                    placeholder="เลือกประเภทสายพันธุ์"
+                    placeholder={t('products.varieties.placeholder')}
                     value={selectedVarieties}
                     onChange={setSelectedVarieties}
                     style={{ width: '100%' }}
@@ -327,7 +329,7 @@ const Products: React.FC = () => {
                 <div className="flex items-center gap-4">
                   <div className="w-80">
                     <Search 
-                      placeholder="ค้นหาด้วย รหัสสินค้า ชื่อสินค้า หรือ TISTR Number" 
+                      placeholder={t('products.varieties.searchPlaceholder')} 
                       onSearch={onSearch}
                       value={searchText}
                       onChange={(e) => setSearchText(e.target.value)}
@@ -341,16 +343,16 @@ const Products: React.FC = () => {
               </div>
               <div className="flex justify-end mb-4">
                   <Select
-                    placeholder="เรียงลำดับความเกี่ยวข้อง"
+                    placeholder={t('products.varieties.sortPlaceholder')}
                     style={{ width: 200 }}
                     size="small"
                   >
-                    <Option value="newest">ใหม่ล่าสุด</Option>
-                    <Option value="oldest">เก่าสุด</Option>
-                    <Option value="price-asc">ราคาต่ำ-สูง</Option>
-                    <Option value="price-desc">ราคาสูง-ต่ำ</Option>
-                    <Option value="name-asc">ตัวอักษร A-Z</Option>
-                    <Option value="name-desc">ตัวอักษร Z-A</Option>
+                    <Option value="newest">{t('products.sort.newest')}</Option>
+                    <Option value="oldest">{t('products.sort.oldest')}</Option>
+                    <Option value="price-asc">{t('products.sort.priceAsc')}</Option>
+                    <Option value="price-desc">{t('products.sort.priceDesc')}</Option>
+                    <Option value="name-asc">{t('products.sort.nameAsc')}</Option>
+                    <Option value="name-desc">{t('products.sort.nameDesc')}</Option>
                   </Select>
               </div>
 
@@ -367,7 +369,7 @@ const Products: React.FC = () => {
                 <div className="mt-4 flex justify-end">
                   <Pagination
                     total={85}
-                    showTotal={(total) => `Total ${total} items`}
+                    showTotal={(total) => t('products.pagination.total', { total })}
                     defaultPageSize={10}
                     defaultCurrent={1}
                     showSizeChanger={true}
@@ -380,10 +382,25 @@ const Products: React.FC = () => {
             </div>
           </TabPane>
 
-          <TabPane tab="บริการ" key="services">
+          <TabPane tab={t('products.tabs.services')} key="services">
             <div className="space-y-4">
               <div className="text-gray-600 mb-4">
-                บริการเสริมสำหรับสินค้า
+                {t('products.services.description')}
+              </div>
+              
+              <div className="flex justify-end mb-4">
+                <Select
+                  placeholder={t('products.services.sortPlaceholder')}
+                  style={{ width: 200 }}
+                  size="small"
+                >
+                  <Option value="newest">{t('products.sort.newest')}</Option>
+                  <Option value="oldest">{t('products.sort.oldest')}</Option>
+                  <Option value="price-asc">{t('products.sort.priceAsc')}</Option>
+                  <Option value="price-desc">{t('products.sort.priceDesc')}</Option>
+                  <Option value="name-asc">{t('products.sort.nameAsc')}</Option>
+                  <Option value="name-desc">{t('products.sort.nameDesc')}</Option>
+                </Select>
               </div>
               
               {/* Services Table */}
@@ -399,7 +416,7 @@ const Products: React.FC = () => {
                 <div className="mt-4 flex justify-end">
                   <Pagination
                     total={85}
-                    showTotal={(total) => `Total ${total} items`}
+                    showTotal={(total) => t('products.pagination.total', { total })}
                     defaultPageSize={10}
                     defaultCurrent={1}
                     showSizeChanger={true}

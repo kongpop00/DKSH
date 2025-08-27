@@ -351,5 +351,45 @@
       "title": "Password Reset Complete",
       "description": "Your password has been successfully reset. You can now sign in with your new password."
     }
+  },
+  "products": {
+    "tabs": {
+      "varieties": "Varieties",
+      "services": "Services"
+    },
+    "varieties": {
+      "title": "Variety Type",
+      "placeholder": "Select variety type",
+      "searchPlaceholder": "Search by Product Code, Product Name or TISTR Number",
+      "sortPlaceholder": "Sort by relevance"
+    },
+    "services": {
+      "description": "Additional services for products",
+      "sortPlaceholder": "Sort by relevance"
+    },
+    "columns": {
+      "productCode": "Product Code",
+      "variety": "Variety Type",
+      "productName": "Product Name",
+      "tistrNumber": "TISTR Number",
+      "microbialGroup": "Microbial Group",
+      "price": "Price",
+      "serviceCode": "Service Code",
+      "serviceName": "Service Name"
+    },
+    "sort": {
+      "newest": "Newest",
+      "oldest": "Oldest",
+      "priceAsc": "Price Low-High",
+      "priceDesc": "Price High-Low",
+      "nameAsc": "Name A-Z",
+      "nameDesc": "Name Z-A"
+    },
+    "status": {
+      "contactOffice": "Contact Office"
+    },
+    "pagination": {
+      "total": "Total {{total}} items"
+    }
   }
 }

@@ -351,5 +351,45 @@
       "title": "รีเซ็ตรหัสผ่านเสร็จสิ้น",
       "description": "รหัสผ่านของคุณได้รับการรีเซ็ตเรียบร้อยแล้ว ตอนนี้คุณสามารถเข้าสู่ระบบด้วยรหัสผ่านใหม่ได้"
     }
+  },
+  "products": {
+    "tabs": {
+      "varieties": "สายพันธุ์",
+      "services": "บริการ"
+    },
+    "varieties": {
+      "title": "ประเภทสายพันธุ์",
+      "placeholder": "เลือกประเภทสายพันธุ์",
+      "searchPlaceholder": "ค้นหาด้วย รหัสสินค้า ชื่อสินค้า หรือ TISTR Number",
+      "sortPlaceholder": "เรียงลำดับความเกี่ยวข้อง"
+    },
+    "services": {
+      "description": "บริการเสริมสำหรับสินค้า",
+      "sortPlaceholder": "เรียงลำดับความเกี่ยวข้อง"
+    },
+    "columns": {
+      "productCode": "รหัสสินค้า",
+      "variety": "ประเภทสายพันธุ์",
+      "productName": "ชื่อสินค้า",
+      "tistrNumber": "TISTR Number",
+      "microbialGroup": "จุลินทรีย์กลุ่มที่",
+      "price": "ราคา",
+      "serviceCode": "รหัสบริการ",
+      "serviceName": "ชื่อบริการ"
+    },
+    "sort": {
+      "newest": "ใหม่ล่าสุด",
+      "oldest": "เก่าสุด",
+      "priceAsc": "ราคาต่ำ-สูง",
+      "priceDesc": "ราคาสูง-ต่ำ",
+      "nameAsc": "ตัวอักษร A-Z",
+      "nameDesc": "ตัวอักษร Z-A"
+    },
+    "status": {
+      "contactOffice": "ติดต่อสำนักงาน"
+    },
+    "pagination": {
+      "total": "Total {{total}} items"
+    }
   }
 }
