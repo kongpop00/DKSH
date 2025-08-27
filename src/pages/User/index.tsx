@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Header from '../../components/user/header';
 import SliderComponent from '../../components/user/slideder';
+import Products from '../../components/user/cart/Products';
 import { mockArticles } from '../../mock/Article';
 
 const HomePage: React.FC = () => {
@@ -146,7 +147,7 @@ const HomePage: React.FC = () => {
         images={sliderImages}
         autoplay={true}
       />
-      <div className="grid grid-cols-12 gap-4 p-4 h-[800px] bg-green-500">
+      <div className=" grid grid-cols-12 gap-4 p-4 px-[100px]  h-[800px] bg-green-500">
         <div className="col-span-12 md:col-span-9  pr-4 rounded-lg shadow-md bg-red-500 ">
          <div className='bg-yellow-400 h-[45%] '>
           {mainArticle && (
@@ -433,10 +434,12 @@ const HomePage: React.FC = () => {
                 </div>
               ))}
             </div>
-
-          
+            
           </div>
         </div>
+      </div>
+      <div className="relative z-10 p-4 px-[100px]">
+        <Products />
       </div>
     </div>
   );
