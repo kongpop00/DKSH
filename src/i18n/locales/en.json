@@ -400,6 +400,7 @@
     "orderSummary": "Order Summary",
     "total": "Total",
     "addToCart": "Add to Cart",
+    "itemName": "Item",
     "quantity": "Quantity",
     "unitPrice": "Unit Price",
     "totalPrice": "Total Price"

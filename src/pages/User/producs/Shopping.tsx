@@ -35,7 +35,7 @@ const Shopping: React.FC = () => {
   const { productId } = useParams();
   
   const [quantities, setQuantities] = useState<{[key: string]: number}>({});
-  const [mainProductQuantity, setMainProductQuantity] = useState<number>(0);
+  const [mainProductQuantity, setMainProductQuantity] = useState<number>(1);
   const [selectedProducts, setSelectedProducts] = useState<{[key: string]: boolean}>({});
 
   // Mock product data - ในการใช้งานจริงจะดึงจาก API ตาม productId
@@ -200,16 +200,16 @@ const Shopping: React.FC = () => {
                     <Text strong style={{ fontSize: '16px' }}></Text>
                   </Col>
                   <Col span={8}>
-                    <Text strong style={{ fontSize: '16px' }}>รายการ</Text>
+                    <Text strong style={{ fontSize: '16px' }}>{t('shopping.itemName')}</Text>
                   </Col>
                   <Col span={6} className="text-center">
-                    <Text strong style={{ fontSize: '16px' }}>จำนวน</Text>
+                    <Text strong style={{ fontSize: '16px' }}>{t('shopping.quantity')}</Text>
                   </Col>
                   <Col span={4} className="text-center">
-                    <Text strong style={{ fontSize: '16px' }}>ราคาต่อหน่วย</Text>
+                    <Text strong style={{ fontSize: '16px' }}>{t('shopping.unitPrice')}</Text>
                   </Col>
                   <Col span={4} className="text-center">
-                    <Text strong style={{ fontSize: '16px' }}>ราคารวม</Text>
+                    <Text strong style={{ fontSize: '16px' }}>{t('shopping.totalPrice')}</Text>
                   </Col>
                 </Row>
                 
@@ -267,13 +267,13 @@ const Shopping: React.FC = () => {
                 {(mainProductQuantity > 0 || Object.keys(quantities).some(key => quantities[key] > 0)) && (
                   <Row className="bg-gray-100 p-3 font-semibold border rounded-lg mb-4">
                     <Col span={14}>
-                      <Text strong style={{ fontSize: '16px' }}>รายการ</Text>
+                      <Text strong style={{ fontSize: '16px' }}>{t('shopping.itemName')}</Text>
                     </Col>
                     <Col span={5} className="text-center">
-                      <Text strong style={{ fontSize: '16px' }}>จำนวน</Text>
+                      <Text strong style={{ fontSize: '16px' }}>{t('shopping.quantity')}</Text>
                     </Col>
                     <Col span={5} className="text-center">
-                      <Text strong style={{ fontSize: '16px' }}>ราคารวม</Text>
+                      <Text strong style={{ fontSize: '16px' }}>{t('shopping.totalPrice')}</Text>
                     </Col>
                   </Row>
                 )}
