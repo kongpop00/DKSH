@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Table, Tabs, Select, Tag, Input, Pagination } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -32,6 +33,7 @@ interface Service {
 
 const Products: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('varieties');
   const [selectedVarieties, setSelectedVarieties] = useState<string[]>(['1', '2', '3', '4']); // Pre-select all varieties like in the image
   const [searchText, setSearchText] = useState('');
@@ -39,6 +41,16 @@ const Products: React.FC = () => {
   // Handle search
   const onSearch = (value: string) => {
     setSearchText(value);
+  };
+
+  // Handle row click to navigate to shopping page
+  const handleRowClick = (record: Product) => {
+    navigate(`/shopping/${record.key}`);
+  };
+
+  // Handle service row click to navigate to shopping page
+  const handleServiceRowClick = (record: Service) => {
+    navigate(`/shopping/service-${record.id}`);
   };
 
   // Mock data สำหรับสายพันธุ์
@@ -364,7 +376,11 @@ const Products: React.FC = () => {
                   pagination={false}
                   scroll={{ x: 800 }}
                   size="middle"
-                  className="border border-gray-200 rounded-lg"
+                  className="border border-gray-200 rounded-lg cursor-pointer"
+                  onRow={(record) => ({
+                    onClick: () => handleRowClick(record),
+                    style: { cursor: 'pointer' }
+                  })}
                 />
                 <div className="mt-4 flex justify-end">
                   <Pagination
@@ -411,7 +427,11 @@ const Products: React.FC = () => {
                   pagination={false}
                   scroll={{ x: 600 }}
                   size="middle"
-                  className="border border-gray-200 rounded-lg"
+                  className="border border-gray-200 rounded-lg cursor-pointer"
+                  onRow={(record) => ({
+                    onClick: () => handleServiceRowClick(record),
+                    style: { cursor: 'pointer' }
+                  })}
                 />
                 <div className="mt-4 flex justify-end">
                   <Pagination

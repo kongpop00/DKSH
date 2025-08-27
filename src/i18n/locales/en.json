@@ -391,5 +391,17 @@
     "pagination": {
       "total": "Total {{total}} items"
     }
+  },
+  "shopping": {
+    "title": "Product Details",
+    "productDetails": "Product Details",
+    "description": "Description",
+    "additionalItems": "Additional Items",
+    "orderSummary": "Order Summary",
+    "total": "Total",
+    "addToCart": "Add to Cart",
+    "quantity": "Quantity",
+    "unitPrice": "Unit Price",
+    "totalPrice": "Total Price"
   }
 }

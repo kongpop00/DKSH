@@ -391,5 +391,17 @@
     "pagination": {
       "total": "Total {{total}} items"
     }
+  },
+  "shopping": {
+    "title": "รายละเอียดสินค้า",
+    "productDetails": "รายละเอียดสินค้า",
+    "description": "คำอธิบาย",
+    "additionalItems": "รายการเพิ่มเติม",
+    "orderSummary": "สรุปรายการ",
+    "total": "ยอดรวม",
+    "addToCart": "เพิ่มลงรถเข็น",
+    "quantity": "จำนวน",
+    "unitPrice": "ราคาต่อหน่วย",
+    "totalPrice": "ราคารวม"
   }
 }

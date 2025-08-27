@@ -22,6 +22,7 @@ import Policies from './pages/Register/Policies';
 import OrganizationInformation from './pages/Register/OrganizationInformation';
 import Organizationpreview from './pages/Register/Organizationpreview';
 import HomePage from './pages/User';
+import Shopping from './pages/User/producs/Shopping';
 
 // Layout wrapper for pages that need Navbar
 function WithNavbar({ children }: { children: React.ReactNode }) {
@@ -176,6 +177,7 @@ function App() {
                 { path: '/organization-information', element: <OrganizationInformation /> },
                 { path: '/organization-preview', element: <Organizationpreview /> },
                 { path: '/users/Home', element: <HomePage /> },
+                { path: '/shopping/:productId', element: <Shopping /> },
 
               ].map(({ path, element }) => (
                 <Route key={path} path={path} element={<WithNavbar>{element}</WithNavbar>} />
