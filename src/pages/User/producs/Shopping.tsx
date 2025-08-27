@@ -35,6 +35,7 @@ const Shopping: React.FC = () => {
   const { productId } = useParams();
   
   const [quantities, setQuantities] = useState<{[key: string]: number}>({});
+  const [mainProductQuantity, setMainProductQuantity] = useState<number>(0);
 
   // Mock product data - ในการใช้งานจริงจะดึงจาก API ตาม productId
   const productDetail: ProductDetail = {
@@ -52,12 +53,12 @@ const Shopping: React.FC = () => {
 
   // สินค้าที่เกี่ยวข้อง/เพิ่มเติม
   const relatedProducts = [
-    { name: 'อุปกรณ์ทดสอบ', quantity: 0, unitPrice: 200.00, totalPrice: 0 },
-    { name: 'ในระบบเบส/เก็บข้อมูล', quantity: 0, unitPrice: 200.00, totalPrice: 0 },
-    { name: 'เชื้อรา', quantity: 0, unitPrice: 200.00, totalPrice: 0 },
-    { name: 'แยกแซลิเอนส์', quantity: 0, unitPrice: 200.00, totalPrice: 0 },
-    { name: 'ค่าอื่น', quantity: 0, unitPrice: 200.00, totalPrice: 0 },
-    { name: 'บริการข้อมูลผลิตภัณฑ์', quantity: 0, unitPrice: 200.00, totalPrice: 0 }
+    { name: 'ข้อมูลสายพันธุ์', quantity: 0, unitPrice: 500.00, totalPrice: 0 },
+    { name: 'ใบรายงานผล/ใบรับรอง', quantity: 0, unitPrice: 300.00, totalPrice: 0 },
+    { name: 'เชื้อสด', quantity: 0, unitPrice: 800.00, totalPrice: 0 },
+    { name: 'แยกเชื้อบริสุทธิ์', quantity: 0, unitPrice: 1000.00, totalPrice: 0 },
+    { name: 'ถ่ายรูป', quantity: 0, unitPrice: 200.00, totalPrice: 0 },
+    { name: 'บริการด่วนพิเศษ', quantity: 0, unitPrice: 1500.00, totalPrice: 0 }
   ];
 
   const handleQuantityChange = (productName: string, value: number) => {
@@ -69,6 +70,11 @@ const Shopping: React.FC = () => {
 
   const calculateTotal = () => {
     let total = 0;
+    
+    // เพิ่มราคาสินค้าหลัก
+    total += mainProductQuantity * productDetail.price;
+    
+    // เพิ่มราคาสินค้าเพิ่มเติม
     relatedProducts.forEach(product => {
       const quantity = quantities[product.name] || 0;
       total += quantity * product.unitPrice;
@@ -79,6 +85,18 @@ const Shopping: React.FC = () => {
   const handleAddToCart = () => {
     const newCartItems: CartItem[] = [];
     
+    // เพิ่มสินค้าหลัก
+    if (mainProductQuantity > 0) {
+      newCartItems.push({
+        productId: productDetail.id,
+        productName: productDetail.productName,
+        quantity: mainProductQuantity,
+        unitPrice: productDetail.price,
+        totalPrice: mainProductQuantity * productDetail.price
+      });
+    }
+    
+    // เพิ่มสินค้าเพิ่มเติม
     relatedProducts.forEach(product => {
       const quantity = quantities[product.name] || 0;
       if (quantity > 0) {
@@ -105,15 +123,24 @@ const Shopping: React.FC = () => {
     <div className="bg-gray-50 min-h-screen">
         <Header />
 
-      <div className="max-w-7xl mx-auto p-6">
+      <div className="px-[100px] mx-auto p-6">
         <Row gutter={24}>
           {/* Product Details */}
           <Col xs={24} lg={14}>
             <Card className="mb-6">
               <div className="mb-4">
-                <Title level={3} className="mb-2">
-                  {productDetail.productName}
-                </Title>
+                <Row justify="space-between" align="middle" className="mb-2">
+                  <Col>
+                    <Title level={3} className="mb-0">
+                      {productDetail.productName}
+                    </Title>
+                  </Col>
+                  <Col>
+                    <Title level={4} className="mb-0" style={{ color: '#1e40af', margin: 0 }}>
+                      ฿ {productDetail.price.toLocaleString()}.00 {productDetail.unit}
+                    </Title>
+                  </Col>
+                </Row>
                 <Space className="mb-4">
                   <Text strong>รหัสสินค้า:</Text>
                   <Text>{productDetail.productCode}</Text>
@@ -123,40 +150,81 @@ const Shopping: React.FC = () => {
                 </Space>
               </div>
 
-              <div className="mb-6">
-                <Title level={4} className="text-blue-600 mb-2">
-                  ฿ {productDetail.price.toLocaleString()}.00 {productDetail.unit}
-                </Title>
+              <div className="">
+              
               </div>
 
-              <div className="mb-6">
+              <div className="">
                 <Title level={5} className="mb-2">{t('shopping.description')}</Title>
                 <Text>{productDetail.description}</Text>
               </div>
-
+              
+              <div className="flex items-center gap-4 my-6 p-4 bg-gray-50 rounded-lg">
+                <Text strong style={{ fontSize: '16px' }}>จำนวน:</Text>
+                <QuantitySelector
+                  value={mainProductQuantity}
+                  onChange={setMainProductQuantity}
+                  size="middle"
+                  min={0}
+                  max={999}
+                  width={140}
+                />
+              </div>
               {/* Related Products */}
               <div>
                 <Title level={5} className="mb-4">{t('shopping.additionalItems')}</Title>
-                <div className="space-y-3">
-                  {relatedProducts.map((product, index) => (
-                    <Row key={index} className="items-center p-3 border rounded-lg hover:bg-gray-50">
-                      <Col span={12}>
-                        <Text>{product.name}</Text>
-                      </Col>
-                      <Col span={8} className="flex justify-center">
-                        <QuantitySelector
-                          value={quantities[product.name] || 0}
-                          onChange={(value) => handleQuantityChange(product.name, value)}
-                          size="small"
-                          min={0}
-                          max={999}
-                        />
-                      </Col>
-                      <Col span={4} className="text-right">
-                        <Text strong>฿ {product.unitPrice.toLocaleString()}.00</Text>
-                      </Col>
-                    </Row>
-                  ))}
+                
+                {/* หัวตาราง */}
+                <Row className="bg-gray-100 p-3 font-semibold border rounded-t-lg">
+                  <Col span={10}>
+                    <Text strong>รายการ</Text>
+                  </Col>
+                  <Col span={6} className="text-center">
+                    <Text strong>จำนวน</Text>
+                  </Col>
+                  <Col span={4} className="text-center">
+                    <Text strong>ราคาต่อหน่วย</Text>
+                  </Col>
+                  <Col span={4} className="text-center">
+                    <Text strong>ราคารวม</Text>
+                  </Col>
+                </Row>
+                
+                {/* รายการสินค้า */}
+                <div className="border-x border-b rounded-b-lg">
+                  {relatedProducts.map((product, index) => {
+                    const quantity = quantities[product.name] || 0;
+                    const totalPrice = quantity * product.unitPrice;
+                    
+                    return (
+                      <Row 
+                        key={index} 
+                        className={`items-center p-3 hover:bg-gray-50 ${index < relatedProducts.length - 1 ? 'border-b' : ''}`}
+                      >
+                        <Col span={10}>
+                          <Text>{product.name}</Text>
+                        </Col>
+                        <Col span={6} className="flex justify-center">
+                          <QuantitySelector
+                            value={quantity}
+                            onChange={(value) => handleQuantityChange(product.name, value)}
+                            size="small"
+                            min={0}
+                            max={999}
+                            width={100}
+                          />
+                        </Col>
+                        <Col span={4} className="text-center">
+                          <Text>฿ {product.unitPrice.toLocaleString()}.00</Text>
+                        </Col>
+                        <Col span={4} className="text-center">
+                          <Text strong style={{ color: totalPrice > 0 ? '#1e40af' : 'inherit' }}>
+                            ฿ {totalPrice.toLocaleString()}.00
+                          </Text>
+                        </Col>
+                      </Row>
+                    );
+                  })}
                 </div>
               </div>
             </Card>
@@ -166,6 +234,21 @@ const Shopping: React.FC = () => {
           <Col xs={24} lg={10}>
             <Card title={t('shopping.orderSummary')} className="sticky top-6">
               <div className="space-y-4">
+                {/* แสดงสินค้าหลัก */}
+                {mainProductQuantity > 0 && (
+                  <Row justify="space-between">
+                    <Col>
+                      <Text strong>{productDetail.productName}</Text>
+                      <br />
+                      <Text type="secondary">x{mainProductQuantity}</Text>
+                    </Col>
+                    <Col>
+                      <Text strong>฿ {(mainProductQuantity * productDetail.price).toLocaleString()}.00</Text>
+                    </Col>
+                  </Row>
+                )}
+                
+                {/* แสดงสินค้าเพิ่มเติม */}
                 {relatedProducts.map((product, index) => {
                   const quantity = quantities[product.name] || 0;
                   if (quantity === 0) return null;
@@ -184,7 +267,7 @@ const Shopping: React.FC = () => {
                   );
                 })}
                 
-                {Object.keys(quantities).some(key => quantities[key] > 0) && (
+                {(mainProductQuantity > 0 || Object.keys(quantities).some(key => quantities[key] > 0)) && (
                   <>
                     <Divider />
                     <Row justify="space-between" className="text-lg">
