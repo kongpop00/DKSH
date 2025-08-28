@@ -5,6 +5,7 @@ import { Button, Typography, Card, Row, Col, Divider, Space, Tag, Checkbox } fro
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import Header from '../../../components/user/header';
 import QuantitySelector from '../../../components/user/QuantitySelector';
+import CartModal from '../../../components/user/cart/Modal';
 
 const { Title, Text } = Typography;
 
@@ -37,6 +38,7 @@ const Shopping: React.FC = () => {
   const [quantities, setQuantities] = useState<{[key: string]: number}>({});
   const [mainProductQuantity, setMainProductQuantity] = useState<number>(1);
   const [selectedProducts, setSelectedProducts] = useState<{[key: string]: boolean}>({});
+  const [cartModalVisible, setCartModalVisible] = useState<boolean>(false);
 
   // Mock product data - ในการใช้งานจริงจะดึงจาก API ตาม productId
   const productDetail: ProductDetail = {
@@ -132,7 +134,9 @@ const Shopping: React.FC = () => {
 
     // ที่นี่จะเพิ่มลงตะกร้าจริง
     console.log('Added to cart:', newCartItems);
-    // Navigate to cart or show success message
+    
+    // แสดง Modal เมื่อเพิ่มสินค้าสำเร็จ
+    setCartModalVisible(true);
   };
 
 //   const handleBackToProducts = () => {
@@ -347,6 +351,12 @@ const Shopping: React.FC = () => {
           </Col>
         </Row>
       </div>
+      
+      {/* Cart Modal */}
+      <CartModal 
+        visible={cartModalVisible} 
+        onClose={() => setCartModalVisible(false)} 
+      />
     </div>
   );
 };

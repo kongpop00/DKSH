@@ -404,5 +404,12 @@
     "quantity": "Quantity",
     "unitPrice": "Unit Price",
     "totalPrice": "Total Price"
+  },
+  "cartModal": {
+    "title": "Added Successfully",
+    "message1": "We have added your products",
+    "message2": "to your cart successfully",
+    "backToHome": "Back to Home",
+    "goToCart": "Go to Cart"
   }
 }
