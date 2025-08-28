@@ -25,6 +25,7 @@ import HomePage from './pages/User';
 import Shopping from './pages/User/producs/Shopping';
 import Cart from './pages/User/producs/Cart';
 import PurchaseOrder from './pages/User/producs/PurchaseOrder';
+import PurchaseOrderPreview from './pages/User/producs/PurchaseOrderPreview';
 
 // Layout wrapper for pages that need Navbar
 function WithNavbar({ children }: { children: React.ReactNode }) {
@@ -182,6 +183,7 @@ function App() {
                 { path: '/shopping/:productId', element: <Shopping /> },
                 { path: '/users/cart', element: <Cart /> },
                 { path: '/users/purchase-order', element: <PurchaseOrder /> },
+                { path: '/users/purchase-order-preview', element: <PurchaseOrderPreview /> },
 
               ].map(({ path, element }) => (
                 <Route key={path} path={path} element={<WithNavbar>{element}</WithNavbar>} />

@@ -26,7 +26,7 @@ interface OrderItem {
   }[];
 }
 
-const PurchaseOrder: React.FC = () => {
+const PurchaseOrderPreview: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [deliveryMethod, setDeliveryMethod] = useState('pickup'); // 'pickup' หรือ 'delivery'
@@ -495,10 +495,7 @@ const PurchaseOrder: React.FC = () => {
               
               <div className="flex justify-center space-x-3">
                 <Button 
-                  onClick={() => {
-                    setIsConfirmModalOpen(false);
-                    navigate('/users/purchase-order-preview');
-                  }}
+                  onClick={() => setIsConfirmModalOpen(false)}
                   style={{ 
                     borderRadius: '20px',
                     paddingLeft: '24px',
@@ -514,7 +511,8 @@ const PurchaseOrder: React.FC = () => {
                   type="primary"
                   onClick={() => {
                     setIsConfirmModalOpen(false);
-                    navigate('/users/purchase-order-preview');
+                    // Handle order confirmation here
+                    console.log('Order confirmed');
                   }}
                   style={{ 
                     borderRadius: '20px',
@@ -579,4 +577,4 @@ const PurchaseOrder: React.FC = () => {
   );
 };
 
-export default PurchaseOrder;
+export default PurchaseOrderPreview ;
