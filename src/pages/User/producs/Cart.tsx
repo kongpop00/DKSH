@@ -23,7 +23,7 @@ interface CartItem {
 
 const Cart: React.FC = () => {
 const navigate = useNavigate();
-// const { t } = useTranslation();
+const { t } = useTranslation();
   // Mock cart data - ในการใช้งานจริงจะดึงจาก context หรือ state management
   const [cartItems, setCartItems] = useState<CartItem[]>([
     {
@@ -121,7 +121,7 @@ const navigate = useNavigate();
             gap: '8px'
           }}
         >
-          ย้อนกลับ
+          {t('cartPage.back')}
         </Button>
 
         <div className="flex items-center space-x-3 mt-6 mb-8">
@@ -134,7 +134,7 @@ const navigate = useNavigate();
             </g>
           </svg>
           <Title level={2} className="mb-0" style={{ fontSize: '28px', fontWeight: '500' }}>
-            สินค้าในรถเข็น
+            {t('cartPage.title')}
           </Title>
         </div>    
         <Row gutter={24}>
@@ -158,6 +158,7 @@ const navigate = useNavigate();
                     </Title>
                     <DeleteOutlined 
                       className="text-red-500 hover:text-red-700 cursor-pointer"
+                      style={{ fontSize: '20px' }}
                       onClick={() => handleRemoveItem(item.id)}
                     />
                   </div>
@@ -165,15 +166,15 @@ const navigate = useNavigate();
                   {/* Product details */}
                   <div className="mb-4">
                     <Space className="mb-2">
-                      <Text style={{ fontSize: '18px' }}>รหัสสินค้า: {item.productCode}</Text>
-                      <Text style={{ fontSize: '18px' }}>TISTR Number: {item.tistrNumber}</Text>
+                      <Text style={{ fontSize: '18px' }}>{t('cartPage.productCode')}: {item.productCode}</Text>
+                      <Text style={{ fontSize: '18px' }}>{t('cartPage.tistrNumber')}: {item.tistrNumber}</Text>
                       <Tag color="red" style={{ fontSize: '16px' }}>{item.grade}</Tag>
                     </Space>
                   </div>
 
                   {/* Main product and sub-items */}
                   <div className="space-y-2">
-                    <Text strong style={{ fontSize: '18px', color: '#666' }}>รายละเอียดสินค้า</Text>
+                    <Text strong style={{ fontSize: '18px', color: '#666' }}>{t('cartPage.productDetails')}</Text>
                     
                     {/* Sub items based on cart data */}
                     {item.id === '1' && (
@@ -182,11 +183,11 @@ const navigate = useNavigate();
                         <Row justify="space-between" align="middle" className="py-2">
                           <Col span={10}>
                             <Text style={{ fontSize: '18px' }}>
-                              Lecithin, Tween®, ICR plus with lockable lid, plate diam. 55 mm, sterile, γ-irradiated, pkg of 10 plates Triple packed; suitable for air monitoring
+                              {t('cartPage.lecithinDescription')}
                             </Text>
                           </Col>
                           <Col span={3} className="text-center">
-                            <Text style={{ fontSize: '18px' }}>จำนวน</Text>
+                            <Text style={{ fontSize: '18px' }}>{t('cartPage.quantity')}</Text>
                           </Col>
                           <Col span={2} className="text-center">
                             <QuantitySelector
@@ -206,10 +207,10 @@ const navigate = useNavigate();
                         {/* Sub items with consistent alignment */}
                         <Row justify="space-between" align="middle" className="py-2">
                           <Col span={10}>
-                            <Text style={{ fontSize: '18px' }}>ข้อมูลสายพันธุ์</Text>
+                            <Text style={{ fontSize: '18px' }}>{t('cartPage.strainData')}</Text>
                           </Col>
                           <Col span={3} className="text-center">
-                            <Text style={{ fontSize: '18px' }}>จำนวน</Text>
+                            <Text style={{ fontSize: '18px' }}>{t('cartPage.quantity')}</Text>
                           </Col>
                           <Col span={2} className="text-center">
                             <QuantitySelector
@@ -228,10 +229,10 @@ const navigate = useNavigate();
                         
                         <Row justify="space-between" align="middle" className="py-2">
                           <Col span={10}>
-                            <Text style={{ fontSize: '18px' }}>ใบรายงานผล/ใบรับรอง</Text>
+                            <Text style={{ fontSize: '18px' }}>{t('cartPage.reportCertificate')}</Text>
                           </Col>
                           <Col span={3} className="text-center">
-                            <Text style={{ fontSize: '18px' }}>จำนวน</Text>
+                            <Text style={{ fontSize: '18px' }}>{t('cartPage.quantity')}</Text>
                           </Col>
                           <Col span={2} className="text-center">
                             <QuantitySelector
@@ -255,10 +256,10 @@ const navigate = useNavigate();
                         {/* Main product row */}
                         <Row justify="space-between" align="middle" className="py-2">
                           <Col span={10}>
-                            <Text style={{ fontSize: '18px' }}>รายละเอียดสินค้า</Text>
+                            <Text style={{ fontSize: '18px' }}>{t('cartPage.productDetails')}</Text>
                           </Col>
                           <Col span={3} className="text-center">
-                            <Text style={{ fontSize: '18px' }}>จำนวน</Text>
+                            <Text style={{ fontSize: '18px' }}>{t('cartPage.quantity')}</Text>
                           </Col>
                           <Col span={2} className="text-center">
                             <QuantitySelector
@@ -278,10 +279,10 @@ const navigate = useNavigate();
                         {/* Sub items with consistent alignment */}
                         <Row justify="space-between" align="middle" className="py-2">
                           <Col span={10}>
-                            <Text style={{ fontSize: '18px' }}>เอกสารรับรอง</Text>
+                            <Text style={{ fontSize: '18px' }}>{t('cartPage.certificateDocument')}</Text>
                           </Col>
                           <Col span={3} className="text-center">
-                            <Text style={{ fontSize: '18px' }}>จำนวน</Text>
+                            <Text style={{ fontSize: '18px' }}>{t('cartPage.quantity')}</Text>
                           </Col>
                           <Col span={2} className="text-center">
                             <QuantitySelector
@@ -305,7 +306,7 @@ const navigate = useNavigate();
                   <div className="mt-6 pt-3 border-t">
                     <Row justify="end">
                       <Col>
-                        <Text strong style={{ fontSize: '26px', color: '#1890ff' }}>
+                        <Text strong style={{ fontSize: '26px',  }}>
                           ฿ {item.totalPrice.toLocaleString()}.00
                         </Text>
                       </Col>
@@ -328,16 +329,16 @@ const navigate = useNavigate();
                   }}
                 />
                 <Title level={4} className="mb-0" style={{ fontSize: '24px' }}>
-                  สิ่งที่สั่ง
+                  {t('cartPage.orderSummary')}
                 </Title>
               </div>
               
               <Row justify="space-between" className="mb-6">
                 <Col>
-                  <Text strong style={{ fontSize: '30px' }}>รวม</Text>
+                  <Text strong style={{ fontSize: '30px' }}>{t('cartPage.total')}</Text>
                 </Col>
                 <Col>
-                  <Text strong style={{ fontSize: '30px', color: '#1890ff' }}>
+                  <Text strong style={{ fontSize: '30px' }}>
                     ฿ {calculateGrandTotal().toLocaleString()}.00
                   </Text>
                 </Col>
@@ -351,16 +352,16 @@ const navigate = useNavigate();
                   disabled={!hasSelectedItems}
                   style={{ 
                     fontSize: '22px', 
-                    height: '55px',
+                    height: '45px',
                     paddingLeft: '50px',
                     paddingRight: '50px',
-                    backgroundColor: hasSelectedItems ? '#1890ff' : '#d9d9d9',
-                    borderColor: hasSelectedItems ? '#1890ff' : '#d9d9d9',
+                    backgroundColor: hasSelectedItems ? '#1b4db1' : '#d9d9d9',
+                  
                     borderRadius: '28px',
                     opacity: hasSelectedItems ? 1 : 0.6
                   }}
                 >
-                  สั่งซื้อ
+                  {t('cartPage.orderButton')}
                 </Button>
               </div>
             </div>
