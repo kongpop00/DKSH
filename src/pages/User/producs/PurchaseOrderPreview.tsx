@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Button, Typography, Card, Row, Col, Space, Tag, Checkbox, Radio, Upload, Input, Modal } from 'antd';
-import { ExclamationCircleOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Button, Typography, Card, Row, Col, Space, Tag, Checkbox, Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import Header from '../../../components/user/header';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ChevronLeft } from 'lucide-react';
+import MessagePage from '../../MessagePage';
 
 const { Title, Text } = Typography;
 
@@ -29,43 +30,17 @@ interface OrderItem {
 const PurchaseOrderPreview: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [deliveryMethod, setDeliveryMethod] = useState('pickup'); // 'pickup' หรือ 'delivery'
+  const [deliveryMethod] = useState('pickup'); // 'pickup' หรือ 'delivery'
+  const [showMessage, setShowMessage] = useState(false);
+
   const [checkboxes, setCheckboxes] = useState({
     taxInvoice: false,
     invoice: false,
     quotation: false
   });
 
-  // File upload state
-  const [fileRows, setFileRows] = useState<{ id: number, file: File | null, description: string }[]>([]);
-  
-  // Discount modal state
-  const [isDiscountModalOpen, setIsDiscountModalOpen] = useState(false);
-  
   // Confirmation modal state
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-
-  const addFileRow = () => {
-    const newId = fileRows.length > 0 ? Math.max(...fileRows.map(row => row.id)) + 1 : 1;
-    setFileRows([...fileRows, { id: newId, file: null, description: '' }]);
-  };
-
-  const handleFileUpload = (file: File, rowId: number) => {
-    setFileRows(fileRows.map(row => 
-      row.id === rowId ? { ...row, file } : row
-    ));
-    return false; // Prevent auto upload
-  };
-
-  const handleDescriptionChange = (rowId: number, description: string) => {
-    setFileRows(fileRows.map(row => 
-      row.id === rowId ? { ...row, description } : row
-    ));
-  };
-
-  const handleFileRemove = (rowId: number) => {
-    setFileRows(fileRows.filter(row => row.id !== rowId));
-  };
 
   const [orderItems] = useState<OrderItem[]>([
     {
@@ -100,8 +75,22 @@ const PurchaseOrderPreview: React.FC = () => {
   };
 
   const handlePlaceOrder = () => {
-    setIsConfirmModalOpen(true);
+    setShowMessage(true);
   };
+
+  if (showMessage) {
+    return (
+      <MessagePage
+        status="success"
+        title="ส่งคำสั่งซื้อเรียบร้อย"
+        description1="โปรดรอ Admin ตรวจสอบและติดต่อกลับ"
+        primaryButtonText="กลับไปหน้าแรก"
+        secondaryButtonText="ดูรายการสั่งซื้อ"
+        primaryNavigateTo="/"
+        secondaryNavigateTo="/users/orders"
+      />
+    );
+  }
 
   return (
     <div className='bg-white'>
@@ -130,6 +119,34 @@ const PurchaseOrderPreview: React.FC = () => {
             {t('purchaseOrder.back')}
           </Button>
 
+          {/* รายละเอียดคำสั่งซื้อ */}
+          <div className="mb-8">
+            <div className="flex items-center space-x-3 mt-6 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#1677FF" stroke-width="1.5"><path d="m18.18 8.04l.463-.464a1.966 1.966 0 1 1 2.781 2.78l-.463.464M18.18 8.04s.058.984.927 1.853s1.854.927 1.854.927M18.18 8.04l-4.26 4.26c-.29.288-.434.433-.558.592q-.22.282-.374.606c-.087.182-.151.375-.28.762l-.413 1.24l-.134.401m8.8-5.081l-4.26 4.26c-.29.29-.434.434-.593.558q-.282.22-.606.374c-.182.087-.375.151-.762.28l-1.24.413l-.401.134m0 0l-.401.134a.53.53 0 0 1-.67-.67l.133-.402m.938.938l-.938-.938"/><path stroke-linecap="round" d="M8 13h2.5M8 9h6.5M8 17h1.5M19.828 3.172C18.657 2 16.771 2 13 2h-2C7.229 2 5.343 2 4.172 3.172S3 6.229 3 10v4c0 3.771 0 5.657 1.172 6.828S7.229 22 11 22h2c3.771 0 5.657 0 6.828-1.172c.944-.943 1.127-2.348 1.163-4.828"/></g></svg>
+              <Title level={2} className="mb-0" style={{ fontSize: '24px', fontWeight: '500' }}>
+                รายละเอียดคำสั่งซื้อ
+              </Title>
+            </div>
+            
+            <Card className="shadow-sm mb-6">
+              <div className='flex flex-col space-y-2'>
+                  <Text style={{ fontSize: '16px', color: '#333' }}>
+                  ผู้สั่งซื้อ: <span style={{ fontWeight: '600' }}>เจมส์ ตามาจา</span>
+                </Text>
+                <Text style={{ fontSize: '16px', color: '#333' }}>
+                  หมายเลขที่คำสั่งซื้อ: <span style={{ fontWeight: '600' }}>PO20230915-0001</span>
+                </Text>
+                <Text style={{ fontSize: '16px', color: '#333' }}>
+                  วันที่สั่งซื้อ: <span style={{ fontWeight: '600' }}>2023/09/15</span>
+                </Text>
+                <Text style={{ fontSize: '16px', color: '#333' }}>
+                  เวลาสั่งซื้อ: <span style={{ fontWeight: '600' }}>10:30 AM</span>
+                </Text>
+            
+              </div>
+            </Card>
+          </div>
+          
           {/* Page Header */}
           <div className="flex items-center space-x-3 mt-6 mb-8">
            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#1677FF" stroke-width="1.5"><path d="M16.755 2h-9.51c-1.159 0-1.738 0-2.206.163a3.05 3.05 0 0 0-1.881 1.936C3 4.581 3 5.177 3 6.37v14.004c0 .858.985 1.314 1.608.744a.946.946 0 0 1 1.284 0l.483.442a1.657 1.657 0 0 0 2.25 0a1.657 1.657 0 0 1 2.25 0a1.657 1.657 0 0 0 2.25 0a1.657 1.657 0 0 1 2.25 0a1.657 1.657 0 0 0 2.25 0l.483-.442a.946.946 0 0 1 1.284 0c.623.57 1.608.114 1.608-.744V6.37c0-1.193 0-1.79-.158-2.27a3.05 3.05 0 0 0-1.881-1.937C18.493 2 17.914 2 16.755 2Z"/><path stroke-linecap="round" d="M10.5 11H17M7 11h.5M7 7.5h.5m-.5 7h.5m3-7H17m-6.5 7H17"/></g></svg>
@@ -211,45 +228,17 @@ const PurchaseOrderPreview: React.FC = () => {
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="flex items-center space-x-3 mt-6 ">
                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#1677FF" stroke-linecap="round" stroke-width="1.5" d="m15.578 3.382l2 1.05c2.151 1.129 3.227 1.693 3.825 2.708C22 8.154 22 9.417 22 11.942v.117c0 2.524 0 3.787-.597 4.801c-.598 1.015-1.674 1.58-3.825 2.709l-2 1.049C13.822 21.539 12.944 22 12 22s-1.822-.46-3.578-1.382l-2-1.05c-2.151-1.129-3.227-1.693-3.825-2.708C2 15.846 2 14.583 2 12.06v-.117c0-2.525 0-3.788.597-4.802c.598-1.015 1.674-1.58 3.825-2.708l2-1.05C10.178 2.461 11.056 2 12 2s1.822.46 3.578 1.382ZM21 7.5l-4 2M12 12L3 7.5m9 4.5v9.5m0-9.5l4.5-2.25l.5-.25m0 0V13m0-3.5l-9.5-5"/></svg>                    <Title level={2} className="mb-0" style={{ fontSize: '24px', fontWeight: '500' }}>
-                    ตัวเลือกในการจัดส่ง
+                   รายละเอียดการจัดส่ง
                     </Title>
                   </div>
                 </div>
-                <div className="my-5 ml-4">
-                  <Radio.Group
-                    value={deliveryMethod}
-                    onChange={(e) => setDeliveryMethod(e.target.value)}
-                    style={{ width: '100%' }}
-                  >
-                    <div className="flex space-x-6">
-                      <Radio value="pickup" style={{ fontSize: '16px' }}>
-                        รับสินค้าเอง
-                      </Radio>
-                      <Radio value="delivery" style={{ fontSize: '16px' }}>
-                        จัดส่งทางไปรษณีย์
-                      </Radio>
-                    </div>
-                  </Radio.Group>
-                </div>
-                  <div className="flex items-center space-x-3 mt-6  justify-between">
-                    <div className="flex items-center space-x-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#1677FF" stroke-width="1.5"><path d="M5 8.515C5 4.917 8.134 2 12 2s7 2.917 7 6.515c0 3.57-2.234 7.735-5.72 9.225a3.28 3.28 0 0 1-2.56 0C7.234 16.25 5 12.084 5 8.515Z"/><path d="M14 9a2 2 0 1 1-4 0a2 2 0 0 1 4 0Z"/><path stroke-linecap="round" d="M20.96 15.5c.666.602 1.04 1.282 1.04 2c0 2.485-4.477 4.5-10 4.5S2 19.985 2 17.5c0-.718.374-1.398 1.04-2"/></g></svg>                   <Title level={2} className="mb-0" style={{ fontSize: '24px', fontWeight: '500' }}>
-                   {deliveryMethod === 'pickup' ? 'สถานที่รับสินค้า' : 'ที่อยู่จัดส่ง'}
-                    </Title>
-                    </div>
-                    {deliveryMethod === 'delivery' && (
-                      <div>
-                        <a href="#" style={{ fontSize: '16px', color: '#1b4db1', textDecoration: 'underline' }}>
-                          เปลี่ยนที่อยู่
-                        </a>                  
-                      </div>
-                    )}
-                  </div>
-                
                 <div className="space-y-3">
                     <Card className='mt-3' style={{ backgroundColor: deliveryMethod === 'pickup' ? '#f0f8ff' : '#ffffff' }}>
                       {deliveryMethod === 'pickup' ? (
                         <div>
+                          <div>
+                            รับสินค้าเอง
+                          </div>
                           <Text style={{ fontSize: '16px', fontWeight: '' }}>ศูนย์จุลินทรีย์ สถาบันวิจัยวิทยาศาสตร์และเทคโนโลยีแห่งประเทศไทย ชั้น 2 ตึก RD1</Text>
                         
                           <div>
@@ -258,6 +247,9 @@ const PurchaseOrderPreview: React.FC = () => {
                         </div>
                       ) : (
                         <div>
+                          <div>
+                            จัดส่งทางไปรษณีย์
+                          </div>
                           <Text style={{ fontSize: '16px' }}>นาย ลชาภาค โด OBJ-123-4567</Text>
                           <div className="mt-2">
                             <Text style={{ fontSize: '16px' }}>123 หมู่ 5 ตำบลบางใหม่ อำเภอบางลิง จังหวัดตรัง 30000</Text>
@@ -273,6 +265,7 @@ const PurchaseOrderPreview: React.FC = () => {
                         checked={checkboxes.taxInvoice}
                         onChange={(e) => setCheckboxes(prev => ({ ...prev, taxInvoice: e.target.checked }))}
                         style={{ fontSize: '16px' }}
+                        disabled
                       >
                         <span style={{  }}>ขอใบกำกับภาษี</span>
                       </Checkbox>
@@ -282,6 +275,7 @@ const PurchaseOrderPreview: React.FC = () => {
                         checked={checkboxes.invoice}
                         onChange={(e) => setCheckboxes(prev => ({ ...prev, invoice: e.target.checked }))}
                         style={{ fontSize: '16px' }}
+                        disabled
                       >
                         <span style={{ }}>ขอใบแจ้งหนี้</span>
                       </Checkbox>
@@ -291,6 +285,7 @@ const PurchaseOrderPreview: React.FC = () => {
                         checked={checkboxes.quotation}
                         onChange={(e) => setCheckboxes(prev => ({ ...prev, quotation: e.target.checked }))}
                         style={{ fontSize: '16px' }}
+                        disabled
                       >
                         <span style={{  }}>ขอใบเสนอราคา</span>
                       </Checkbox>
@@ -309,81 +304,59 @@ const PurchaseOrderPreview: React.FC = () => {
                
 
                 {/* File Upload Section */}
-                <div className="mb-8 ">
+                <div className="mb-8 mt-4 ">
                   <div className="flex items-center  mb-4">
                     <Title level={2} className="mb-0" style={{ fontSize: '24px', fontWeight: '500' }}>
-                      แนบเอกสารที่เกี่ยวข้อง
+                      เอกสารที่เกี่ยวข้อง
                     </Title>
                   </div>
                   
-                  {/* Add File Button */}
-                  <div className="mb-4">
-                    <Button 
-                      type="primary" 
-                      onClick={addFileRow}
-                      className="bg-primary border-blue-600 px-6 rounded-[16px] text-base"
-                    >
-                      เพิ่มไฟล์
-                    </Button>
+                  {/* Files Table */}
+                  <div className="bg-white rounded-lg border overflow-hidden">
+                 
+                 
+                    
+                    {/* Table Rows */}
+                    {[
+                      {
+                        fileName: "ใบขออนุญาตนำเข้าสินค้าอันตราย.pdf",
+                        description1: "คำอธิบาย",
+                        description2: "คำอธิบาย"
+                      },
+                      {
+                        fileName: "ใบรับรองคุณภาพสินค้า.pdf",
+                        description1: "คำอธิบาย",
+                        description2: "คำอธิบาย"
+                      }
+                    ].map((file, index) => (
+                      <div key={index} className="grid grid-cols-4 border-b border-gray-200 hover:bg-gray-50">
+                        <div className="p-4 border-r border-gray-200">
+                          <div className="flex items-center gap-2">
+                           
+                            <Text style={{ fontSize: '14px', color: '#333' }}>ไฟล์ที่แนบมา</Text>
+                          </div>
+                        </div>
+                        <div className="p-4 border-r border-gray-200">
+                          <Text style={{ fontSize: '14px', color: '#1677FF', textDecoration: 'underline', cursor: 'pointer' }}>
+                            {file.fileName}
+                          </Text>
+                        </div>
+                        <div className="p-4 border-r border-gray-200">
+                          <Text style={{ fontSize: '14px', color: '#333' }}>
+                            {file.description1}
+                          </Text>
+                        </div>
+                        <div className="p-4">
+                          <Text style={{ fontSize: '14px', color: '#333' }}>
+                            -
+                          </Text>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-
-                  {/* File Rows */}
-                  {fileRows.length > 0 && fileRows.map((row) => (
-                    <div key={row.id} className="flex items-center gap-2 p-2 bg-white mb-2">
-                      <Upload
-                        name="files"
-                        beforeUpload={(file) => handleFileUpload(file as File, row.id)}
-                        showUploadList={false}
-                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                      >
-                        <Button 
-                          type="default"
-                          className="min-w-auto text-left px-3 py-[18px] border-gray-300 bg-gray-50 rounded-md text-base"
-                        >
-                          {row.file ? row.file.name : 'เลือกไฟล์'}
-                        </Button>
-                      </Upload>
-                      <Input 
-                        value={row.description}
-                        onChange={(e) => handleDescriptionChange(row.id, e.target.value)}
-                        placeholder="คำอธิบายไฟล์"
-                        size="small"
-                        className="ml-2 flex-1 px-3 py-2 border-gray-300 bg-gray-50 rounded-md text-base"
-                      />
-                      <Button 
-                        type="primary"
-                        danger
-                        onClick={() => handleFileRemove(row.id)}
-                        size="small"
-                        className="ml-2 px-4 py-5 rounded-[30px] bg-red-500 text-base"
-                        icon={<DeleteOutlined />}
-                      >
-                        ลบ
-                      </Button>
-                    </div>
-                  ))}
                 </div>
               </div>
 
-                <Card 
-                  className=" mb-4 p-0 cursor-pointer"
-                  onClick={() => setIsDiscountModalOpen(true)}
-                >
-                  <div className="flex items-center justify-between ">
-                    <div className="flex items-center space-x-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path stroke="#1677FF" stroke-width="1.5" d="M14.005 4h-4.01c-3.78 0-5.67 0-6.845 1.172c-.81.806-1.061 1.951-1.14 3.817c-.015.37-.023.556.046.679c.07.123.345.278.897.586a1.999 1.999 0 0 1 0 3.492c-.552.309-.828.463-.897.586s-.061.308-.045.678c.078 1.867.33 3.012 1.139 3.818C4.324 20 6.214 20 9.995 20h4.01c3.78 0 5.67 0 6.845-1.172c.81-.806 1.061-1.951 1.14-3.817c.015-.37.023-.556-.046-.679c-.07-.123-.345-.277-.897-.586a1.999 1.999 0 0 1 0-3.492c.552-.308.828-.463.897-.586s.061-.308.045-.679c-.078-1.866-.33-3.01-1.139-3.817C19.676 4 17.786 4 14.005 4Z"/><path stroke="#1677FF" stroke-linecap="round" stroke-width="1.5" d="m9 15l6-6"/><path fill="#1677FF" d="M15.5 14.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5-5a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></g></svg>
-                      <Title level={4} className="mb-0" style={{ fontSize: '18px' }}>
-                        โค้ดส่วนลด
-                      </Title>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Text style={{ fontSize: '16px' }}>10 %</Text>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="6,9 12,15 18,9"/>
-                      </svg>
-                    </div>
-                  </div>
-                </Card>
               {/* Order Summary */}
               <Card className="shadow-sm border mb-4">
              
@@ -495,7 +468,10 @@ const PurchaseOrderPreview: React.FC = () => {
               
               <div className="flex justify-center space-x-3">
                 <Button 
-                  onClick={() => setIsConfirmModalOpen(false)}
+                  onClick={() => {
+                    setIsConfirmModalOpen(false);
+                    navigate('/users/purchase-order-preview');
+                  }}
                   style={{ 
                     borderRadius: '20px',
                     paddingLeft: '24px',
@@ -511,8 +487,7 @@ const PurchaseOrderPreview: React.FC = () => {
                   type="primary"
                   onClick={() => {
                     setIsConfirmModalOpen(false);
-                    // Handle order confirmation here
-                    console.log('Order confirmed');
+                    navigate('/users/purchase-order-preview');
                   }}
                   style={{ 
                     borderRadius: '20px',
@@ -531,46 +506,7 @@ const PurchaseOrderPreview: React.FC = () => {
             </div>
           </Modal>
           
-          {/* Discount Modal */}
-          <Modal
-            title="โค้ดส่วนลด"
-            open={isDiscountModalOpen}
-            onCancel={() => setIsDiscountModalOpen(false)}
-            footer={null}
-            width={400}
-            centered
-          >
-            <div className="p-4">
-              <div className="border-2 border-dashed border-blue-300 rounded-lg p-4 mb-4">
-                <div className="text-center">
-                  <Text style={{ fontSize: '14px', color: '#666' }}>
-                    ใส่รหัสโค้ดส่วนลด
-                  </Text>
-                </div>
-              </div>
-              <div className="text-center space-y-2">
-                <Button 
-                  type="default" 
-                  onClick={() => setIsDiscountModalOpen(false)}
-                  style={{ 
-                    borderRadius: '20px',
-                    marginRight: '8px'
-                  }}
-                >
-                  ปิด
-                </Button>
-                <Button 
-                  type="primary" 
-                  style={{ 
-                    borderRadius: '20px',
-                    backgroundColor: '#1677FF'
-                  }}
-                >
-                  ดึงลอง
-                </Button>
-              </div>
-            </div>
-          </Modal>
+        
         </div>
       </div>
     </div>

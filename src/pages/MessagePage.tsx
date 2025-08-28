@@ -9,23 +9,39 @@ export type MessageStatus = 'success' | 'locked' | 'error';
 
 interface MessagePageProps {
   status: MessageStatus;
-  titleKey: string;
+  titleKey?: string;
+  title?: string;
   description1Key?: string;
+  description1?: string;
   description2Key?: string; 
+  description2?: string;
   description3Key?: string;
-  buttonTextKey: string;
-  navigateTo: string;
+  description3?: string;
+  buttonTextKey?: string;
+  primaryButtonText?: string;
+  secondaryButtonText?: string;
+  navigateTo?: string;
+  primaryNavigateTo?: string;
+  secondaryNavigateTo?: string;
   buttonColor?: 'blue' | 'green';
 }
 
 const MessagePage: React.FC<MessagePageProps> = ({
   status,
   titleKey,
+  title,
   description1Key,
+  description1,
   description2Key,
+  description2,
   description3Key,
+  description3,
   buttonTextKey,
+  primaryButtonText,
+  secondaryButtonText,
   navigateTo,
+  primaryNavigateTo,
+  secondaryNavigateTo,
 
 }) => {
   const navigate = useNavigate();
@@ -57,8 +73,18 @@ const MessagePage: React.FC<MessagePageProps> = ({
     }
   };
 
-  const handleButtonClick = () => {
-    navigate(navigateTo);
+  const handlePrimaryButtonClick = () => {
+    if (primaryNavigateTo) {
+      navigate(primaryNavigateTo);
+    } else if (navigateTo) {
+      navigate(navigateTo);
+    }
+  };
+
+  const handleSecondaryButtonClick = () => {
+    if (secondaryNavigateTo) {
+      navigate(secondaryNavigateTo);
+    }
   };
 
   return (
@@ -91,38 +117,51 @@ const MessagePage: React.FC<MessagePageProps> = ({
 
           {/* Title */}
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">
-            {t(titleKey)}
+            {title || (titleKey ? t(titleKey) : '')}
           </h1>
 
           {/* Descriptions */}
           <div className="space-y-3 mb-8 text-gray-600">
-            {description1Key && (
+            {(description1 || description1Key) && (
               <p className="text-sm sm:text-base leading-relaxed">
-                {t(description1Key)}
+                {description1 || (description1Key ? t(description1Key) : '')}
               </p>
             )}
-            {description2Key && (
+            {(description2 || description2Key) && (
               <p className="text-sm sm:text-base leading-relaxed">
-                {t(description2Key)}
+                {description2 || (description2Key ? t(description2Key) : '')}
               </p>
             )}
-            {description3Key && (
+            {(description3 || description3Key) && (
               <p className="text-sm sm:text-base leading-relaxed">
-                {t(description3Key)}
+                {description3 || (description3Key ? t(description3Key) : '')}
               </p>
             )}
           </div>
 
-          {/* Button */}
-          <Button
-            type="primary"
-            size="large"
-            onClick={handleButtonClick}
-            className='h-12 px-8 rounded-full font-medium text-base border-none bg-primary ' 
-             
-          >
-            {t(buttonTextKey)}
-          </Button>
+          {/* Buttons */}
+          <div className="flex gap-3 justify-center">
+            {/* Primary Button - Left */}
+            <Button
+              type="primary"
+              size="large"
+              onClick={handlePrimaryButtonClick}
+              className='h-12 px-8 rounded-full font-medium text-base border-none bg-[#1677FF]' 
+            >
+              {primaryButtonText || (buttonTextKey ? t(buttonTextKey) : '')}
+            </Button>
+
+            {/* Secondary Button - Right */}
+            {secondaryButtonText && (
+              <Button
+                size="large"
+                onClick={handleSecondaryButtonClick}
+                className='h-12 px-8 rounded-full font-medium text-base border border-[#1677FF] text-[#1677FF] bg-white hover:bg-blue-50'
+              >
+                {secondaryButtonText}
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>
