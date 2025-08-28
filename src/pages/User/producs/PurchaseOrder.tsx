@@ -148,7 +148,7 @@ const PurchaseOrder: React.FC = () => {
           {/* Page Header */}
           <div className="flex items-center space-x-3 mt-6 mb-8">
            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#1677FF" stroke-width="1.5"><path d="M16.755 2h-9.51c-1.159 0-1.738 0-2.206.163a3.05 3.05 0 0 0-1.881 1.936C3 4.581 3 5.177 3 6.37v14.004c0 .858.985 1.314 1.608.744a.946.946 0 0 1 1.284 0l.483.442a1.657 1.657 0 0 0 2.25 0a1.657 1.657 0 0 1 2.25 0a1.657 1.657 0 0 0 2.25 0a1.657 1.657 0 0 1 2.25 0a1.657 1.657 0 0 0 2.25 0l.483-.442a.946.946 0 0 1 1.284 0c.623.57 1.608.114 1.608-.744V6.37c0-1.193 0-1.79-.158-2.27a3.05 3.05 0 0 0-1.881-1.937C18.493 2 17.914 2 16.755 2Z"/><path stroke-linecap="round" d="M10.5 11H17M7 11h.5M7 7.5h.5m-.5 7h.5m3-7H17m-6.5 7H17"/></g></svg>
-            <Title level={2} className="mb-0" style={{ fontSize: '28px', fontWeight: '500' }}>
+            <Title level={2} className="mb-0" style={{ fontSize: '24px', fontWeight: '500' }}>
               {t('purchaseOrder.title')}
             </Title>
           </div>
@@ -225,7 +225,7 @@ const PurchaseOrder: React.FC = () => {
               <div className="shadow-sm border-none">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="flex items-center space-x-3 mt-6 ">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#1677FF" stroke-linecap="round" stroke-width="1.5" d="m15.578 3.382l2 1.05c2.151 1.129 3.227 1.693 3.825 2.708C22 8.154 22 9.417 22 11.942v.117c0 2.524 0 3.787-.597 4.801c-.598 1.015-1.674 1.58-3.825 2.709l-2 1.049C13.822 21.539 12.944 22 12 22s-1.822-.46-3.578-1.382l-2-1.05c-2.151-1.129-3.227-1.693-3.825-2.708C2 15.846 2 14.583 2 12.06v-.117c0-2.525 0-3.788.597-4.802c.598-1.015 1.674-1.58 3.825-2.708l2-1.05C10.178 2.461 11.056 2 12 2s1.822.46 3.578 1.382ZM21 7.5l-4 2M12 12L3 7.5m9 4.5v9.5m0-9.5l4.5-2.25l.5-.25m0 0V13m0-3.5l-9.5-5"/></svg>                    <Title level={2} className="mb-0" style={{ fontSize: '28px', fontWeight: '500' }}>
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#1677FF" stroke-linecap="round" stroke-width="1.5" d="m15.578 3.382l2 1.05c2.151 1.129 3.227 1.693 3.825 2.708C22 8.154 22 9.417 22 11.942v.117c0 2.524 0 3.787-.597 4.801c-.598 1.015-1.674 1.58-3.825 2.709l-2 1.049C13.822 21.539 12.944 22 12 22s-1.822-.46-3.578-1.382l-2-1.05c-2.151-1.129-3.227-1.693-3.825-2.708C2 15.846 2 14.583 2 12.06v-.117c0-2.525 0-3.788.597-4.802c.598-1.015 1.674-1.58 3.825-2.708l2-1.05C10.178 2.461 11.056 2 12 2s1.822.46 3.578 1.382ZM21 7.5l-4 2M12 12L3 7.5m9 4.5v9.5m0-9.5l4.5-2.25l.5-.25m0 0V13m0-3.5l-9.5-5"/></svg>                    <Title level={2} className="mb-0" style={{ fontSize: '24px', fontWeight: '500' }}>
                     ตัวเลือกในการจัดส่ง
                     </Title>
                   </div>
@@ -237,10 +237,10 @@ const PurchaseOrder: React.FC = () => {
                     style={{ width: '100%' }}
                   >
                     <div className="flex space-x-6">
-                      <Radio value="pickup" style={{ fontSize: '14px' }}>
+                      <Radio value="pickup" style={{ fontSize: '16px' }}>
                         รับสินค้าเอง
                       </Radio>
-                      <Radio value="delivery" style={{ fontSize: '14px' }}>
+                      <Radio value="delivery" style={{ fontSize: '16px' }}>
                         จัดส่งทางไปรษณีย์
                       </Radio>
                     </div>
@@ -248,27 +248,37 @@ const PurchaseOrder: React.FC = () => {
                 </div>
                   <div className="flex items-center space-x-3 mt-6  justify-between">
                     <div className="flex items-center space-x-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#1677FF" stroke-width="1.5"><path d="M5 8.515C5 4.917 8.134 2 12 2s7 2.917 7 6.515c0 3.57-2.234 7.735-5.72 9.225a3.28 3.28 0 0 1-2.56 0C7.234 16.25 5 12.084 5 8.515Z"/><path d="M14 9a2 2 0 1 1-4 0a2 2 0 0 1 4 0Z"/><path stroke-linecap="round" d="M20.96 15.5c.666.602 1.04 1.282 1.04 2c0 2.485-4.477 4.5-10 4.5S2 19.985 2 17.5c0-.718.374-1.398 1.04-2"/></g></svg>                   <Title level={2} className="mb-0" style={{ fontSize: '28px', fontWeight: '500' }}>
-                   ที่อยู่จัดส่ง
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#1677FF" stroke-width="1.5"><path d="M5 8.515C5 4.917 8.134 2 12 2s7 2.917 7 6.515c0 3.57-2.234 7.735-5.72 9.225a3.28 3.28 0 0 1-2.56 0C7.234 16.25 5 12.084 5 8.515Z"/><path d="M14 9a2 2 0 1 1-4 0a2 2 0 0 1 4 0Z"/><path stroke-linecap="round" d="M20.96 15.5c.666.602 1.04 1.282 1.04 2c0 2.485-4.477 4.5-10 4.5S2 19.985 2 17.5c0-.718.374-1.398 1.04-2"/></g></svg>                   <Title level={2} className="mb-0" style={{ fontSize: '24px', fontWeight: '500' }}>
+                   {deliveryMethod === 'pickup' ? 'สถานที่รับสินค้า' : 'ที่อยู่จัดส่ง'}
                     </Title>
                     </div>
-                    <div>
-                    <a href="#" style={{ fontSize: '16px', color: '#1b4db1', textDecoration: 'underline' }}>
-                      เปลี่ยนที่อยู่
-                    </a>                  
-                    </div>
-                  
+                    {deliveryMethod === 'delivery' && (
+                      <div>
+                        <a href="#" style={{ fontSize: '16px', color: '#1b4db1', textDecoration: 'underline' }}>
+                          เปลี่ยนที่อยู่
+                        </a>                  
+                      </div>
+                    )}
                   </div>
                 
                 <div className="space-y-3">
-                    <Card className='mt-3'>
-                    <div>
-                    <Text style={{ fontSize: '14px' }}>นาย ลชาภาค โด OBJ-123-4567</Text>
-                  </div>
-                  
-                  <div>
-                    <Text style={{ fontSize: '14px' }}>123 หมู่ 5 ตำบลบางใหม่ อำเภอบางลิง จังหวัดตรัง 30000</Text>
-                  </div>
+                    <Card className='mt-3' style={{ backgroundColor: deliveryMethod === 'pickup' ? '#f0f8ff' : '#ffffff' }}>
+                      {deliveryMethod === 'pickup' ? (
+                        <div>
+                          <Text style={{ fontSize: '16px', fontWeight: '' }}>ศูนย์จุลินทรีย์ สถาบันวิจัยวิทยาศาสตร์และเทคโนโลยีแห่งประเทศไทย ชั้น 2 ตึก RD1</Text>
+                        
+                          <div>
+                            <Text style={{ fontSize: '16px' }}>เลขที่ 35 หมู่ 3 เทคโนธานี ต. คลองห้า อ. คลองหลวง จ. ปทุมธานี 12120</Text>
+                          </div>
+                        </div>
+                      ) : (
+                        <div>
+                          <Text style={{ fontSize: '16px' }}>นาย ลชาภาค โด OBJ-123-4567</Text>
+                          <div className="mt-2">
+                            <Text style={{ fontSize: '16px' }}>123 หมู่ 5 ตำบลบางใหม่ อำเภอบางลิง จังหวัดตรัง 30000</Text>
+                          </div>
+                        </div>
+                      )}
                     </Card>
                 
 
@@ -316,7 +326,7 @@ const PurchaseOrder: React.FC = () => {
                 {/* File Upload Section */}
                 <div className="mb-8 ">
                   <div className="flex items-center  mb-4">
-                    <Title level={2} className="mb-0" style={{ fontSize: '28px', fontWeight: '500' }}>
+                    <Title level={2} className="mb-0" style={{ fontSize: '24px', fontWeight: '500' }}>
                       แนบเอกสารที่เกี่ยวข้อง
                     </Title>
                   </div>
@@ -377,12 +387,12 @@ const PurchaseOrder: React.FC = () => {
                   <div className="flex items-center justify-between ">
                     <div className="flex items-center space-x-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path stroke="#1677FF" stroke-width="1.5" d="M14.005 4h-4.01c-3.78 0-5.67 0-6.845 1.172c-.81.806-1.061 1.951-1.14 3.817c-.015.37-.023.556.046.679c.07.123.345.278.897.586a1.999 1.999 0 0 1 0 3.492c-.552.309-.828.463-.897.586s-.061.308-.045.678c.078 1.867.33 3.012 1.139 3.818C4.324 20 6.214 20 9.995 20h4.01c3.78 0 5.67 0 6.845-1.172c.81-.806 1.061-1.951 1.14-3.817c.015-.37.023-.556-.046-.679c-.07-.123-.345-.277-.897-.586a1.999 1.999 0 0 1 0-3.492c.552-.308.828-.463.897-.586s.061-.308.045-.679c-.078-1.866-.33-3.01-1.139-3.817C19.676 4 17.786 4 14.005 4Z"/><path stroke="#1677FF" stroke-linecap="round" stroke-width="1.5" d="m9 15l6-6"/><path fill="#1677FF" d="M15.5 14.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5-5a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></g></svg>
-                      <Title level={4} className="mb-0" style={{ fontSize: '16px' }}>
+                      <Title level={4} className="mb-0" style={{ fontSize: '18px' }}>
                         โค้ดส่วนลด
                       </Title>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Text style={{ fontSize: '14px' }}>10 %</Text>
+                      <Text style={{ fontSize: '16px' }}>10 %</Text>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="6,9 12,15 18,9"/>
                       </svg>
@@ -394,43 +404,43 @@ const PurchaseOrder: React.FC = () => {
              
                 <div className="space-y-3">
                   <div className="mb-3">
-                    <Text strong style={{ fontSize: '28px' }}>สรุปยอดเงิน</Text>
+                    <Text strong style={{ fontSize: '18px' }}>สรุปยอดเงิน</Text>
                   </div>
                   
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <Text style={{ fontSize: '14px' }}>ยอดรวมการสั่งซื้อ</Text>
-                    <Text strong style={{ fontSize: '14px' }}>฿ 5,600.00</Text>
+                    <Text style={{ fontSize: '16px' }}>ยอดรวมการสั่งซื้อ</Text>
+                    <Text strong style={{ fontSize: '16px' }}>฿ 5,600.00</Text>
                   </div>
                   
                   <div className="py-2 border-b border-gray-100">
                     <div className="flex justify-between items-center mb-1">
-                      <Text style={{ fontSize: '14px' }}>ส่วนลด</Text>
+                      <Text style={{ fontSize: '16px' }}>ส่วนลด</Text>
                       <div className="flex items-center space-x-4">
-                        <Text style={{ fontSize: '14px' }}>10 %</Text>
-                        <Text strong style={{ fontSize: '14px' }}>฿ 560.00</Text>
+                        <Text style={{ fontSize: '16px' }}>10 %</Text>
+                        <Text strong style={{ fontSize: '16px' }}>฿ 560.00</Text>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
-                      <Text style={{ fontSize: '14px' }}>ราคารวมหลังจากส่วนลด</Text>
-                      <Text strong style={{ fontSize: '14px' }}>฿ 5,040.00</Text>
+                      <Text style={{ fontSize: '16px' }}>ราคารวมหลังจากส่วนลด</Text>
+                      <Text strong style={{ fontSize: '16px' }}>฿ 5,040.00</Text>
                     </div>
                   </div>
                   
                   <div className="">
                     <div className="flex justify-between items-center ">
-                      <Text style={{ fontSize: '14px' }}>ภาษีมูลค่าเพิ่ม</Text>
-                      <Text strong style={{ fontSize: '14px' }}>฿ 0.00</Text>
+                      <Text style={{ fontSize: '16px' }}>ภาษีมูลค่าเพิ่ม</Text>
+                      <Text strong style={{ fontSize: '16px' }}>฿ 0.00</Text>
                     </div>
                     <div className="flex justify-between items-center">
-                      <Text style={{ fontSize: '14px' }}>ราคารวมภาษีมูลค่าเพิ่ม</Text>
-                      <Text strong style={{ fontSize: '14px' }}>฿ 0.00</Text>
+                      <Text style={{ fontSize: '16px' }}>ราคารวมภาษีมูลค่าเพิ่ม</Text>
+                      <Text strong style={{ fontSize: '16px' }}>฿ 0.00</Text>
                     </div>
                         <div className="flex justify-between items-center border-b  border-gray-100">
                     <div className='flex gap-2'>
-                      <Text style={{ fontSize: '14px' }}>ค่าจัดส่ง</Text>
-                      <Text style={{ fontSize: '12px', color: '#999' }}>* ค่าจัดส่งแล้วแต่ 100 บาทเท่านั้น ระยะบางช่วงถ้างบ่อน 15 วันกิโซร</Text>
+                      <Text style={{ fontSize: '16px' }}>ค่าจัดส่ง</Text>
+                      <Text style={{ fontSize: '14px', color: '#999' }}>* ค่าจัดส่งแล้วแต่ 100 บาทเท่านั้น ระยะบางช่วงถ้างบ่อน 15 วันกิโซร</Text>
                     </div>
-                    <Text strong style={{ fontSize: '14px' }}>฿ 100.00</Text>
+                    <Text strong style={{ fontSize: '16px' }}>฿ 100.00</Text>
                   </div>
                   </div>
               
@@ -441,8 +451,8 @@ const PurchaseOrder: React.FC = () => {
               {/* Final Summary */}
               <div className="">
                 <div className="flex items-center justify-between ">
-                  <Text strong style={{ fontSize: '16px' }}>ราคาสินค้าทั้งหมด</Text>
-                  <Text strong style={{ fontSize: '20px', color: '#1a1a1bff' }}>
+                  <Text strong style={{ fontSize: '18px' }}>ราคาสินค้าทั้งหมด</Text>
+                  <Text strong style={{ fontSize: '24px', color: '#1a1a1bff' }}>
                     ฿ 5,140.00
                   </Text>
                 </div>
