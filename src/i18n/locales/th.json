@@ -1,7 +1,7 @@
 {
   "common": {
     "email": "อีเมล",
-    "password": "หัสผ่าน",
+    "password": "รหัสผ่าน",
     "confirmPassword": "ยืนยันรหัสผ่าน",
     "login": "เข้าสู่ระบบ",
     "signIn": "เข้าสู่ระบบ",
