@@ -427,5 +427,18 @@
     "orderButton": "สั่งซื้อ",
     "selectAll": "เลือกทั้งหมด",
     "lecithinDescription": "Lecithin, Tween®, ICR plus with lockable lid, plate diam. 55 mm, sterile, γ-irradiated, pkg of 10 plates Triple packed; suitable for air monitoring"
+  },
+  "purchaseOrder": {
+    "title": "ใบคำสั่งซื้อ",
+    "back": "ย้อนกลับ",
+    "productCode": "รหัสสินค้า",
+    "tistrNumber": "TISTR Number",
+    "productDetails": "รายละเอียดสินค้า",
+    "shippingSettings": "ตั้งค่าการจัดส่ง",
+    "contactNumber": "เลขที่ติดต่อ",
+    "additionalDocuments": "แนบเอกสารเพิ่มเติมจากท่าน",
+    "orderSummary": "ใช้ชื่อของดี",
+    "finalTotal": "รวมสุทธิในใบคำสั่ง",
+    "placeOrder": "สั่งซื้อ"
   }
 }

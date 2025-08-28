@@ -93,8 +93,8 @@ const { t } = useTranslation();
   };
 
   const handleCheckout = () => {
-    // นำไปยังหน้าชำระเงิน
-    console.log('Proceed to checkout:', cartItems);
+    // นำไปยังหน้าใบคำสั่งซื้อ
+    navigate('/users/purchase-order');
   };
 
   return (
