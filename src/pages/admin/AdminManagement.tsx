@@ -244,7 +244,7 @@ const AdminManagement: React.FC = () => {
       key: 'email',
       width: 200,
       render: (text: string) => (
-        <span className="text-sm text-blue-600">{text}</span>
+        <span className="text-sm ">{text}</span>
       ),
     },
     {
@@ -256,18 +256,68 @@ const AdminManagement: React.FC = () => {
         <span className="text-sm">{text}</span>
       ),
     },
-    {
-      title: 'สถานะการใช้งาน',
+   {
+      title: 'สถานะบัญชี',
       dataIndex: 'status',
-      key: 'status',
-      width: 130,
-      render: (status: string) => (
-        <Tag color={status === 'active' ? 'green' : 'red'}>
-          {status === 'active' ? 'ใช้งาน' : 'ปิดใช้งาน'}
-        </Tag>
-      ),
+      key: 'accountStatus',
+      width: 120,
+     render: (status: string) => {
+        if (status === 'active') {
+          return (
+            <span style={{
+              color: 'black',
+              border: '1px solid #B7EB8F',
+              backgroundColor: '#D9F7BE',
+              borderRadius: '20px',
+              padding: '4px 8px',
+              fontSize: '12px',
+              fontWeight: '500',
+              display: 'inline-block'
+            }}>
+              ใช้งาน
+            </span>
+          );
+        }
+        if (status === 'inactive') {
+           return (
+             <span style={{
+               color: 'black',
+               border: '1px solid #FFA39E',
+               backgroundColor: '#FFCCC7',
+               borderRadius: '20px',
+               padding: '4px 8px',
+               fontSize: '12px',
+               fontWeight: '500',
+               display: 'inline-block'
+             }}>
+               ไม่ใช้งาน
+             </span>
+           );
+         }
+         if (status === 'locked') {
+            return (
+              <span style={{
+                color: 'black',
+                border: '1px solid #FFBB96',
+                backgroundColor: '#FFD8BF',
+                borderRadius: '20px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                fontWeight: '500',
+                display: 'inline-block'
+              }}>
+                ถูกล็อค
+              </span>
+            );
+          }
+          return (
+            <Tag color="red">
+              ถูกระงับ
+            </Tag>
+          );
+      },
     },
-      {
+     {
       title: 'จัดการ',
       key: 'actions',
       width: 200,
