@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Radio, Select, Button, Upload, message, Checkbox, Card } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import BgPattern from '../../components/BgPattern';
 

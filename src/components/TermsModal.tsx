@@ -1,7 +1,6 @@
 import React from 'react';
 import { Modal, Button } from 'antd';
 import { X } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 
 interface TermsModalProps {
   visible: boolean;

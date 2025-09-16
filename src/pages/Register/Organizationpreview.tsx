@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Card, Button, Checkbox } from 'antd';
-import { useTranslation } from 'react-i18next';
 import BgPattern from '../../components/BgPattern';
 import MessagePage from '../MessagePage';
 
 const Organizationpreview: React.FC = () => {
-  const { t } = useTranslation();
+
   const [showMessage, setShowMessage] = useState(false);
 
   const handleConfirmVerification = () => {

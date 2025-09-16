@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Input, Form, message, Button, Modal } from 'antd';
 import { Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+
 import AuthLayout from '../../components/AuthLayout';
 
 
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showFailModal, setShowFailModal] = useState(false);
@@ -42,7 +42,7 @@ const LoginPage: React.FC = () => {
           });
           form.setFields([
             { name: 'email', errors: [' '] },
-            { name: 'password', errors: [t('auth.loginError')] }
+            { name: 'password', errors: ['อีเมลหรือรหัสผ่านไม่ถูกต้อง'] }
           ]);
           message.error('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
         }
@@ -50,7 +50,7 @@ const LoginPage: React.FC = () => {
         message.error('กรุณากรอกข้อมูลให้ครบถ้วน');
       }
     } catch {
-      message.error(t('auth.loginError'));
+      message.error('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
     } finally {
       setLoading(false);
     }
@@ -67,22 +67,22 @@ const LoginPage: React.FC = () => {
         closable={false}
         bodyStyle={{ borderRadius: 20, padding: 24, textAlign: 'center' }}
       >
-        <h2 className="text-2xl 3xl:text-3xl 4xl:text-4xl font-bold mb-2">{t('auth.failModalTitle')}</h2>
-        <div className="text-gray-500 mb-1 text-[14px] 3xl:text-base 4xl:text-lg">{t('auth.failModalDesc1')}</div>
-        <div className="text-gray-400 mb-6 text-[13px] 3xl:text-sm 4xl:text-base">{t('auth.failModalDesc2')}</div>
+        <h2 className="text-2xl 3xl:text-3xl 4xl:text-4xl font-bold mb-2">เข้าสู่ระบบไม่สำเร็จ</h2>
+        <div className="text-gray-500 mb-1 text-[14px] 3xl:text-base 4xl:text-lg">กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง</div>
+        <div className="text-gray-400 mb-6 text-[13px] 3xl:text-sm 4xl:text-base">หากยังไม่สามารถเข้าสู่ระบบได้ กรุณาติดต่อผู้ดูแลระบบ</div>
        
         <Button
           type="primary"
           className="w-full h-10 3xl:h-12 4xl:h-14 rounded-[80px] bg-blue-600 hover:bg-blue-700 border-blue-600 text-white font-medium text-base 3xl:text-lg 4xl:text-xl"
           onClick={() => setShowFailModal(false)}
         >
-          {t('common.accept')}
+          ตกลง
         </Button>
       </Modal>
       <AuthLayout>
         <div className="space-y-6">
           <div className="text-center">
-            <h2 className="text-3xl 3xl:text-5xl font-medium text-gray-900 mb-6">{t('auth.loginTitle')}</h2>
+            <h2 className="text-3xl 3xl:text-5xl font-medium text-gray-900 mb-6">เข้าสู่ระบบ</h2>
           </div>
           
           <Form
@@ -96,28 +96,28 @@ const LoginPage: React.FC = () => {
           >
             <Form.Item
               name="email"
-              label={<span className="text-gray-700 font-medium text-sm 3xl:text-xl 4xl:text-lg">{t('common.email')} <span className="text-red-500">*</span></span>}
+              label={<span className="text-gray-700 font-medium text-sm 3xl:text-xl 4xl:text-lg">อีเมล <span className="text-red-500">*</span></span>}
               rules={[
                 { required: true },
-                { type: 'email', message: t('validation.emailInvalid') }
+                { type: 'email', message: 'รูปแบบอีเมลไม่ถูกต้อง' }
               ]}
             >
               <Input
-                placeholder={t('common.email')}
+                placeholder="อีเมล"
                 className="h-12 3xl:h-14 4xl:h-16 rounded-xl border-gray-300 text-base 3xl:text-lg 4xl:text-xl"
               />
             </Form.Item>
 
             <Form.Item
               name="password"
-              label={<span className="text-gray-700 font-medium text-sm 3xl:text-xl 4xl:text-lg">{t('common.password')} <span className="text-red-500">*</span></span>}
+              label={<span className="text-gray-700 font-medium text-sm 3xl:text-xl 4xl:text-lg">รหัสผ่าน <span className="text-red-500">*</span></span>}
               rules={[
                 { required: true },
               ]}
             >
               <Input
                 type={showPassword ? 'text' : 'password'}
-                placeholder={t('common.password')}
+                placeholder="รหัสผ่าน"
                 className="h-12 3xl:h-14 4xl:h-16 rounded-xl border-gray-300 text-base 3xl:text-lg 4xl:text-xl"
                 suffix={
                   <button
@@ -139,7 +139,7 @@ const LoginPage: React.FC = () => {
                 className="text-sm 3xl:text-base 4xl:text-lg text-black-600 hover:text-blue-800"
                 onClick={() => navigate('/forgot-password')}
               >
-                {t('common.forgotPassword')}
+                ลืมรหัสผ่าน?
               </button>
             </div>
 
@@ -150,14 +150,14 @@ const LoginPage: React.FC = () => {
                 loading={loading}
                 className="w-full h-12 3xl:h-14 4xl:h-16 rounded-[80px] bg-blue-600 hover:bg-blue-700 border-blue-600 text-white font-medium text-base 3xl:text-xl 4xl:text-xl"
               >
-                {t('common.signIn')}
+                เข้าสู่ระบบ
               </Button>
             </Form.Item>
           </Form>
 
           <div className="flex items-center">
             <div className="flex-1 border-t border-gray-300"></div>
-            <span className="px-4 text-gray-600 text-base 3xl:text-lg ">{t('common.or')}</span>
+            <span className="px-4 text-gray-600 text-base 3xl:text-lg ">หรือ</span>
             <div className="flex-1 border-t border-gray-300"></div>
           </div>
 
@@ -166,7 +166,7 @@ const LoginPage: React.FC = () => {
             className="w-full h-12 3xl:h-14 4xl:h-16 rounded-[80px] border-blue-600 text-blue-600 hover:bg-blue-50 font-medium text-base 3xl:text-xl 4xl:text-xl"
             onClick={() => navigate('/register')}
           >
-            {t('common.signUp')}
+            สมัครสมาชิก
           </Button>
         </div>
       </AuthLayout>

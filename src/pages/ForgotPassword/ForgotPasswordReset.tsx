@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import AuthLayout from '../../components/AuthLayout';
 
 const ForgotPasswordReset: React.FC = () => {
-  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -32,10 +31,10 @@ const ForgotPasswordReset: React.FC = () => {
       <div className="w-full max-w-md mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">
-            {t('forgotPassword.reset.title')}
+            ตั้งรหัสผ่านใหม่
           </h1>
           <p className="text-gray-600 text-base">
-            {t('forgotPassword.reset.description')}
+            กรุณากรอกรหัสผ่านใหม่ของคุณ
           </p>
         </div>
 
@@ -49,28 +48,28 @@ const ForgotPasswordReset: React.FC = () => {
           <Form.Item
             label={
               <span className="text-base font-medium text-gray-700">
-                {t('forgotPassword.reset.newPassword')}
+                รหัสผ่านใหม่
               </span>
             }
             name="password"
             rules={[
               {
                 required: true,
-                message: t('forgotPassword.reset.passwordRequired'),
+                message: 'กรุณากรอกรหัสผ่าน',
               },
               {
                 min: 8,
-                message: t('forgotPassword.reset.passwordMinLength'),
+                message: 'รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร',
               },
               {
                 pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-                message: t('forgotPassword.reset.passwordPattern'),
+                message: 'รหัสผ่านต้องมีตัวอักษรพิมพ์เล็ก พิมพ์ใหญ่ และตัวเลข',
               },
             ]}
           >
             <Input.Password
               size="large"
-              placeholder={t('forgotPassword.reset.newPasswordPlaceholder')}
+              placeholder="กรุณากรอกรหัสผ่านใหม่"
               className="h-12 rounded-lg"
             />
           </Form.Item>
@@ -78,7 +77,7 @@ const ForgotPasswordReset: React.FC = () => {
           <Form.Item
             label={
               <span className="text-base font-medium text-gray-700">
-                {t('forgotPassword.reset.confirmPassword')}
+                ยืนยันรหัสผ่าน
               </span>
             }
             name="confirmPassword"
@@ -86,21 +85,21 @@ const ForgotPasswordReset: React.FC = () => {
             rules={[
               {
                 required: true,
-                message: t('forgotPassword.reset.confirmPasswordRequired'),
+                message: 'กรุณายืนยันรหัสผ่าน',
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error(t('forgotPassword.reset.passwordMismatch')));
+                  return Promise.reject(new Error('รหัสผ่านไม่ตรงกัน'));
                 },
               }),
             ]}
           >
             <Input.Password
               size="large"
-              placeholder={t('forgotPassword.reset.confirmPasswordPlaceholder')}
+              placeholder="กรุณายืนยันรหัสผ่านใหม่"
               className="h-12 rounded-lg"
             />
           </Form.Item>
@@ -113,7 +112,7 @@ const ForgotPasswordReset: React.FC = () => {
               className="w-full h-12 rounded-full text-base font-medium"
               size="large"
             >
-              {t('forgotPassword.reset.submitButton')}
+              ตั้งรหัสผ่านใหม่
             </Button>
           </Form.Item>
         </Form>
@@ -124,7 +123,7 @@ const ForgotPasswordReset: React.FC = () => {
             onClick={() => navigate('/login')}
             className="text-gray-600 text-base"
           >
-            {t('common.backToLogin')}
+            กลับสู่หน้าเข้าสู่ระบบ
           </Button>
         </div>
       </div>

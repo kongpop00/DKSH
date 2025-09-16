@@ -1,6 +1,5 @@
 
 import React from 'react';
-import LanguageSwitcher from './LanguageSwitcher';
 import tistrLogo from '../assets/lofoNavbar.png';
 
 interface NavbarProps {
@@ -29,9 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
           <span className="text-[10px] sm:text-xs md:text-lg text-[#1a237e] -mt-0">THAILAND INSTITUTE OF SCIENTIFIC AND TECHNOLOGICAL RESEARCH</span>
         </div>
       </div>
-      <div className="flex items-center mt-2 sm:mt-0">
-        <LanguageSwitcher />
-      </div>
+
     </nav>
     </>
    

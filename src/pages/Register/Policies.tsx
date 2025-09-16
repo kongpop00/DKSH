@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Checkbox } from 'antd';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import BgPattern from '../../components/BgPattern';

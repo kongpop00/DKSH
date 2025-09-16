@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
-import { useTranslation } from 'react-i18next';
 import LoginPage from './pages/Login/LoginPage';
 import RegisterPage from './pages/Register/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
@@ -12,20 +11,21 @@ import ForgotPasswordReset from './pages/ForgotPassword/ForgotPasswordReset';
 import ForgotPasswordComplete from './pages/ForgotPassword/ForgotPasswordComplete';
 
 import ButtonExamples from './components/btn/ButtonExamples';
-import './i18n';
 import './index.css';
-import CheckCodePage from './pages/Login/CheckCode';
-import Locker from './pages/Login/Locker';
 import Navbar from './components/Navbar';
-import LockerPincode from './pages/Login/LockerPincode';
 import Policies from './pages/Register/Policies';
 import OrganizationInformation from './pages/Register/OrganizationInformation';
 import Organizationpreview from './pages/Register/Organizationpreview';
-import HomePage from './pages/User';
-import Shopping from './pages/User/producs/Shopping';
-import Cart from './pages/User/producs/Cart';
-import PurchaseOrder from './pages/User/producs/PurchaseOrder';
-import PurchaseOrderPreview from './pages/User/producs/PurchaseOrderPreview';
+
+
+// Admin pages
+import UserManagement from './pages/admin/UserManagement';
+import AdminManagement from './pages/admin/AdminManagement';
+import OrderManagement from './pages/admin/OrderManagement';
+import PaymentManagement from './pages/admin/PaymentManagement';
+import DeliveryManagement from './pages/admin/DeliveryManagement';
+import PromotionManagement from './pages/admin/PromotionManagement';
+import Settings from './pages/admin/Settings';
 
 // Layout wrapper for pages that need Navbar
 function WithNavbar({ children }: { children: React.ReactNode }) {
@@ -125,8 +125,6 @@ const theme = {
 };
 
 function App() {
-  const { i18n } = useTranslation();
-
   // Quick navigation with keyboard shortcuts (for development)
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -154,14 +152,14 @@ function App() {
 
   return (
     <ConfigProvider theme={theme} >
-      <div dir={i18n.language === 'th' ? 'ltr' : 'ltr'}>
+      <div>
         <Router>
           <div className="min-h-screen bg-gray-50 ">
             <Routes>
               {/* Routes without Navbar */}
-              <Route path="/" element={<LoginPage />} />
+              <Route path="/" element={<Navigate to="/admin/users" replace />} />
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/check-code" element={<CheckCodePage />} />
+
               <Route path="/article/:id" element={<ArticleDetail />} />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
@@ -170,20 +168,25 @@ function App() {
 
               {/* Routes with Navbar */}
               {[
-                { path: '/locker', element: <Locker /> },
+
                 { path: '/register', element: <RegisterPage /> },
                 { path: '/register-policies', element: <Policies /> },
                 { path: '/dashboard', element: <DashboardPage /> },
                 { path: '/style-example', element: <StyleExamplePage /> },
                 { path: '/button-examples', element: <ButtonExamples /> },
-                { path: '/lockerPincode', element: <LockerPincode /> },
+
                 { path: '/organization-information', element: <OrganizationInformation /> },
                 { path: '/organization-preview', element: <Organizationpreview /> },
-                { path: '/users/Home', element: <HomePage /> },
-                { path: '/shopping/:productId', element: <Shopping /> },
-                { path: '/users/cart', element: <Cart /> },
-                { path: '/users/purchase-order', element: <PurchaseOrder /> },
-                { path: '/users/purchase-order-preview', element: <PurchaseOrderPreview /> },
+                { path: '/shopping/:productId', element: <div>Shopping page removed</div> },
+                
+                // Admin routes
+                { path: '/admin/users', element: <UserManagement /> },
+                { path: '/admin/admins', element: <AdminManagement /> },
+                { path: '/admin/orders', element: <OrderManagement /> },
+                { path: '/admin/payments', element: <PaymentManagement /> },
+                { path: '/admin/deliveries', element: <DeliveryManagement /> },
+                { path: '/admin/promotions', element: <PromotionManagement /> },
+                { path: '/admin/settings', element: <Settings /> },
 
               ].map(({ path, element }) => (
                 <Route key={path} path={path} element={<WithNavbar>{element}</WithNavbar>} />

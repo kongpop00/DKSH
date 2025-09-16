@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Button, Input, Form, message, Steps } from 'antd';
 import { Eye, EyeOff, Check, RotateCcw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import TermsModal from '../../components/TermsModal';
 
 const RegisterPage: React.FC = () => {
@@ -459,8 +458,8 @@ const RegisterPage: React.FC = () => {
   return (
     <div className="w-screen h-screen flex items-center justify-center overflow-hidden relative">
       <div
-        className="absolute inset-0 w-full h-full bg-center bg-cover bg-no-repeat z-0"
-        style={{ backgroundImage: 'url(/src/assets/BG.png)' }}
+        className="absolute inset-0 w-full h-full z-0"
+        style={{ backgroundColor: 'white' }}
         aria-hidden="true"
       />
       <div

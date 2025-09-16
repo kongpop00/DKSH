@@ -1,7 +1,7 @@
 import React from 'react';
-// import { useTranslation } from 'react-i18next';
+
  import Logo from '../assets/Logo.svg';
-import LanguageSwitcher from './LanguageSwitcher';
+
 import bgLeft from'../assets/BG3.svg'
 import BgLogin from '../assets/BG2.svg'; 
 
@@ -11,7 +11,7 @@ interface AuthLayoutProps {
 }
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children, backgroundImage }) => {
-  // const { t } = useTranslation();
+  
 
   return (
     <div 
@@ -23,10 +23,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, backgroundImage }) =>
         backgroundRepeat: 'no-repeat'
       }}
     >
-      {/* Language Switcher - Fixed position */}
-      <div className="fixed top-4 right-4 z-50">
-        <LanguageSwitcher />
-      </div>
+
 
       {/* Left side - Image background */}
       <div className="hidden xl:flex w-auto relative">

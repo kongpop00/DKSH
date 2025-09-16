@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../components/user/header';
+import Navbar from '../components/Navbar';
 import { mockArticles } from '../mock/Article';
 
 const ArticleDetail: React.FC = () => {
@@ -10,7 +10,7 @@ const ArticleDetail: React.FC = () => {
   if (!article) {
     return (
       <div className="min-h-screen bg-gray-100">
-        <Header />
+        <Navbar />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
             <h1 className="text-3xl font-bold text-gray-800 mb-4">ไม่พบบทความ</h1>
@@ -29,7 +29,7 @@ const ArticleDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Header />
+        <Navbar />
       
       {/* Hero Section */}
       <div className="relative h-96">

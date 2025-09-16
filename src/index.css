@@ -5,7 +5,20 @@
 @layer base {
   body {
     font-family: 'Kanit';
+    
   }
+}
+
+/* Admin Menu Active Styles */
+.ant-menu-item-selected {
+  color: #1890FF !important;
+  background-color: #e6f7ff !important;
+  border-right: 3px solid #1890FF !important;
+  border-radius: 0 !important;
+}
+
+.ant-menu-item-selected .ant-menu-title-content {
+  color: #1890FF !important;
 }
 
 /* Auto Slide Animation */
@@ -300,7 +313,12 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: white;
+}
+
+/* Ant Design Layout Background */
+.ant-layout {
+  background: white !important;
 }
 
 /* Responsive adjustments */

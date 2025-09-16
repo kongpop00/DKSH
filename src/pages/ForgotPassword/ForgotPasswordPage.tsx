@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import AuthLayout from '../../components/AuthLayout';
@@ -9,7 +8,7 @@ import Navbar from '../../components/Navbar';
 
 const ForgotPasswordPage: React.FC = () => {
   const [form] = Form.useForm();
-  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
@@ -24,7 +23,7 @@ const ForgotPasswordPage: React.FC = () => {
       // แสดง MessagePage เมื่อ email ผ่านการตรวจสอบ
       setShowMessage(true);
     } catch {
-      message.error(t('forgotPassword.sendError'));
+      message.error('เกิดข้อผิดพลาดในการส่งอีเมล');
     } finally {
       setLoading(false);
     }
@@ -57,7 +56,7 @@ const ForgotPasswordPage: React.FC = () => {
       <div className="max-w-md mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">
-            {t('forgotPassword.title')}
+            ลืมรหัสผ่าน
           </h1>
         
         </div>
@@ -70,15 +69,15 @@ const ForgotPasswordPage: React.FC = () => {
         >
           <Form.Item
             name="email"
-            label={<span className="text-base font-medium">{t('common.email')}</span>}
+            label={<span className="text-base font-medium">อีเมล</span>}
             rules={[
-              { required: true, message: t('validation.emailRequired') },
-              { type: 'email', message: t('validation.emailInvalid') }
+              { required: true, message: 'กรุณากรอกอีเมล' },
+              { type: 'email', message: 'รูปแบบอีเมลไม่ถูกต้อง' }
             ]}
           >
             <Input
               size="large"
-              placeholder={t('forgotPassword.emailPlaceholder')}
+              placeholder="กรุณากรอกอีเมลของคุณ"
               className="text-base"
             />
           </Form.Item>
@@ -95,7 +94,7 @@ const ForgotPasswordPage: React.FC = () => {
               className="w-full h-10 3xl:h-10 4xl:h-16 rounded-[80px] bg-blue-800 hover:bg-blue-700 border-blue-600 text-white font-medium text-base 3xl:text-xl 4xl:text-xl"
            
             >
-              {t('forgotPassword.sendButton')}
+              ส่งลิงก์รีเซ็ตรหัสผ่าน
             </Button>
                <Button
               size="large"
@@ -103,7 +102,7 @@ const ForgotPasswordPage: React.FC = () => {
               icon={<ChevronLeft className="w-5 h-5" />}
               className="w-full h-10 3xl:h-10 4xl:h-16 rounded-[80px] text-blue-800 font-medium text-base 3xl:text-xl 4xl:text-xl"
             >
-              {t('common.back')}
+              กลับ
             </Button>
           </div>
       </div>
