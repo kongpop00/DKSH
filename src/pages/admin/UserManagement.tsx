@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Card, Tag } from 'antd';
+import { Table,  Tag } from 'antd';
 import AdminLayout from '../../components/AdminLayout';
 import SearchComponent from '../../components/SearchComponent';
 
@@ -18,7 +18,6 @@ interface User {
   createdAt: string;
   avatar?: string;
 }
-
 const UserManagement: React.FC = () => {
   const [users] = useState<User[]>([
     {
@@ -282,7 +281,7 @@ const UserManagement: React.FC = () => {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-800">จัดการผู้ใช้งาน</h1>
-      
+    
         </div>
 
       
@@ -297,9 +296,9 @@ const UserManagement: React.FC = () => {
             }}
           />
         </div>
-
+            <div className='text-xl  text-gray-800'>รายการผู้ดูแล</div>
         {/* ตาราง */}
-        <Card>
+        <div>
           <Table
             columns={columns}
             dataSource={filteredUsers}
@@ -314,7 +313,7 @@ const UserManagement: React.FC = () => {
               position: ['bottomLeft'],
             }}
           />
-        </Card>
+        </div>
 
     
       </div>

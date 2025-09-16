@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { Table, Button, Space, Input, Modal, Form, Select, Tag, Avatar, Card, Statistic, Switch } from 'antd';
-import { Search, Plus, Edit, Trash2, Eye, Shield, ShieldCheck, ShieldX, Crown } from 'lucide-react';
-import AdminLayout from '../../components/AdminLayout';
+import { Table, Button, Input, Modal, Form, Select, Tag, } from 'antd';
 
-const { Search: AntSearch } = Input;
+import AdminLayout from '../../components/AdminLayout';
+import SearchComponent from '../../components/SearchComponent';
+
 const { Option } = Select;
 
 interface Admin {
   id: string;
+  adminCode: string;
   name: string;
   email: string;
+  phone: string;
   role: 'super_admin' | 'admin' | 'moderator';
   permissions: string[];
   status: 'active' | 'inactive';
@@ -22,8 +24,10 @@ const AdminManagement: React.FC = () => {
   const [admins, setAdmins] = useState<Admin[]>([
     {
       id: '1',
+      adminCode: 'ADM001',
       name: 'ผู้ดูแลระบบหลัก',
       email: 'superadmin@example.com',
+      phone: '081-234-5678',
       role: 'super_admin',
       permissions: ['all'],
       status: 'active',
@@ -32,8 +36,10 @@ const AdminManagement: React.FC = () => {
     },
     {
       id: '2',
-      name: 'ผู้ดูแลคำสั่งซื้อ',
-      email: 'orderadmin@example.com',
+      adminCode: 'ADM002',
+      name: 'สมชาย ใจดี',
+      email: 'somchai@example.com',
+      phone: '082-345-6789',
       role: 'admin',
       permissions: ['orders', 'payments', 'shipping'],
       status: 'active',
@@ -42,19 +48,104 @@ const AdminManagement: React.FC = () => {
     },
     {
       id: '3',
-      name: 'ผู้ดูแลผู้ใช้',
-      email: 'useradmin@example.com',
+      adminCode: 'ADM003',
+      name: 'สมหญิง รักดี',
+      email: 'somying@example.com',
+      phone: '083-456-7890',
       role: 'moderator',
       permissions: ['users', 'support'],
       status: 'inactive',
       lastLogin: '2024-01-10 08:20:00',
       createdAt: '2024-01-03 11:30:00',
     },
+    {
+      id: '4',
+      adminCode: 'ADM004',
+      name: 'วิชัย สุขใส',
+      email: 'wichai@example.com',
+      phone: '084-567-8901',
+      role: 'admin',
+      permissions: ['promotions', 'reports'],
+      status: 'active',
+      lastLogin: '2024-01-16 09:15:00',
+      createdAt: '2024-01-04 14:20:00',
+    },
+    {
+      id: '5',
+      adminCode: 'ADM005',
+      name: 'นิรันดร์ เก่งมาก',
+      email: 'niran@example.com',
+      phone: '085-678-9012',
+      role: 'moderator',
+      permissions: ['settings', 'support'],
+      status: 'active',
+      lastLogin: '2024-01-13 16:30:00',
+      createdAt: '2024-01-05 08:45:00',
+    },
+    {
+      id: '6',
+      adminCode: 'ADM006',
+      name: 'ปรีชา ฉลาด',
+      email: 'preecha@example.com',
+      phone: '086-789-0123',
+      role: 'admin',
+      permissions: ['users', 'orders', 'reports'],
+      status: 'inactive',
+      lastLogin: '2024-01-08 12:00:00',
+      createdAt: '2024-01-06 10:30:00',
+    },
+    {
+      id: '7',
+      adminCode: 'ADM007',
+      name: 'สุภาพ ดีงาม',
+      email: 'suphap@example.com',
+      phone: '087-890-1234',
+      role: 'moderator',
+      permissions: ['support', 'promotions'],
+      status: 'active',
+      lastLogin: '2024-01-15 14:20:00',
+      createdAt: '2024-01-07 13:15:00',
+    },
+    {
+      id: '8',
+      adminCode: 'ADM008',
+      name: 'มานะ ขยัน',
+      email: 'mana@example.com',
+      phone: '088-901-2345',
+      role: 'admin',
+      permissions: ['shipping', 'payments', 'settings'],
+      status: 'active',
+      lastLogin: '2024-01-16 11:45:00',
+      createdAt: '2024-01-08 15:00:00',
+    },
+    {
+      id: '9',
+      adminCode: 'ADM009',
+      name: 'จิรา สวยงาม',
+      email: 'jira@example.com',
+      phone: '089-012-3456',
+      role: 'moderator',
+      permissions: ['users', 'support'],
+      status: 'inactive',
+      lastLogin: '2024-01-05 09:30:00',
+      createdAt: '2024-01-09 16:45:00',
+    },
+    {
+      id: '10',
+      adminCode: 'ADM010',
+      name: 'ธนา รวยมาก',
+      email: 'thana@example.com',
+      phone: '090-123-4567',
+      role: 'admin',
+      permissions: ['orders', 'reports', 'promotions'],
+      status: 'active',
+      lastLogin: '2024-01-16 08:00:00',
+      createdAt: '2024-01-10 12:30:00',
+    },
   ]);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingAdmin, setEditingAdmin] = useState<Admin | null>(null);
-  const [searchText, setSearchText] = useState('');
   const [form] = Form.useForm();
 
   const permissionOptions = [
@@ -68,40 +159,11 @@ const AdminManagement: React.FC = () => {
     { label: 'สนับสนุนลูกค้า', value: 'support' },
   ];
 
-  const handleAddAdmin = () => {
-    setEditingAdmin(null);
-    form.resetFields();
-    setIsModalVisible(true);
-  };
 
-  const handleEditAdmin = (admin: Admin) => {
-    setEditingAdmin(admin);
-    form.setFieldsValue({
-      ...admin,
-      permissions: admin.permissions.includes('all') ? permissionOptions.map(p => p.value) : admin.permissions
-    });
-    setIsModalVisible(true);
-  };
 
-  const handleDeleteAdmin = (adminId: string) => {
-    Modal.confirm({
-      title: 'ยืนยันการลบผู้ดูแล',
-      content: 'คุณแน่ใจหรือไม่ที่จะลบผู้ดูแลนี้?',
-      okText: 'ลบ',
-      cancelText: 'ยกเลิก',
-      onOk: () => {
-        setAdmins(admins.filter(admin => admin.id !== adminId));
-      },
-    });
-  };
+  
 
-  const handleStatusToggle = (adminId: string, checked: boolean) => {
-    setAdmins(admins.map(admin => 
-      admin.id === adminId 
-        ? { ...admin, status: checked ? 'active' : 'inactive' }
-        : admin
-    ));
-  };
+
 
   const handleModalOk = () => {
     form.validateFields().then(values => {
@@ -130,222 +192,142 @@ const AdminManagement: React.FC = () => {
     });
   };
 
-  const getRoleColor = (role: string) => {
-    switch (role) {
-      case 'super_admin': return 'gold';
-      case 'admin': return 'red';
-      case 'moderator': return 'blue';
-      default: return 'default';
-    }
-  };
+ 
 
-  const getRoleIcon = (role: string) => {
-    switch (role) {
-      case 'super_admin': return <Crown size={16} />;
-      case 'admin': return <Shield size={16} />;
-      case 'moderator': return <ShieldCheck size={16} />;
-      default: return <ShieldX size={16} />;
-    }
-  };
-
-  const getRoleName = (role: string) => {
-    switch (role) {
-      case 'super_admin': return 'ผู้ดูแลระบบหลัก';
-      case 'admin': return 'ผู้ดูแลระบบ';
-      case 'moderator': return 'ผู้ดูแล';
-      default: return role;
-    }
-  };
-
-  const filteredAdmins = admins.filter(admin => 
-    admin.name.toLowerCase().includes(searchText.toLowerCase()) ||
-    admin.email.toLowerCase().includes(searchText.toLowerCase())
-  );
+ 
+ 
 
   const columns = [
     {
-      title: 'ผู้ดูแล',
+      title: 'ลำดับ',
+      key: 'index',
+      width: 80,
+      render: (_: unknown, __: Admin, index: number) => (
+        <span className="text-sm text-gray-600">{index + 1}</span>
+      ),
+    },
+    {
+      title: 'รหัสผู้ดูแล',
+      dataIndex: 'adminCode',
+      key: 'adminCode',
+      width: 120,
+      render: (text: string) => (
+        <span className="font-mono text-sm">{text}</span>
+      ),
+    },
+    {
+      title: 'ชื่อ-นามสกุล',
       dataIndex: 'name',
       key: 'name',
-      render: (text: string, record: Admin) => (
+      width: 200,
+      render: (text: string) => (
         <div className="flex items-center space-x-3">
-          <Avatar size="small" className="bg-purple-500">
-            {text.charAt(0)}
-          </Avatar>
-          <div>
-            <div className="font-medium">{text}</div>
-            <div className="text-sm text-gray-500">{record.email}</div>
-          </div>
+        
+          <span className="font-medium">{text}</span>
         </div>
       ),
     },
     {
-      title: 'บทบาท',
-      dataIndex: 'role',
-      key: 'role',
-      render: (role: string) => (
-        <Tag color={getRoleColor(role)} icon={getRoleIcon(role)}>
-          {getRoleName(role)}
-        </Tag>
-      ),
-    },
-    {
-      title: 'สิทธิ์การเข้าถึง',
-      dataIndex: 'permissions',
-      key: 'permissions',
-      render: (permissions: string[]) => (
-        <div className="flex flex-wrap gap-1">
-          {permissions.includes('all') ? (
-            <Tag color="gold">สิทธิ์ทั้งหมด</Tag>
-          ) : (
-            permissions.slice(0, 3).map(permission => {
-              const option = permissionOptions.find(p => p.value === permission);
-              return (
-                <Tag key={permission}>
-                  {option?.label || permission}
-                </Tag>
-              );
-            })
-          )}
-          {permissions.length > 3 && !permissions.includes('all') && (
-            <Tag>+{permissions.length - 3}</Tag>
-          )}
-        </div>
-      ),
-    },
-    {
-      title: 'สถานะ',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status: string, record: Admin) => (
-        <Switch
-          checked={status === 'active'}
-          onChange={(checked) => handleStatusToggle(record.id, checked)}
-          checkedChildren="ใช้งาน"
-          unCheckedChildren="ปิด"
-        />
-      ),
-    },
-    {
-      title: 'เข้าสู่ระบบล่าสุด',
-      dataIndex: 'lastLogin',
-      key: 'lastLogin',
+      title: 'วันที่สร้าง',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      width: 150,
       render: (date: string) => (
         <span className="text-sm text-gray-600">
-          {date === '-' ? 'ยังไม่เคยเข้าสู่ระบบ' : new Date(date).toLocaleString('th-TH')}
+          {new Date(date).toLocaleDateString('th-TH')}
         </span>
       ),
     },
     {
-      title: 'การดำเนินการ',
+      title: 'อีเมล',
+      dataIndex: 'email',
+      key: 'email',
+      width: 200,
+      render: (text: string) => (
+        <span className="text-sm text-blue-600">{text}</span>
+      ),
+    },
+    {
+      title: 'เบอร์โทร',
+      dataIndex: 'phone',
+      key: 'phone',
+      width: 130,
+      render: (text: string) => (
+        <span className="text-sm">{text}</span>
+      ),
+    },
+    {
+      title: 'สถานะการใช้งาน',
+      dataIndex: 'status',
+      key: 'status',
+      width: 130,
+      render: (status: string) => (
+        <Tag color={status === 'active' ? 'green' : 'red'}>
+          {status === 'active' ? 'ใช้งาน' : 'ปิดใช้งาน'}
+        </Tag>
+      ),
+    },
+      {
+      title: 'จัดการ',
       key: 'actions',
-      render: (_: unknown, record: Admin) => (
-        <Space size="small">
-          <Button 
-            type="text" 
-            icon={<Eye size={16} />} 
-            size="small"
-            title="ดูรายละเอียด"
-          />
-          <Button 
-            type="text" 
-            icon={<Edit size={16} />} 
-            size="small"
-            onClick={() => handleEditAdmin(record)}
-            title="แก้ไข"
-          />
-          <Button 
-            type="text" 
-            danger 
-            icon={<Trash2 size={16} />} 
-            size="small"
-            onClick={() => handleDeleteAdmin(record.id)}
-            title="ลบ"
-            disabled={record.role === 'super_admin'}
-          />
-        </Space>
+      width: 200,
+     
+      render: () => (
+        <div style={{color:'#1890FF'}} >แสดงรายละเอียด</div>
       ),
     },
   ];
 
-  const totalAdmins = admins.length;
-  const activeAdmins = admins.filter(a => a.status === 'active').length;
-  const superAdmins = admins.filter(a => a.role === 'super_admin').length;
-  const regularAdmins = admins.filter(a => a.role === 'admin').length;
-
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-800">จัดการผู้ดูแล</h1>
-          <Button 
+         <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-gray-800">จัดการผู้ใช้งาน</h1>
+    
+        </div>
+          {/* ค้นหา */}
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+          <div className="flex-1">
+            <SearchComponent
+              placeholder="ค้นหาด้วยรหัส,ชื่อ-นามสกุล หรืออีเมลของผู้ใช้"
+              onSearch={(searchText, selectedDate) => {
+                console.log('Search:', searchText, 'Date:', selectedDate);
+              }}
+            />
+          </div>
+       
+        </div>
+            <div className="flex justify-between items-center ">
+             <div className='text-xl  text-gray-800'>รายการผู้ดูแลระบบ</div>
+                <Button 
             type="primary" 
-            icon={<Plus size={16} />}
-            onClick={handleAddAdmin}
+            onClick={() => {
+              setEditingAdmin(null);
+              form.resetFields();
+              setIsModalVisible(true);
+            }}
+            className="shrink-0  rounded-3xl"
           >
-            เพิ่มผู้ดูแลใหม่
+            สร้างบัญชีผู้ดูแล
           </Button>
-        </div>
-
-        {/* สถิติ */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
-            <Statistic
-              title="ผู้ดูแลทั้งหมด"
-              value={totalAdmins}
-              prefix={<Shield className="text-blue-500" size={20} />}
-            />
-          </Card>
-          <Card>
-            <Statistic
-              title="ใช้งานอยู่"
-              value={activeAdmins}
-              prefix={<ShieldCheck className="text-green-500" size={20} />}
-            />
-          </Card>
-          <Card>
-            <Statistic
-              title="ผู้ดูแลระบบหลัก"
-              value={superAdmins}
-              prefix={<Crown className="text-yellow-500" size={20} />}
-            />
-          </Card>
-          <Card>
-            <Statistic
-              title="ผู้ดูแลทั่วไป"
-              value={regularAdmins}
-              prefix={<Shield className="text-purple-500" size={20} />}
-            />
-          </Card>
-        </div>
-
-        {/* ค้นหา */}
-        <div className="flex justify-between items-center">
-          <AntSearch
-            placeholder="ค้นหาผู้ดูแล..."
-            allowClear
-            style={{ width: 300 }}
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            prefix={<Search size={16} />}
-          />
-        </div>
-
+            </div>
         {/* ตาราง */}
-        <Card>
+        <div>
           <Table
             columns={columns}
-            dataSource={filteredAdmins}
+            dataSource={admins}
             rowKey="id"
+            scroll={{ x: 1500, y: 600 }}
             pagination={{
               pageSize: 10,
               showSizeChanger: true,
               showQuickJumper: true,
               showTotal: (total, range) => 
                 `${range[0]}-${range[1]} จาก ${total} รายการ`,
+              position: ['bottomLeft'],
             }}
           />
-        </Card>
+        </div>
 
         {/* Modal สำหรับเพิ่ม/แก้ไขผู้ดูแล */}
         <Modal
